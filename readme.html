@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PowerBox - NVDA Add-on</title>
+</head>
+<body>
+    <h1>PowerBox for NVDA</h1>
+    <p><strong>Author:</strong> Thomas A. Fayez<br>
+    <strong>Version:</strong> 1.0.0</p>
+    <p>PowerBox is a powerful multi-tool add-on featuring gesture layers for quick access to media controls, mouse clicks, smart terminal launches in the current directory, quick applications, and network information.</p>
+    
+    <h2>✨ The Concept of "Layers"</h2>
+    <p>To avoid shortcut conflicts, PowerBox uses a "Layered" approach. You press a prefix shortcut to activate a layer, then press a single letter to execute the action. <em>Pressing <strong>H</strong> inside any layer will open a help dialog showing available keys.</em></p>
+
+    <h2>⌨️ Global Shortcuts</h2>
+    
+    <h3>Media & System</h3>
+    <ul>
+        <li><strong>NVDA + Win + A:</strong> Applications Menu</li>
+        <li><strong>NVDA + Win + M:</strong> Volume Mute</li>
+        <li><strong>NVDA + Win + Up/Down:</strong> Volume Up / Down</li>
+        <li><strong>NVDA + Win + P:</strong> Play / Pause Media</li>
+        <li><strong>NVDA + Win + Left/Right:</strong> Previous / Next Track</li>
+    </ul>
+
+    <h3>Browser Navigation</h3>
+    <ul>
+        <li><strong>NVDA + Win + Backspace:</strong> Browser Back</li>
+        <li><strong>NVDA + Win + Enter:</strong> Browser Forward</li>
+        <li><strong>NVDA + Win + R:</strong> Browser Refresh</li>
+    </ul>
+
+    <h3>Mouse Simulation</h3>
+    <ul>
+        <li><strong>NVDA + Win + C:</strong> Left Mouse Click</li>
+        <li><strong>NVDA + Win + X:</strong> Right Mouse Click</li>
+        <li><strong>NVDA + Win + Z:</strong> Double Mouse Click</li>
+    </ul>
+
+    <h3>Network Information</h3>
+    <ul>
+        <li><strong>NVDA + Win + I:</strong> Speak Local IP <em>(Press twice quickly to copy to clipboard)</em></li>
+        <li><strong>NVDA + Win + Shift + I:</strong> Speak Public IP <em>(Press twice quickly to copy to clipboard)</em></li>
+    </ul>
+
+    <h3>Global Help</h3>
+    <ul>
+        <li><strong>NVDA + Win + H:</strong> Shows the PowerBox Global Help window.</li>
+    </ul>
+
+    <hr>
+
+    <h2>🚀 Quick Apps Layer</h2>
+    <p><strong>Prefix Shortcut:</strong> <code>NVDA + Win + Q</code></p>
+    <p>Press the prefix above, followed by one of these keys:</p>
+    <ul>
+        <li><strong>C:</strong> Launch Calculator</li>
+        <li><strong>M:</strong> Launch Default Mail</li>
+        <li><strong>B:</strong> Launch Browser Homepage</li>
+        <li><strong>E:</strong> Launch This PC / Explorer</li>
+        <li><strong>P:</strong> Launch Media Player</li>
+        <li><strong>H:</strong> Show Layer Help</li>
+    </ul>
+
+    <hr>
+
+    <h2>💻 Smart Terminal Layer</h2>
+    <p><strong>Prefix Shortcut:</strong> <code>NVDA + Win + T</code></p>
+    <p>All terminals intelligently open in the <strong>current File Explorer directory</strong> you are focusing on! Press the prefix above, followed by:</p>
+    <ul>
+        <li><strong>P:</strong> Open PowerShell</li>
+        <li><strong>Shift + P:</strong> Open PowerShell as Administrator</li>
+        <li><strong>C:</strong> Open Command Prompt (CMD)</li>
+        <li><strong>Shift + C:</strong> Open Command Prompt as Administrator</li>
+        <li><strong>W:</strong> Open WSL (Windows Subsystem for Linux)</li>
+        <li><strong>H:</strong> Show Layer Help</li>
+    </ul>
+
+    <hr>
+
+    <h2>⚙️ Settings</h2>
+    <p>You can configure the feedback mode (Beep, Speech, Both, or Silent) from <strong>NVDA Menu -&gt; Preferences -&gt; Settings -&gt; PowerBox</strong>.</p>
+</body>
+</html>
