@@ -76,6 +76,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
             pass
         super(GlobalPlugin, self).terminate()
 
+    # Acknowledgment: 
+    # The layer command routing logic (getScript and script_error overrides) 
+    # is inspired by and derived from the original work of Tyler Spivey and Joseph Lee.
+
     # --- Layered Gestures Logic ---
     def getScript(self, gesture):
         # If not in ANY layer, use normal NVDA behavior
