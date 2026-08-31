@@ -65,3 +65,8 @@ All terminals intelligently open in the **current File Explorer directory** you 
 
 ## ⚙️ Settings
 You can configure the feedback mode (Beep, Speech, Both, or Silent) from **NVDA Menu -> Preferences -> Settings -> PowerBox**.
+
+---
+
+## 🙏 Credits & Acknowledgements
+Special thanks to **Tyler Spivey** and **Joseph Lee** for the original logic and structure of the Layer Commands (`getScript` overrides), which inspired the gesture routing system used in PowerBox.
