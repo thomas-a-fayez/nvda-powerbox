@@ -7,8 +7,8 @@
 <body>
     <h1>PowerBox for NVDA</h1>
     <p><strong>Author:</strong> Thomas A. Fayez<br>
-    <strong>Version:</strong> 1.0.0</p>
-    <p>PowerBox is a powerful multi-tool add-on featuring gesture layers for quick access to media controls, mouse clicks, smart terminal launches in the current directory, quick applications, and network information.</p>
+    <strong>Version:</strong> 1.2.0</p>
+    <p>PowerBox is a powerful multi-tool add-on featuring gesture layers for quick access to media controls, smart mouse clicks with automatic cursor routing, terminal launches in the current directory, quick applications, and network information.</p>
     
     <h2>✨ The Concept of "Layers"</h2>
     <p>To avoid shortcut conflicts, PowerBox uses a "Layered" approach. You press a prefix shortcut to activate a layer, then press a single letter to execute the action. <em>Pressing <strong>H</strong> inside any layer will open a help dialog showing available keys.</em></p>
@@ -31,11 +31,18 @@
         <li><strong>NVDA + Win + R:</strong> Browser Refresh</li>
     </ul>
 
-    <h3>Mouse Simulation</h3>
+    <h3>Mouse Simulation (Smart Mouse Routing)</h3>
+    <p><strong>The Problem:</strong> Have you ever encountered a button or control (for example, in custom installer wizards like Foxit Reader) that NVDA reads via Object Navigation, but pressing <code>Enter</code> or <code>Space</code> does absolutely nothing?</p>
+    <p><strong>The Solution:</strong> PowerBox's Smart Click solves this! It dynamically calculates the geometric center of the focused NVDA navigator object, routes the physical Windows mouse cursor directly to that position, and executes a native hardware-level click.</p>
+    <p><strong>How to use it:</strong></p>
+    <ol>
+        <li>Navigate to the stubborn button using NVDA Object Navigation (e.g., <code>NVDA + Numpad 4 / 6</code> on Desktop, or <code>NVDA + Shift + Left / Right Arrows</code> on Laptop).</li>
+        <li>Press <strong>NVDA + Win + C</strong> to perform a smart left click.</li>
+    </ol>
     <ul>
-        <li><strong>NVDA + Win + C:</strong> Left Mouse Click</li>
-        <li><strong>NVDA + Win + X:</strong> Right Mouse Click</li>
-        <li><strong>NVDA + Win + Z:</strong> Double Mouse Click</li>
+        <li><strong>NVDA + Win + C:</strong> Smart Left Mouse Click</li>
+        <li><strong>NVDA + Win + X:</strong> Smart Right Mouse Click</li>
+        <li><strong>NVDA + Win + Z:</strong> Smart Double Mouse Click</li>
     </ul>
 
     <h3>Network Information</h3>

@@ -1,9 +1,9 @@
 # PowerBox for NVDA
 
 **Author:** Thomas A. Fayez  
-**Version:** 1.0.0  
+**Version:** 1.2.0  
 
-PowerBox is a powerful, lightweight multi-tool add-on for NVDA. It maps NVDA gestures to Windows keyboard/media keys, simulates smart mouse clicks, provides network info, and introduces **Gesture Layers** for quick access to Terminal environments and everyday applications.
+PowerBox is a powerful, lightweight multi-tool add-on for NVDA. It maps NVDA gestures to Windows keyboard/media keys, simulates smart mouse clicks with physical cursor routing, provides network info, and introduces **Gesture Layers** for quick access to Terminal environments and everyday applications.
 
 ## ✨ The Concept of "Layers"
 To avoid shortcut conflicts and finger gymnastics, PowerBox uses a "Layered" approach. You press a prefix shortcut to activate a layer, then press a single letter to execute the action. 
@@ -23,10 +23,18 @@ To avoid shortcut conflicts and finger gymnastics, PowerBox uses a "Layered" app
 * **NVDA + Win + Enter:** Browser Forward
 * **NVDA + Win + R:** Browser Refresh
 
-### 🖱️ Mouse Simulation
-* **NVDA + Win + C:** Left Mouse Click
-* **NVDA + Win + X:** Right Mouse Click
-* **NVDA + Win + Z:** Double Mouse Click
+### 🖱️ Mouse Simulation (Smart Mouse Routing)
+**The Problem:** Have you ever encountered a button or control (for example, in custom installer wizards like Foxit Reader) that NVDA reads via Object Navigation, but pressing `Enter` or `Space` does absolutely nothing?
+
+**The Solution:** PowerBox's Smart Click solves this! It dynamically calculates the geometric center of the currently focused NVDA navigator object, moves the physical Windows mouse cursor directly to that position, and executes a native hardware click.
+
+**How to use it:**
+1. Navigate to the stubborn button using NVDA Object Navigation (`NVDA + Numpad 4 / 6` on Desktop, or `NVDA + Shift + Left / Right Arrows` on Laptop).
+2. Press **NVDA + Win + C** to perform a smart left click.
+
+* **NVDA + Win + C:** Smart Left Mouse Click
+* **NVDA + Win + X:** Smart Right Mouse Click
+* **NVDA + Win + Z:** Smart Double Mouse Click
 
 ### 📡 Network Information
 * **NVDA + Win + I:** Speak Local IP *(Press twice quickly to copy to clipboard)*
