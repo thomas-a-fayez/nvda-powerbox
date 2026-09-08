@@ -6,6 +6,8 @@ import config
 import tones
 import ui
 import core
+import api
+import winUser
 
 # --- Virtual Key (VK) Codes ---
 VK_APPS = 0x5D
@@ -126,5 +128,24 @@ def perform_action(vk_code, action_name, extended=False):
     trigger_feedback(action_name)
 
 def perform_mouse_action(button, action_name):
+    # 1. Get the current navigator object
+    nav_obj = api.getNavigatorObject()
+    
+    # 2. Verify the object exists and has valid screen coordinates
+    if nav_obj and getattr(nav_obj, 'location', None):
+        left, top, width, height = nav_obj.location
+        
+        # 3. Calculate the exact center point
+        center_x = left + (width // 2)
+        center_y = top + (height // 2)
+        
+        # 4. Route the physical mouse to the object's center
+        winUser.setCursorPos(center_x, center_y)
+    else:
+        # 5. Abort safely if the object has no physical layout
+        ui.message("Object has no location")
+        return
+
+    # 6. Perform the actual click and trigger the feedback
     send_mouse_click(button)
     trigger_feedback(action_name)
