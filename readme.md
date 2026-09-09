@@ -52,7 +52,7 @@ Press the prefix above, followed by one of these keys:
 * **C:** Launch Calculator
 * **M:** Launch Default Mail
 * **B:** Launch Browser Homepage
-* **E:** Launch This PC / Explorer
+* **E:** Launch File Explorer (This PC)
 * **P:** Launch Media Player
 * **H:** Show Layer Help
 
@@ -77,4 +77,7 @@ You can configure the feedback mode (Beep, Speech, Both, or Silent) from **NVDA 
 ---
 
 ## 🙏 Credits & Acknowledgements
-Special thanks to **Tyler Spivey** and **Joseph Lee** for the original logic and structure of the Layer Commands (`getScript` overrides), which inspired the gesture routing system used in PowerBox.
+* **Tyler Spivey & Joseph Lee:** For the original architecture and structure of modal layer commands (`getScript` overrides), which inspired PowerBox's layer system.
+* **NVDA Community & Open Source Contributors:** For inspiration and techniques regarding Windows Explorer Shell COM automation and mouse-to-navigator object routing.
+* **Python Open Source Community:** For the UDP routable socket technique used for offline-safe local IP detection.
+* **ipify.org:** For providing the free, public API service used to resolve external IP addresses.
