@@ -1,13 +1,22 @@
 # -*- coding: utf-8 -*-
 # actions.py - Handles Windows API interactions and feedback for PowerBox
 
+# Acknowledgment:
+# Low-level Windows input simulation structures are based on Microsoft Win32 API documentation.
+# Smart click routing logic is inspired by NVDA core's mouse-to-navigator routing behavior.
+
+import time
 import ctypes
+import addonHandler
+import api
 import config
+import core
 import tones
 import ui
-import core
-import api
 import winUser
+
+# Initialize translation support for this module
+addonHandler.initTranslation()
 
 # --- Virtual Key (VK) Codes ---
 VK_APPS = 0x5D
@@ -25,8 +34,8 @@ VK_BROWSER_REFRESH = 0xA8
 VK_BROWSER_HOME = 0xAC
 VK_LAUNCH_MAIL = 0xB4
 VK_LAUNCH_MEDIA_SELECT = 0xB5
-VK_LAUNCH_APP1 = 0xB6 # Usually mapped to My Computer / File Explorer
-VK_LAUNCH_APP2 = 0xB7 # Usually mapped to Calculator
+VK_LAUNCH_APP1 = 0xB6  # Usually mapped to File Explorer / This PC
+VK_LAUNCH_APP2 = 0xB7  # Usually mapped to Calculator
 
 # --- SendInput Constants and Structures ---
 INPUT_MOUSE = 0
@@ -42,54 +51,96 @@ MOUSEEVENTF_LEFTUP = 0x0004
 MOUSEEVENTF_RIGHTDOWN = 0x0008
 MOUSEEVENTF_RIGHTUP = 0x0010
 
+
 class KEYBDINPUT(ctypes.Structure):
-    _fields_ = (("wVk", ctypes.c_ushort),
-                ("wScan", ctypes.c_ushort),
-                ("dwFlags", ctypes.c_ulong),
-                ("time", ctypes.c_ulong),
-                ("dwExtraInfo", ctypes.c_void_p))
+    _fields_ = (
+        ("wVk", ctypes.c_ushort),
+        ("wScan", ctypes.c_ushort),
+        ("dwFlags", ctypes.c_ulong),
+        ("time", ctypes.c_ulong),
+        ("dwExtraInfo", ctypes.c_void_p),
+    )
+
 
 class MOUSEINPUT(ctypes.Structure):
-    _fields_ = (("dx", ctypes.c_long),
-                ("dy", ctypes.c_long),
-                ("mouseData", ctypes.c_ulong),
-                ("dwFlags", ctypes.c_ulong),
-                ("time", ctypes.c_ulong),
-                ("dwExtraInfo", ctypes.c_void_p))
+    _fields_ = (
+        ("dx", ctypes.c_long),
+        ("dy", ctypes.c_long),
+        ("mouseData", ctypes.c_ulong),
+        ("dwFlags", ctypes.c_ulong),
+        ("time", ctypes.c_ulong),
+        ("dwExtraInfo", ctypes.c_void_p),
+    )
+
 
 class HARDWAREINPUT(ctypes.Structure):
-    _fields_ = (("uMsg", ctypes.c_ulong),
-                ("wParamL", ctypes.c_ushort),
-                ("wParamH", ctypes.c_ushort))
+    _fields_ = (
+        ("uMsg", ctypes.c_ulong),
+        ("wParamL", ctypes.c_ushort),
+        ("wParamH", ctypes.c_ushort),
+    )
+
 
 class INPUT_UNION(ctypes.Union):
-    _fields_ = (("ki", KEYBDINPUT),
-                ("mi", MOUSEINPUT),
-                ("hi", HARDWAREINPUT))
+    _fields_ = (
+        ("ki", KEYBDINPUT),
+        ("mi", MOUSEINPUT),
+        ("hi", HARDWAREINPUT),
+    )
+
 
 class INPUT(ctypes.Structure):
-    _fields_ = (("type", ctypes.c_ulong),
-                ("union", INPUT_UNION))
+    _fields_ = (
+        ("type", ctypes.c_ulong),
+        ("union", INPUT_UNION),
+    )
+
 
 def send_key(vk_code, extended=False):
+    """Simulates a low-level key down and key up sequence via SendInput."""
     flags_down = KEYEVENTF_EXTENDEDKEY if extended else 0
     flags_up = KEYEVENTF_KEYUP | (KEYEVENTF_EXTENDEDKEY if extended else 0)
 
     input_down = INPUT(
-        type=INPUT_KEYBOARD, 
-        union=INPUT_UNION(ki=KEYBDINPUT(wVk=vk_code, wScan=0, dwFlags=flags_down, time=0, dwExtraInfo=None))
+        type=INPUT_KEYBOARD,
+        union=INPUT_UNION(
+            ki=KEYBDINPUT(
+                wVk=vk_code,
+                wScan=0,
+                dwFlags=flags_down,
+                time=0,
+                dwExtraInfo=None,
+            )
+        ),
     )
-    
+
     input_up = INPUT(
-        type=INPUT_KEYBOARD, 
-        union=INPUT_UNION(ki=KEYBDINPUT(wVk=vk_code, wScan=0, dwFlags=flags_up, time=0, dwExtraInfo=None))
+        type=INPUT_KEYBOARD,
+        union=INPUT_UNION(
+            ki=KEYBDINPUT(
+                wVk=vk_code,
+                wScan=0,
+                dwFlags=flags_up,
+                time=0,
+                dwExtraInfo=None,
+            )
+        ),
     )
 
     inputs = (INPUT * 2)(input_down, input_up)
     ctypes.windll.user32.SendInput(2, ctypes.byref(inputs), ctypes.sizeof(INPUT))
 
+
 def send_mouse_click(button="left"):
-    if button in ("left", "double"):
+    """Simulates a physical mouse button click via SendInput."""
+    if button == "double":
+        # Execute two separate clicks with a realistic double-click delay
+        send_mouse_click("left")
+        time.sleep(0.05)
+        send_mouse_click("left")
+        return
+
+    if button == "left":
         down_flag = MOUSEEVENTF_LEFTDOWN
         up_flag = MOUSEEVENTF_LEFTUP
     elif button == "right":
@@ -100,52 +151,65 @@ def send_mouse_click(button="left"):
 
     input_down = INPUT(
         type=INPUT_MOUSE,
-        union=INPUT_UNION(mi=MOUSEINPUT(dx=0, dy=0, mouseData=0, dwFlags=down_flag, time=0, dwExtraInfo=None))
+        union=INPUT_UNION(
+            mi=MOUSEINPUT(
+                dx=0, dy=0, mouseData=0, dwFlags=down_flag, time=0, dwExtraInfo=None
+            )
+        ),
     )
     input_up = INPUT(
         type=INPUT_MOUSE,
-        union=INPUT_UNION(mi=MOUSEINPUT(dx=0, dy=0, mouseData=0, dwFlags=up_flag, time=0, dwExtraInfo=None))
+        union=INPUT_UNION(
+            mi=MOUSEINPUT(
+                dx=0, dy=0, mouseData=0, dwFlags=up_flag, time=0, dwExtraInfo=None
+            )
+        ),
     )
 
-    if button == "double":
-        inputs = (INPUT * 4)(input_down, input_up, input_down, input_up)
-        ctypes.windll.user32.SendInput(4, ctypes.byref(inputs), ctypes.sizeof(INPUT))
-    else:
-        inputs = (INPUT * 2)(input_down, input_up)
-        ctypes.windll.user32.SendInput(2, ctypes.byref(inputs), ctypes.sizeof(INPUT))
+    inputs = (INPUT * 2)(input_down, input_up)
+    ctypes.windll.user32.SendInput(2, ctypes.byref(inputs), ctypes.sizeof(INPUT))
+
 
 def trigger_feedback(action_name):
-    mode = config.conf["powerBox"]["feedbackMode"]
-    
+    """Provides user feedback (speech, tones, or both) according to configuration."""
+    mode = config.conf.get("powerBox", {}).get("feedbackMode", "beep")
+
     if mode in ("beep", "both"):
         tones.beep(500, 50)
-        
+
     if mode in ("speech", "both"):
         core.callLater(100, ui.message, action_name)
 
+
 def perform_action(vk_code, action_name, extended=False):
+    """Performs a keyboard simulation and triggers corresponding feedback."""
     send_key(vk_code, extended=extended)
     trigger_feedback(action_name)
 
-def perform_mouse_action(button, action_name):
-    # 1. Get the current navigator object
+
+def perform_smart_click(button, action_name):
+    """
+    Locates the current navigator object on screen, routes the mouse cursor
+    to its exact center, executes the requested click, and provides feedback.
+    """
     nav_obj = api.getNavigatorObject()
-    
-    # 2. Verify the object exists and has valid screen coordinates
-    if nav_obj and getattr(nav_obj, 'location', None):
-        left, top, width, height = nav_obj.location
-        
-        # 3. Calculate the exact center point
-        center_x = left + (width // 2)
-        center_y = top + (height // 2)
-        
-        # 4. Route the physical mouse to the object's center
-        winUser.setCursorPos(center_x, center_y)
-    else:
-        # 5. Abort safely if the object has no physical layout
-        ui.message("Object has no location")
+
+    # Verify that the navigator object exists and has valid screen bounds
+    if not nav_obj or not getattr(nav_obj, "location", None):
+        ui.message(_("Object has no location"))
         return
 
-    # 6. Perform the actual click and trigger the feedback
+    try:
+        left, top, width, height = nav_obj.location
+        center_x = left + (width // 2)
+        center_y = top + (height // 2)
+
+        # Route the physical mouse cursor to the calculated center
+        winUser.setCursorPos(center_x, center_y)
+    except Exception:
+        ui.message(_("Failed to route mouse to object"))
+        return
+
+    # Execute mouse click and provide feedback
     send_mouse_click(button)
     trigger_feedback(action_name)

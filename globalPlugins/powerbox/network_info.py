@@ -1,38 +1,51 @@
 # -*- coding: utf-8 -*-
 # network_info.py - Network utility functions for PowerBox
 
+# Acknowledgment:
+# - Local IP detection using the UDP socket routable interface trick is derived 
+#   from standard Python community practices.
+# - Public IP retrieval uses the free and open API provided by ipify (https://www.ipify.org).
+
 import socket
 import urllib.request
 import urllib.error
+import addonHandler
+
+# Initialize translation support for this module
+addonHandler.initTranslation()
+
 
 def get_local_ip():
     """
-    Retrieves the local IPv4 address of the machine.
-    Uses a UDP socket to determine the active network interface.
+    Retrieves the local IPv4 address of the active network adapter.
+    Uses a lightweight UDP connection check that does not send actual network packets.
     """
     try:
-        # Connect to a dummy external IP to force the OS to use the active local interface
-        # No actual data is sent, so it's instantaneous and works offline
-        with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
-            s.connect(("8.8.8.8", 80))
-            local_ip = s.getsockname()[0]
-        return local_ip
+        with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as sock:
+            # Route check against a known external IP to determine the local interface
+            sock.connect(("8.8.8.8", 80))
+            return sock.getsockname()[0]
     except Exception:
-        # Fallback if no network interface is active
-        return "127.0.0.1 (Offline)"
+        # Fallback message when offline or no network adapter is active
+        return _("127.0.0.1 (Offline)")
+
 
 def get_public_ip():
     """
-    Retrieves the public IPv4 address using an external API.
-    Returns a tuple: (success_boolean, ip_or_error_message).
+    Fetches the machine's external IPv4 address via a lightweight HTTP API.
+    Returns:
+        tuple: (success_status (bool), ip_address_or_localized_error (str))
     """
     try:
-        # We use a short timeout (2.5 seconds) so NVDA doesn't freeze if there's no internet
-        request = urllib.request.Request("https://api.ipify.org")
+        # Keep the timeout short (2.5s) to avoid noticeable UI lag in NVDA
+        request = urllib.request.Request(
+            "https://api.ipify.org",
+            headers={"User-Agent": "PowerBox-NVDA-Addon"}
+        )
         with urllib.request.urlopen(request, timeout=2.5) as response:
-            public_ip = response.read().decode('utf-8').strip()
-        return True, public_ip
-    except urllib.error.URLError:
-        return False, "No internet connection"
-    except Exception as e:
-        return False, f"Error retrieving public IP"
+            public_ip = response.read().decode("utf-8").strip()
+            return True, public_ip
+    except (urllib.error.URLError, socket.timeout):
+        return False, _("No internet connection")
+    except Exception:
+        return False, _("Error retrieving public IP")
