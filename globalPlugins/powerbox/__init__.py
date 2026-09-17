@@ -18,6 +18,7 @@ import tones
 from . import actions
 from . import smart_path
 from . import network_info
+from . import network_scanner
 from .settings_gui import PowerBoxSettingsPanel
 from . import help_manager
 
@@ -58,7 +59,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
         # Terminal paths mappings
         "kb:NVDA+windows+t": "terminalLayer",
 
-        # Network mappings
+        # Network Layer mapping
+        "kb:NVDA+windows+n": "networkLayer",
+
+        # Direct Network mappings (Legacy/Quick access)
         "kb:NVDA+windows+i": "getLocalIP",
         "kb:NVDA+windows+shift+i": "getPublicIP",
 
@@ -73,6 +77,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
         # Track active layers
         self.inTerminalLayer = False
         self.inAppLayer = False
+        self.inNetworkLayer = False
 
     def terminate(self):
         try:
@@ -81,11 +86,27 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
             pass
         super(GlobalPlugin, self).terminate()
 
+    # --- Helper: Unified Feedback Handler for Information & Clipboard Copy ---
+    def trigger_info_feedback(self, msg, beep_pitch=500):
+        """Respects user feedbackMode for informational queries."""
+        mode = config.conf.get("powerBox", {}).get("feedbackMode", "beep")
+        if mode in ("beep", "both"):
+            tones.beep(beep_pitch, 50)
+        if mode in ("speech", "both"):
+            ui.message(msg)
+
+    def trigger_copy_feedback(self, msg, beep_pitch=800):
+        """Respects user feedbackMode for clipboard copy confirmations."""
+        mode = config.conf.get("powerBox", {}).get("feedbackMode", "beep")
+        if mode in ("beep", "both"):
+            tones.beep(beep_pitch, 40)
+        if mode in ("speech", "both"):
+            ui.message(msg)
 
     # --- Layered Gestures Logic ---
     def getScript(self, gesture):
         # If not in any active layer, fallback to standard NVDA gesture routing
-        if not self.inTerminalLayer and not self.inAppLayer:
+        if not self.inTerminalLayer and not self.inAppLayer and not self.inNetworkLayer:
             return super(GlobalPlugin, self).getScript(gesture)
 
         # Inside a layer: intercept the next pressed key
@@ -105,6 +126,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
         # Reset layer flags and restore default global gesture bindings
         self.inTerminalLayer = False
         self.inAppLayer = False
+        self.inNetworkLayer = False
         self.clearGestureBindings()
         self.bindGestures(self.__gestures)
 
@@ -112,14 +134,27 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
         # Audible cue when an unmapped key is pressed inside a layer
         tones.beep(120, 100)
 
+# --- Helper: Unified Terminal Feedback Handler ---
+    def trigger_terminal_feedback(self, success, success_msg, error_msg):
+        mode = config.conf.get("powerBox", {}).get("feedbackMode", "beep")
+        if success:
+            if mode in ("beep", "both"):
+                tones.beep(500, 50)
+            if mode in ("speech", "both"):
+                wx.CallLater(1000, ui.message, success_msg)
+        else:
+            if mode in ("beep", "both"):
+                tones.beep(200, 80)
+            if mode in ("speech", "both"):
+                ui.message(error_msg)
+
     # --- Terminal Scripts ---
     @scriptHandler.script(description=_("Terminal Layer: Press p, shift+p, c, shift+c, or w next"))
     def script_terminalLayer(self, gesture):
-        if self.inTerminalLayer:
+        if self.inTerminalLayer or self.inAppLayer or self.inNetworkLayer:
             self.script_error(gesture)
             return
 
-        # Bind temporary layer sub-gestures
         self.bindGestures({
             "kb:p": "openPowerShell",
             "kb:shift+p": "openPowerShellAdmin",
@@ -134,52 +169,47 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
     @scriptHandler.script(description=_("Opens PowerShell in the current Explorer directory"))
     def script_openPowerShell(self, gesture):
         success, result = smart_path.launch_terminal("powershell", as_admin=False)
-        if success:
-            msg = _("PowerShell opened in {folder}").format(folder=os.path.basename(result))
-            wx.CallLater(1000, ui.message, msg)
-        else:
-            # Speak failure immediately with the exact returned error reason
-            ui.message(result if result else _("Failed to open PowerShell"))
+        self.trigger_terminal_feedback(
+            success,
+            _("PowerShell opened in {folder}").format(folder=os.path.basename(result)),
+            result if result else _("Failed to open PowerShell")
+        )
 
     @scriptHandler.script(description=_("Opens PowerShell as Administrator in the current Explorer directory"))
     def script_openPowerShellAdmin(self, gesture):
         success, result = smart_path.launch_terminal("powershell", as_admin=True)
-        if success:
-            msg = _("PowerShell Admin opened in {folder}").format(folder=os.path.basename(result))
-            wx.CallLater(1000, ui.message, msg)
-        else:
-            # Speak failure immediately with the exact returned error reason
-            ui.message(result if result else _("Failed to open PowerShell as Administrator"))
+        self.trigger_terminal_feedback(
+            success,
+            _("PowerShell Admin opened in {folder}").format(folder=os.path.basename(result)),
+            result if result else _("Failed to open PowerShell as Administrator")
+        )
 
     @scriptHandler.script(description=_("Opens Command Prompt in the current Explorer directory"))
     def script_openCMD(self, gesture):
         success, result = smart_path.launch_terminal("cmd", as_admin=False)
-        if success:
-            msg = _("Command Prompt opened in {folder}").format(folder=os.path.basename(result))
-            wx.CallLater(1000, ui.message, msg)
-        else:
-            # Speak failure immediately with the exact returned error reason
-            ui.message(result if result else _("Failed to open Command Prompt"))
+        self.trigger_terminal_feedback(
+            success,
+            _("Command Prompt opened in {folder}").format(folder=os.path.basename(result)),
+            result if result else _("Failed to open Command Prompt")
+        )
 
     @scriptHandler.script(description=_("Opens Command Prompt as Administrator in the current Explorer directory"))
     def script_openCMDAdmin(self, gesture):
         success, result = smart_path.launch_terminal("cmd", as_admin=True)
-        if success:
-            msg = _("Command Prompt Admin opened in {folder}").format(folder=os.path.basename(result))
-            wx.CallLater(1000, ui.message, msg)
-        else:
-            # Speak failure immediately with the exact returned error reason
-            ui.message(result if result else _("Failed to open Command Prompt as Administrator"))
+        self.trigger_terminal_feedback(
+            success,
+            _("Command Prompt Admin opened in {folder}").format(folder=os.path.basename(result)),
+            result if result else _("Failed to open Command Prompt as Administrator")
+        )
 
     @scriptHandler.script(description=_("Opens WSL in the current Explorer directory"))
     def script_openWSL(self, gesture):
         success, result = smart_path.launch_terminal("wsl", as_admin=False)
-        if success:
-            msg = _("WSL opened in {folder}").format(folder=os.path.basename(result))
-            wx.CallLater(1000, ui.message, msg)
-        else:
-            # Speak failure immediately with the exact returned error reason
-            ui.message(result if result else _("Failed to open WSL"))
+        self.trigger_terminal_feedback(
+            success,
+            _("WSL opened in {folder}").format(folder=os.path.basename(result)),
+            result if result else _("Failed to open WSL")
+        )
 
     # --- Smart Mouse Scripts ---
     @scriptHandler.script(description=_("Routes mouse pointer to current object center and left clicks"))
@@ -238,7 +268,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
     # --- Quick Application Scripts ---
     @scriptHandler.script(description=_("Quick Apps Layer: Press c, m, b, e, or p next"))
     def script_appLayer(self, gesture):
-        if self.inAppLayer or self.inTerminalLayer:
+        if self.inAppLayer or self.inTerminalLayer or self.inNetworkLayer:
             self.script_error(gesture)
             return
 
@@ -273,21 +303,124 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
     def script_launchMediaPlayer(self, gesture):
         wx.CallLater(100, actions.perform_action, actions.VK_LAUNCH_MEDIA_SELECT, _("Media Player"), extended=True)
 
-    # --- Network Scripts ---
+    # --- Helper: Smart Data Copy Feedback Handler ---
+    def trigger_copy_data(self, data_str, copy_msg, info_msg, beep_pitch=800):
+        """
+        Copies data to clipboard and ensures the IP/Data is ALWAYS spoken to the blind user:
+        - In 'both': Plays copy confirmation beep + speaks full copy message.
+        - In 'speech': Speaks full copy message (no beep).
+        - In 'beep': Plays copy confirmation beep + speaks data cleanly (without verbose copy phrase).
+        - In 'none': Speaks data cleanly without tone or copy phrase.
+        """
+        api.copyToClip(data_str)
+        mode = config.conf.get("powerBox", {}).get("feedbackMode", "beep")
+
+        # Confirmation tone for copy action
+        if mode in ("beep", "both"):
+            tones.beep(beep_pitch, 40)
+
+        # Speech feedback: ALWAYS speak the data
+        if mode in ("speech", "both"):
+            ui.message(copy_msg)
+        else:
+            # In 'beep' or 'none': speak the requested information cleanly
+            ui.message(info_msg)
+
+    # --- Network Layer Scripts ---
+    @scriptHandler.script(description=_("Network Layer: Press s, l, shift+l, p, shift+p, g, shift+g, or h next"))
+    def script_networkLayer(self, gesture):
+        if self.inNetworkLayer or self.inTerminalLayer or self.inAppLayer:
+            self.script_error(gesture)
+            return
+
+        self.bindGestures({
+            "kb:s": "layerScanNetwork",
+            "kb:l": "layerLocalIP",
+            "kb:shift+l": "layerCopyLocalIP",
+            "kb:p": "layerPublicIP",
+            "kb:shift+p": "layerCopyPublicIP",
+            "kb:g": "layerGatewayIP",
+            "kb:shift+g": "layerCopyGatewayIP",
+            "kb:h": "layerHelp",
+        })
+        self.inNetworkLayer = True
+        tones.beep(550, 50)
+
+    @scriptHandler.script(description=_("Scans local network for connected devices"))
+    def script_layerScanNetwork(self, gesture):
+        network_scanner.start_async_network_scan()
+
+    # Informational queries: ALWAYS speak the data directly to the user
+    @scriptHandler.script(description=_("Speaks the Local IP"))
+    def script_layerLocalIP(self, gesture):
+        ip = network_info.get_local_ip()
+        ui.message(_("Local IP: {ip}").format(ip=ip))
+
+    @scriptHandler.script(description=_("Copies and speaks the Local IP"))
+    def script_layerCopyLocalIP(self, gesture):
+        ip = network_info.get_local_ip()
+        self.trigger_copy_data(
+            ip,
+            _("Local IP {ip} copied to clipboard").format(ip=ip),
+            _("Local IP: {ip}").format(ip=ip)
+        )
+
+    @scriptHandler.script(description=_("Speaks the Public IP"))
+    def script_layerPublicIP(self, gesture):
+        self.script_getPublicIP(gesture)
+
+    @scriptHandler.script(description=_("Copies and speaks the Public IP"))
+    def script_layerCopyPublicIP(self, gesture):
+        import threading
+        def worker():
+            success, result = network_info.get_public_ip()
+            if not success:
+                wx.CallAfter(ui.message, result)
+                return
+            wx.CallAfter(
+                self.trigger_copy_data,
+                result,
+                _("Public IP {ip} copied to clipboard").format(ip=result),
+                _("Public IP: {ip}").format(ip=result)
+            )
+        threading.Thread(target=worker, daemon=True).start()
+
+    @scriptHandler.script(description=_("Speaks the Default Gateway (Router IP)"))
+    def script_layerGatewayIP(self, gesture):
+        gw = network_info.get_default_gateway()
+        if gw:
+            ui.message(_("Default Gateway: {gw}").format(gw=gw))
+        else:
+            ui.message(_("Default Gateway unavailable"))
+
+    @scriptHandler.script(description=_("Copies and speaks the Default Gateway (Router IP)"))
+    def script_layerCopyGatewayIP(self, gesture):
+        gw = network_info.get_default_gateway()
+        if gw:
+            self.trigger_copy_data(
+                gw,
+                _("Default Gateway {gw} copied to clipboard").format(gw=gw),
+                _("Default Gateway: {gw}").format(gw=gw)
+            )
+        else:
+            ui.message(_("Default Gateway unavailable"))
+
+    # --- Direct Network Scripts (Global shortcuts) ---
     @scriptHandler.script(description=_("Speaks the Local IP. Press twice quickly to copy to clipboard."))
     def script_getLocalIP(self, gesture):
         ip = network_info.get_local_ip()
         if scriptHandler.getLastScriptRepeatCount() == 1:
-            api.copyToClip(ip)
-            ui.message(_("Local IP {ip} copied to clipboard").format(ip=ip))
+            self.trigger_copy_data(
+                ip,
+                _("Local IP {ip} copied to clipboard").format(ip=ip),
+                _("Local IP: {ip}").format(ip=ip)
+            )
         else:
             ui.message(_("Local IP: {ip}").format(ip=ip))
 
     @scriptHandler.script(description=_("Speaks the Public IP. Press twice quickly to copy to clipboard."))
     def script_getPublicIP(self, gesture):
         import threading
-
-        # Detect double tap before dispatching the background worker
         is_double_press = (scriptHandler.getLastScriptRepeatCount() == 1)
 
         def worker():
@@ -297,12 +430,15 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
                 return
 
             if is_double_press:
-                wx.CallAfter(api.copyToClip, result)
-                wx.CallAfter(ui.message, _("Public IP {ip} copied to clipboard").format(ip=result))
+                wx.CallAfter(
+                    self.trigger_copy_data,
+                    result,
+                    _("Public IP {ip} copied to clipboard").format(ip=result),
+                    _("Public IP: {ip}").format(ip=result)
+                )
             else:
                 wx.CallAfter(ui.message, _("Public IP: {ip}").format(ip=result))
 
-        # Run network call asynchronously to prevent NVDA UI freeze
         threading.Thread(target=worker, daemon=True).start()
 
     # --- Global Help Script ---
@@ -331,6 +467,18 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
                 "p": _("PowerShell"),
                 "shift+p": _("PowerShell (Admin)"),
                 "w": _("WSL"),
+                "h": _("Show this help message"),
+            }
+        elif self.inNetworkLayer:
+            layer_title = _("Network Layer")
+            keys_dict = {
+                "s": _("Scan local network devices"),
+                "l": _("Speak Local IP"),
+                "shift+l": _("Copy and speak Local IP"),
+                "p": _("Speak Public IP"),
+                "shift+p": _("Copy and speak Public IP"),
+                "g": _("Speak Default Gateway (Router IP)"),
+                "shift+g": _("Copy and speak Default Gateway"),
                 "h": _("Show this help message"),
             }
         else:

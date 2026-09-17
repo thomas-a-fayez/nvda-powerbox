@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 # PowerBox - Help Manager Module
 
+# Acknowledgment:
+# - Dynamic gesture resolution inspects NVDA's inputCore manager and user gesture maps.
+# - Gesture formatting algorithm normalizes modifier key precedence following standard desktop guidelines.
+
 import addonHandler
 import inputCore
 import ui
@@ -96,7 +100,7 @@ def get_current_gesture(plugin_obj, script_name, default_gesture):
             if s_func_name == f"script_{script_name}" or script == script_name:
                 gesture_display = getattr(gesture, "displayName", None)
                 if gesture_display:
-                    return gesture_display
+                    return format_gesture(gesture_display)
                 return format_gesture(str(gesture))
     except Exception:
         pass
@@ -116,6 +120,7 @@ def show_global_help(plugin_obj):
         _("--- Layer Modifiers (Prefix Keys) ---"),
         f"{_('Terminal Layer')}: {get_current_gesture(plugin_obj, 'terminalLayer', 'NVDA+Windows+T')}",
         f"{_('Quick Apps Layer')}: {get_current_gesture(plugin_obj, 'appLayer', 'NVDA+Windows+Q')}",
+        f"{_('Network Layer')}: {get_current_gesture(plugin_obj, 'networkLayer', 'NVDA+Windows+N')}",
         f"{_('Global Help')}: {get_current_gesture(plugin_obj, 'globalHelp', 'NVDA+Windows+H')}\n",
 
         _("--- Media & Audio ---"),
@@ -155,7 +160,7 @@ def show_layer_help(layer_name, keys_dict):
     ]
 
     for key, description in keys_dict.items():
-        clean_key = key.replace("kb:", "").upper()
+        clean_key = format_gesture(key)
         help_lines.append(f"{clean_key} : {description}")
 
     final_text = "\n".join(help_lines)

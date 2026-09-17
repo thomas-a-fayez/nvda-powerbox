@@ -7,11 +7,11 @@
 <body>
     <h1>PowerBox for NVDA</h1>
     <p><strong>Author:</strong> Thomas A. Fayez<br>
-    <strong>Version:</strong> 1.2.0</p>
-    <p>PowerBox is a powerful multi-tool add-on featuring gesture layers for quick access to media controls, smart mouse clicks with automatic cursor routing, terminal launches in the current directory, quick applications, and network information.</p>
+    <strong>Version:</strong> 1.3.0</p>
+    <p>PowerBox is a powerful multi-tool add-on featuring gesture layers for quick access to media controls, smart mouse clicks with automatic cursor routing, terminal launches in the current directory, quick applications, and comprehensive network utilities including an accessible, high-speed LAN device scanner.</p>
     
     <h2>✨ The Concept of "Layers"</h2>
-    <p>To avoid shortcut conflicts, PowerBox uses a "Layered" approach. You press a prefix shortcut to activate a layer, then press a single letter to execute the action. <em>Pressing <strong>H</strong> inside any layer will open a help dialog showing available keys.</em></p>
+    <p>To avoid shortcut conflicts and finger gymnastics, PowerBox uses a "Layered" approach. You press a prefix shortcut to activate a layer, then press a single letter to execute the action. <em>Pressing <strong>H</strong> inside any layer will open a contextual help dialog showing available keys.</em></p>
 
     <h2>⌨️ Global Shortcuts</h2>
     
@@ -33,7 +33,7 @@
 
     <h3>Mouse Simulation (Smart Mouse Routing)</h3>
     <p><strong>The Problem:</strong> Have you ever encountered a button or control (for example, in custom installer wizards like Foxit Reader) that NVDA reads via Object Navigation, but pressing <code>Enter</code> or <code>Space</code> does absolutely nothing?</p>
-    <p><strong>The Solution:</strong> PowerBox's Smart Click solves this! It dynamically calculates the geometric center of the focused NVDA navigator object, routes the physical Windows mouse cursor directly to that position, and executes a native hardware-level click.</p>
+    <p><strong>The Solution:</strong> PowerBox's Smart Click dynamically calculates the geometric center of the focused NVDA navigator object, routes the physical Windows mouse cursor directly to that position, and executes a native hardware-level click.</p>
     <p><strong>How to use it:</strong></p>
     <ol>
         <li>Navigate to the stubborn button using NVDA Object Navigation (e.g., <code>NVDA + Numpad 4 / 6</code> on Desktop, or <code>NVDA + Shift + Left / Right Arrows</code> on Laptop).</li>
@@ -45,7 +45,7 @@
         <li><strong>NVDA + Win + Z:</strong> Smart Double Mouse Click</li>
     </ul>
 
-    <h3>Network Information</h3>
+    <h3>Quick Network Shortcuts</h3>
     <ul>
         <li><strong>NVDA + Win + I:</strong> Speak Local IP <em>(Press twice quickly to copy to clipboard)</em></li>
         <li><strong>NVDA + Win + Shift + I:</strong> Speak Public IP <em>(Press twice quickly to copy to clipboard)</em></li>
@@ -55,6 +55,39 @@
     <ul>
         <li><strong>NVDA + Win + H:</strong> Shows the PowerBox Global Help window.</li>
     </ul>
+
+    <hr>
+
+    <h2>🌐 Smart Network Layer</h2>
+    <p><strong>Prefix Shortcut:</strong> <code>NVDA + Win + N</code></p>
+    <p>Access all network tools conveniently without finger gymnastics. Press the prefix above, followed by:</p>
+    <ul>
+        <li><strong>S:</strong> <strong>Scan Local Network:</strong> Launches the high-speed (2-3 seconds) non-blocking LAN scanner. Plays a soft audible pulse while scanning. Pressing <code>NVDA + Win + N</code> followed by <code>S</code> again while a scan is running will cancel the operation immediately.</li>
+        <li><strong>L:</strong> Speak Local IP</li>
+        <li><strong>Shift + L:</strong> Copy and speak Local IP</li>
+        <li><strong>P:</strong> Speak Public IP</li>
+        <li><strong>Shift + P:</strong> Copy and speak Public IP</li>
+        <li><strong>G:</strong> Speak Default Gateway (Router IP)</li>
+        <li><strong>Shift + G:</strong> Copy and speak Default Gateway (Router IP)</li>
+        <li><strong>H:</strong> Show Layer Help</li>
+    </ul>
+
+    <h3>Network Scanner Dialog Features</h3>
+    <p>When the scan completes, an accessible dialog appears in the center of the screen with discovered devices:</p>
+    <ul>
+        <li><strong>Enter:</strong> Copies the IP address of the selected device.</li>
+        <li><strong>Alt + I:</strong> Copy IP Address.</li>
+        <li><strong>Alt + M:</strong> Copy MAC Address.</li>
+        <li><strong>Alt + O:</strong> <strong>Open in Web Browser:</strong> Automatically probes web ports (80, 443, 8080, 8443) and opens the device's web management interface (e.g. router settings or smart device portal).</li>
+        <li><strong>Alt + R:</strong> Rescan the network.</li>
+        <li><strong>Alt + A:</strong> Copy all details as a formatted line.</li>
+        <li><strong>Alt + C / Escape:</strong> Close the dialog.</li>
+        <li><em>Features automatic identification for "This PC", "Router / Default Gateway", and mobile devices with randomized MACs.</em></li>
+    </ul>
+
+    <h3>📱 Note on Smartphones &amp; Wi-Fi Power Saving</h3>
+    <p>Modern mobile operating systems (Android and iOS) implement aggressive Wi-Fi power-saving mechanisms (Doze / DTIM sleep). When a phone's screen is idle or locked, its Wi-Fi chip may sleep between packet bursts and drop peer-to-peer ARP requests sent from your PC, causing the device to occasionally not respond during a scan. Simply waking up or unlocking the phone's screen will make it immediately discoverable.</p>
+    <p>Additionally, modern smartphones enable <strong>Private Wi-Fi Address (MAC Randomization)</strong> by default for privacy. PowerBox mathematically detects these addresses via IEEE 802 standards and clearly labels them as <code>Randomized MAC (Phone / Mobile)</code>.</p>
 
     <hr>
 
@@ -74,7 +107,7 @@
 
     <h2>💻 Smart Terminal Layer</h2>
     <p><strong>Prefix Shortcut:</strong> <code>NVDA + Win + T</code></p>
-    <p>All terminals intelligently open in the <strong>current File Explorer directory</strong> you are focusing on! Press the prefix above, followed by:</p>
+    <p>All terminals intelligently open in the <strong>current File Explorer directory (including Windows 11 Tabs)</strong> you are focusing on! Press the prefix above, followed by:</p>
     <ul>
         <li><strong>P:</strong> Open PowerShell</li>
         <li><strong>Shift + P:</strong> Open PowerShell as Administrator</li>
@@ -87,16 +120,18 @@
     <hr>
 
     <h2>⚙️ Settings</h2>
-    <p>You can configure the feedback mode (Beep, Speech, Both, or Silent) from <strong>NVDA Menu -&gt; Preferences -&gt; Settings -&gt; PowerBox</strong>.</p>
+    <p>You can configure the feedback mode (Beep, Speech, Both, or Silent) from <strong>NVDA Menu -&gt; Preferences -&gt; Settings -&gt; PowerBox</strong>. All add-on actions, clipboard copy confirmations, and network scanner audio cues fully respect your chosen feedback mode.</p>
 
     <hr>
 
     <h2>🙏 Credits &amp; Acknowledgements</h2>
     <ul>
         <li><strong>Tyler Spivey &amp; Joseph Lee:</strong> For the original architecture and structure of modal layer commands (<code>getScript</code> overrides), which inspired PowerBox's layer system.</li>
-        <li><strong>NVDA Community &amp; Open Source Contributors:</strong> For inspiration and techniques regarding Windows Explorer Shell COM automation and mouse-to-navigator object routing.</li>
+        <li><strong>NVDA Community &amp; Open Source Contributors:</strong> For inspiration and techniques regarding Windows Explorer Shell COM automation, mouse-to-navigator object routing, and dynamic gesture mapping.</li>
+        <li><strong>Microsoft Windows API:</strong> For native low-level input simulation (<code>SendInput</code>) and high-speed network discovery APIs (<code>iphlpapi.dll</code>: <code>SendARP</code> and <code>GetBestRoute</code>).</li>
+        <li><strong>IEEE Standards Association:</strong> For the IEEE 802 Locally Administered Address (LAA) specifications used in mathematical detection of randomized mobile MAC addresses.</li>
         <li><strong>Python Open Source Community:</strong> For the UDP routable socket technique used for offline-safe local IP detection.</li>
-        <li><strong>ipify.org:</strong> For providing the free, public API service used to resolve external IP addresses.</li>
+        <li><strong>ipify.org &amp; maclookup.app:</strong> For providing open API services used to resolve public IP addresses and hardware vendor prefixes.</li>
     </ul>
 </body>
 </html>
