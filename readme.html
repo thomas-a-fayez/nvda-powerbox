@@ -7,7 +7,7 @@
 <body>
     <h1>PowerBox for NVDA</h1>
     <p><strong>Author:</strong> Thomas A. Fayez<br>
-    <strong>Version:</strong> 1.4.0</p>
+    <strong>Version:</strong> 1.4.1</p>
     <p>PowerBox is a powerful multi-tool add-on designed for speed, comfort, and productivity. It maps ergonomic NVDA gestures to master and per-application volume controls, simulates smart mouse clicks with automatic cursor routing, provides terminal launches in the current folder, and introduces clean <strong>Gesture Layers</strong> for quick application launching, advanced network auditing with an accessible LAN device scanner, and comprehensive system power management with an intelligent sleep/shutdown timer.</p>
     
     <h2>✨ The Concept of "Layers"</h2>
@@ -180,7 +180,7 @@
     <ul>
         <li><strong>Tyler Spivey &amp; Joseph Lee:</strong> For the original architecture and structure of modal layer commands (<code>getScript</code> and <code>script_error</code> overrides), which inspired PowerBox's layered gesture system.</li>
         <li><strong>Héctor J. Benítez Corredera &amp; Rui Fontes:</strong> For the hardware scancode emulation concepts (<code>MapVirtualKeyW</code>) and context menu mouse routing derived from their <code>remapApplicationsKey</code> add-on.</li>
-        <li><strong>NVDA Community &amp; Open Source Contributors:</strong> For inspiration and techniques regarding Windows Explorer Shell COM automation, mouse-to-navigator object routing, and dynamic gesture resolution via <code>inputCore</code>.</li>
+        <li><strong>NVDA Community &amp; Open Source Contributors:</strong> For inspiration and techniques regarding Windows Explorer Shell COM automation, Windows 11 active tab resolution without C++ assertions, mouse-to-navigator object routing, and dynamic gesture mapping.</li>
         <li><strong>NV Access Standards:</strong> For modal dialog lifecycle management patterns (<code>prePopup</code> and <code>postPopup</code>) and SettingsPanel integration.</li>
         <li><strong>Microsoft Windows API:</strong> For native low-level input simulation (<code>SendInput</code>), master volume querying &amp; direct kernel muting (<code>IAudioEndpointVolume</code>), per-application audio session mixer controls (<code>IAudioSessionManager2</code>, <code>ISimpleAudioVolume</code> via ctypes), power management (<code>user32.dll</code>: <code>LockWorkStation</code>, <code>powrprof.dll</code>: <code>SetSuspendState</code>), and network discovery APIs (<code>iphlpapi.dll</code>: <code>SendARP</code>, <code>GetBestRoute</code>, <code>GetIpNetTable</code>).</li>
         <li><strong>IEEE Standards Association:</strong> For the IEEE 802 Locally Administered Address (LAA) specifications used in mathematical detection of randomized mobile MAC addresses.</li>

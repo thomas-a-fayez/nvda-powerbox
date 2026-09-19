@@ -1,7 +1,7 @@
 # PowerBox for NVDA
 
 **Author:** Thomas A. Fayez  
-**Version:** 1.4.0  
+**Version:** 1.4.1  
 
 PowerBox is a powerful, lightweight multi-tool add-on designed for speed, comfort, and productivity. It maps ergonomic NVDA gestures to master and per-application volume controls, simulates smart mouse clicks with automatic cursor routing, provides terminal launches in the current folder, and introduces clean **Gesture Layers** for quick application launching, advanced network auditing with an accessible LAN device scanner, and comprehensive system power management with an intelligent sleep/shutdown timer.
 
@@ -152,7 +152,7 @@ Configure PowerBox preferences from **NVDA Menu -> Preferences -> Settings -> Po
 ## 🙏 Credits & Acknowledgements
 * **Tyler Spivey & Joseph Lee:** For the original architecture and structure of modal layer commands (`getScript` and `script_error` overrides), which inspired PowerBox's layered gesture system.
 * **Héctor J. Benítez Corredera & Rui Fontes:** For the hardware scancode emulation concepts (`MapVirtualKeyW`) and context menu mouse routing derived from their `remapApplicationsKey` add-on.
-* **NVDA Community & Open Source Contributors:** For inspiration and techniques regarding Windows Explorer Shell COM automation, mouse-to-navigator object routing, and dynamic gesture resolution via `inputCore`.
+* **NVDA Community & Open Source Contributors:** For inspiration and techniques regarding Windows Explorer Shell COM automation, Windows 11 active tab resolution without C++ assertions, mouse-to-navigator object routing, and dynamic gesture mapping.
 * **NV Access Standards:** For modal dialog lifecycle management patterns (`prePopup` and `postPopup`) and SettingsPanel integration.
 * **Microsoft Windows API:** For native low-level input simulation (`SendInput`), master volume querying & direct kernel muting (`IAudioEndpointVolume`), per-application audio session mixer controls (`IAudioSessionManager2`, `ISimpleAudioVolume` via ctypes), power management (`user32.dll`: `LockWorkStation`, `powrprof.dll`: `SetSuspendState`), and network discovery APIs (`iphlpapi.dll`: `SendARP`, `GetBestRoute`, `GetIpNetTable`).
 * **IEEE Standards Association:** For the IEEE 802 Locally Administered Address (LAA) specifications used in mathematical detection of randomized mobile MAC addresses.
