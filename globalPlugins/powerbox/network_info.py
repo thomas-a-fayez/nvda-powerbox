@@ -10,9 +10,15 @@
 import ctypes
 import socket
 import struct
+import threading
 import urllib.request
 import urllib.error
+import wx
 import addonHandler
+import api
+import config
+import ui
+import tones
 
 # Initialize translation support for this module
 addonHandler.initTranslation()
@@ -39,30 +45,18 @@ class _MIB_IPFORWARDROW(ctypes.Structure):
 
 
 def get_local_ip():
-    """
-    Retrieves the local IPv4 address of the active network adapter.
-    Uses a lightweight UDP connection check that does not send actual network packets.
-    """
+    """Retrieves the local IPv4 address of the active network adapter."""
     try:
         with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as sock:
-            # Route check against a known external IP to determine the local interface
             sock.connect(("8.8.8.8", 80))
             return sock.getsockname()[0]
     except Exception:
-        # Fallback message when offline or no network adapter is active
         return _("127.0.0.1 (Offline)")
 
 
 def get_default_gateway():
-    """
-    Retrieves the IPv4 address of the local network default gateway (router).
-    Directly queries the Windows routing table via GetBestRoute without network latency.
-
-    Returns:
-        str: Gateway IP address if connected to a network, otherwise None.
-    """
+    """Retrieves the IPv4 address of the local network default gateway (router)."""
     try:
-        # Lookup the best route towards an external address to find the active gateway
         dest_ip = struct.unpack("<I", socket.inet_aton("8.8.8.8"))[0]
         row = _MIB_IPFORWARDROW()
         status = ctypes.windll.iphlpapi.GetBestRoute(dest_ip, 0, ctypes.byref(row))
@@ -77,13 +71,8 @@ def get_default_gateway():
 
 
 def get_public_ip():
-    """
-    Fetches the machine's external IPv4 address via a lightweight HTTP API.
-    Returns:
-        tuple: (success_status (bool), ip_address_or_localized_error (str))
-    """
+    """Fetches external IPv4 address via ipify API."""
     try:
-        # Keep the timeout short (2.5s) to avoid noticeable UI lag in NVDA
         request = urllib.request.Request(
             "https://api.ipify.org",
             headers={"User-Agent": "PowerBox-NVDA-Addon"}
@@ -95,3 +84,77 @@ def get_public_ip():
         return False, _("No internet connection")
     except Exception:
         return False, _("Error retrieving public IP")
+
+
+# --- High-level User Actions with Unified Feedback Handling ---
+def trigger_copy_data(data_str, copy_msg, info_msg, beep_pitch=800):
+    """Copies data to clipboard and ensures information is spoken/confirmed cleanly."""
+    api.copyToClip(data_str)
+    mode = config.conf.get("powerBox", {}).get("feedbackMode", "beep")
+
+    if mode in ("beep", "both"):
+        tones.beep(beep_pitch, 40)
+
+    if mode in ("speech", "both"):
+        ui.message(copy_msg)
+    else:
+        ui.message(info_msg)
+
+
+def speak_local_ip():
+    ip = get_local_ip()
+    ui.message(_("Local IP: {ip}").format(ip=ip))
+
+
+def copy_local_ip():
+    ip = get_local_ip()
+    trigger_copy_data(
+        ip,
+        _("Local IP {ip} copied to clipboard").format(ip=ip),
+        _("Local IP: {ip}").format(ip=ip)
+    )
+
+
+def speak_default_gateway():
+    gw = get_default_gateway()
+    if gw:
+        ui.message(_("Default Gateway: {gw}").format(gw=gw))
+    else:
+        ui.message(_("Default Gateway unavailable"))
+
+
+def copy_default_gateway():
+    gw = get_default_gateway()
+    if gw:
+        trigger_copy_data(
+            gw,
+            _("Default Gateway {gw} copied to clipboard").format(gw=gw),
+            _("Default Gateway: {gw}").format(gw=gw)
+        )
+    else:
+        ui.message(_("Default Gateway unavailable"))
+
+
+def speak_public_ip():
+    def worker():
+        success, result = get_public_ip()
+        if not success:
+            wx.CallAfter(ui.message, result)
+            return
+        wx.CallAfter(ui.message, _("Public IP: {ip}").format(ip=result))
+    threading.Thread(target=worker, daemon=True).start()
+
+
+def copy_public_ip():
+    def worker():
+        success, result = get_public_ip()
+        if not success:
+            wx.CallAfter(ui.message, result)
+            return
+        wx.CallAfter(
+            trigger_copy_data,
+            result,
+            _("Public IP {ip} copied to clipboard").format(ip=result),
+            _("Public IP: {ip}").format(ip=result)
+        )
+    threading.Thread(target=worker, daemon=True).start()

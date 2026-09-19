@@ -2,8 +2,10 @@
 # actions.py - Handles Windows API interactions and feedback for PowerBox
 
 # Acknowledgment:
-# Low-level Windows input simulation structures are based on Microsoft Win32 API documentation.
-# Smart click routing logic is inspired by NVDA core's mouse-to-navigator routing behavior.
+# - Low-level Windows input simulation structures are based on Microsoft Win32 API documentation.
+# - Smart click routing logic is inspired by NVDA core's mouse-to-navigator routing behavior.
+# - Context menu simulation techniques (focused object mouse routing and hardware scancode mapping)
+#   are inspired by the remapApplicationsKey add-on by Héctor J. Benítez Corredera and Rui Fontes.
 
 import time
 import ctypes
@@ -20,9 +22,7 @@ addonHandler.initTranslation()
 
 # --- Virtual Key (VK) Codes ---
 VK_APPS = 0x5D
-VK_VOLUME_MUTE = 0xAD
-VK_VOLUME_DOWN = 0xAE
-VK_VOLUME_UP = 0xAF
+VK_SHIFT = 0x10
 VK_MEDIA_NEXT_TRACK = 0xB0
 VK_MEDIA_PREV_TRACK = 0xB1
 VK_MEDIA_PLAY_PAUSE = 0xB3
@@ -50,6 +50,9 @@ MOUSEEVENTF_LEFTDOWN = 0x0002
 MOUSEEVENTF_LEFTUP = 0x0004
 MOUSEEVENTF_RIGHTDOWN = 0x0008
 MOUSEEVENTF_RIGHTUP = 0x0010
+
+# Scancode Mapping Flag
+MAPVK_VK_TO_VSC = 0
 
 
 class KEYBDINPUT(ctypes.Structure):
@@ -129,6 +132,73 @@ def send_key(vk_code, extended=False):
 
     inputs = (INPUT * 2)(input_down, input_up)
     ctypes.windll.user32.SendInput(2, ctypes.byref(inputs), ctypes.sizeof(INPUT))
+
+
+def press_hardware_key(vk_code, extended=False):
+    """Simulates a key down event with authentic hardware scancode from MapVirtualKeyW."""
+    flags = KEYEVENTF_EXTENDEDKEY if extended else 0
+    scan_code = ctypes.windll.user32.MapVirtualKeyW(vk_code, MAPVK_VK_TO_VSC)
+    inp = INPUT(
+        type=INPUT_KEYBOARD,
+        union=INPUT_UNION(
+            ki=KEYBDINPUT(wVk=vk_code, wScan=scan_code, dwFlags=flags, time=0, dwExtraInfo=None)
+        ),
+    )
+    ctypes.windll.user32.SendInput(1, ctypes.byref(inp), ctypes.sizeof(INPUT))
+
+
+def release_hardware_key(vk_code, extended=False):
+    """Simulates a key up event with authentic hardware scancode from MapVirtualKeyW."""
+    flags = KEYEVENTF_KEYUP | (KEYEVENTF_EXTENDEDKEY if extended else 0)
+    scan_code = ctypes.windll.user32.MapVirtualKeyW(vk_code, MAPVK_VK_TO_VSC)
+    inp = INPUT(
+        type=INPUT_KEYBOARD,
+        union=INPUT_UNION(
+            ki=KEYBDINPUT(wVk=vk_code, wScan=scan_code, dwFlags=flags, time=0, dwExtraInfo=None)
+        ),
+    )
+    ctypes.windll.user32.SendInput(1, ctypes.byref(inp), ctypes.sizeof(INPUT))
+
+
+def perform_applications(action_name):
+    """
+    Emulates the Applications menu by moving the mouse to the focused object
+    and dispatching an authentic hardware-scanned VK_APPS keystroke.
+    """
+    focus_obj = api.getFocusObject()
+    if focus_obj:
+        try:
+            api.moveMouseToNVDAObject(focus_obj)
+        except Exception:
+            pass
+
+    press_hardware_key(VK_APPS, extended=True)
+    time.sleep(0.02)
+    release_hardware_key(VK_APPS, extended=True)
+    trigger_feedback(action_name)
+
+
+def perform_classic_applications(action_name):
+    """
+    Emulates the legacy classic context menu on Windows 11 by:
+    1. Routing physical mouse pointer to the focused object.
+    2. Dispatching Shift down, Applications click, and Shift up with real scancodes.
+    """
+    focus_obj = api.getFocusObject()
+    if focus_obj:
+        try:
+            api.moveMouseToNVDAObject(focus_obj)
+        except Exception:
+            pass
+
+    press_hardware_key(VK_SHIFT)
+    time.sleep(0.04)
+    press_hardware_key(VK_APPS, extended=True)
+    time.sleep(0.02)
+    release_hardware_key(VK_APPS, extended=True)
+    time.sleep(0.04)
+    release_hardware_key(VK_SHIFT)
+    trigger_feedback(action_name)
 
 
 def send_mouse_click(button="left"):
