@@ -6,8 +6,10 @@
 #   from standard Python community practices.
 # - Public IP retrieval uses the free and open API provided by ipify (https://www.ipify.org).
 # - Default Gateway detection queries the Windows routing table using GetBestRoute (iphlpapi.dll).
+# - Uses an isolated WinDLL instance to prevent cross-module routing table ctypes prototype clashes.
 
 import ctypes
+from ctypes import wintypes
 import socket
 import struct
 import threading
@@ -23,25 +25,33 @@ import tones
 # Initialize translation support for this module
 addonHandler.initTranslation()
 
+# Isolated iphlpapi instance preventing cross-module ctypes prototype collisions
+iphlpapi = ctypes.WinDLL("iphlpapi", use_last_error=True)
+
 
 class _MIB_IPFORWARDROW(ctypes.Structure):
     """Structure representing a route entry in the Windows IPv4 routing table."""
     _fields_ = [
-        ("dwForwardDest", ctypes.c_ulong),
-        ("dwForwardMask", ctypes.c_ulong),
-        ("dwForwardPolicy", ctypes.c_ulong),
-        ("dwForwardNextHop", ctypes.c_ulong),
-        ("dwForwardIfIndex", ctypes.c_ulong),
-        ("dwForwardType", ctypes.c_ulong),
-        ("dwForwardProto", ctypes.c_ulong),
-        ("dwForwardAge", ctypes.c_ulong),
-        ("dwForwardNextHopAS", ctypes.c_ulong),
-        ("dwForwardMetric1", ctypes.c_ulong),
-        ("dwForwardMetric2", ctypes.c_ulong),
-        ("dwForwardMetric3", ctypes.c_ulong),
-        ("dwForwardMetric4", ctypes.c_ulong),
-        ("dwForwardMetric5", ctypes.c_ulong),
+        ("dwForwardDest", wintypes.DWORD),
+        ("dwForwardMask", wintypes.DWORD),
+        ("dwForwardPolicy", wintypes.DWORD),
+        ("dwForwardNextHop", wintypes.DWORD),
+        ("dwForwardIfIndex", wintypes.DWORD),
+        ("dwForwardType", wintypes.DWORD),
+        ("dwForwardProto", wintypes.DWORD),
+        ("dwForwardAge", wintypes.DWORD),
+        ("dwForwardNextHopAS", wintypes.DWORD),
+        ("dwForwardMetric1", wintypes.DWORD),
+        ("dwForwardMetric2", wintypes.DWORD),
+        ("dwForwardMetric3", wintypes.DWORD),
+        ("dwForwardMetric4", wintypes.DWORD),
+        ("dwForwardMetric5", wintypes.DWORD),
     ]
+
+
+# Function binding using c_void_p for immune generic buffer passing
+iphlpapi.GetBestRoute.argtypes = [wintypes.DWORD, wintypes.DWORD, ctypes.c_void_p]
+iphlpapi.GetBestRoute.restype = wintypes.DWORD
 
 
 def get_local_ip():
@@ -59,7 +69,7 @@ def get_default_gateway():
     try:
         dest_ip = struct.unpack("<I", socket.inet_aton("8.8.8.8"))[0]
         row = _MIB_IPFORWARDROW()
-        status = ctypes.windll.iphlpapi.GetBestRoute(dest_ip, 0, ctypes.byref(row))
+        status = iphlpapi.GetBestRoute(dest_ip, 0, ctypes.byref(row))
 
         if status == 0:
             gateway_ip = socket.inet_ntoa(struct.pack("<I", row.dwForwardNextHop))

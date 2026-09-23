@@ -6,9 +6,11 @@
 # - Smart click routing logic is inspired by NVDA core's mouse-to-navigator routing behavior.
 # - Context menu simulation techniques (focused object mouse routing and hardware scancode mapping)
 #   are inspired by the remapApplicationsKey add-on by Héctor J. Benítez Corredera and Rui Fontes.
+# - Uses an isolated WinDLL instance to prevent cross-add-on SendInput ctypes pointer conflicts.
 
 import time
 import ctypes
+from ctypes import wintypes
 import addonHandler
 import api
 import config
@@ -19,6 +21,9 @@ import winUser
 
 # Initialize translation support for this module
 addonHandler.initTranslation()
+
+# Isolated user32 instance preventing cross-module ctypes prototype collisions
+user32 = ctypes.WinDLL("user32", use_last_error=True)
 
 # --- Virtual Key (VK) Codes ---
 VK_APPS = 0x5D
@@ -99,6 +104,14 @@ class INPUT(ctypes.Structure):
     )
 
 
+# Function Bindings using c_void_p for immune generic input buffers
+user32.SendInput.argtypes = [wintypes.UINT, ctypes.c_void_p, ctypes.c_int]
+user32.SendInput.restype = wintypes.UINT
+
+user32.MapVirtualKeyW.argtypes = [wintypes.UINT, wintypes.UINT]
+user32.MapVirtualKeyW.restype = wintypes.UINT
+
+
 def send_key(vk_code, extended=False):
     """Simulates a low-level key down and key up sequence via SendInput."""
     flags_down = KEYEVENTF_EXTENDEDKEY if extended else 0
@@ -131,33 +144,33 @@ def send_key(vk_code, extended=False):
     )
 
     inputs = (INPUT * 2)(input_down, input_up)
-    ctypes.windll.user32.SendInput(2, ctypes.byref(inputs), ctypes.sizeof(INPUT))
+    user32.SendInput(2, ctypes.byref(inputs), ctypes.sizeof(INPUT))
 
 
 def press_hardware_key(vk_code, extended=False):
     """Simulates a key down event with authentic hardware scancode from MapVirtualKeyW."""
     flags = KEYEVENTF_EXTENDEDKEY if extended else 0
-    scan_code = ctypes.windll.user32.MapVirtualKeyW(vk_code, MAPVK_VK_TO_VSC)
+    scan_code = user32.MapVirtualKeyW(vk_code, MAPVK_VK_TO_VSC)
     inp = INPUT(
         type=INPUT_KEYBOARD,
         union=INPUT_UNION(
             ki=KEYBDINPUT(wVk=vk_code, wScan=scan_code, dwFlags=flags, time=0, dwExtraInfo=None)
         ),
     )
-    ctypes.windll.user32.SendInput(1, ctypes.byref(inp), ctypes.sizeof(INPUT))
+    user32.SendInput(1, ctypes.byref(inp), ctypes.sizeof(INPUT))
 
 
 def release_hardware_key(vk_code, extended=False):
     """Simulates a key up event with authentic hardware scancode from MapVirtualKeyW."""
     flags = KEYEVENTF_KEYUP | (KEYEVENTF_EXTENDEDKEY if extended else 0)
-    scan_code = ctypes.windll.user32.MapVirtualKeyW(vk_code, MAPVK_VK_TO_VSC)
+    scan_code = user32.MapVirtualKeyW(vk_code, MAPVK_VK_TO_VSC)
     inp = INPUT(
         type=INPUT_KEYBOARD,
         union=INPUT_UNION(
             ki=KEYBDINPUT(wVk=vk_code, wScan=scan_code, dwFlags=flags, time=0, dwExtraInfo=None)
         ),
     )
-    ctypes.windll.user32.SendInput(1, ctypes.byref(inp), ctypes.sizeof(INPUT))
+    user32.SendInput(1, ctypes.byref(inp), ctypes.sizeof(INPUT))
 
 
 def perform_applications(action_name):
@@ -204,7 +217,6 @@ def perform_classic_applications(action_name):
 def send_mouse_click(button="left"):
     """Simulates a physical mouse button click via SendInput."""
     if button == "double":
-        # Execute two separate clicks with a realistic double-click delay
         send_mouse_click("left")
         time.sleep(0.05)
         send_mouse_click("left")
@@ -237,7 +249,7 @@ def send_mouse_click(button="left"):
     )
 
     inputs = (INPUT * 2)(input_down, input_up)
-    ctypes.windll.user32.SendInput(2, ctypes.byref(inputs), ctypes.sizeof(INPUT))
+    user32.SendInput(2, ctypes.byref(inputs), ctypes.sizeof(INPUT))
 
 
 def trigger_feedback(action_name):
@@ -264,7 +276,6 @@ def perform_smart_click(button, action_name):
     """
     nav_obj = api.getNavigatorObject()
 
-    # Verify that the navigator object exists and has valid screen bounds
     if not nav_obj or not getattr(nav_obj, "location", None):
         ui.message(_("Object has no location"))
         return
@@ -274,12 +285,10 @@ def perform_smart_click(button, action_name):
         center_x = left + (width // 2)
         center_y = top + (height // 2)
 
-        # Route the physical mouse cursor to the calculated center
         winUser.setCursorPos(center_x, center_y)
     except Exception:
         ui.message(_("Failed to route mouse to object"))
         return
 
-    # Execute mouse click and provide feedback
     send_mouse_click(button)
     trigger_feedback(action_name)

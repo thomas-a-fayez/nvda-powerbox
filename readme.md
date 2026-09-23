@@ -1,7 +1,7 @@
 # PowerBox for NVDA
 
 **Author:** Thomas A. Fayez  
-**Version:** 1.5.0  
+**Version:** 1.5.1  
 
 PowerBox is a powerful, lightweight multi-tool add-on designed for speed, comfort, and productivity. It maps ergonomic NVDA gestures to master and per-application volume controls, simulates smart mouse clicks with automatic cursor routing, provides terminal launches in the current folder, and introduces clean **Gesture Layers** for quick application launching, advanced network auditing with an accessible LAN device scanner, and comprehensive system power management with an intelligent sleep/shutdown timer.
 

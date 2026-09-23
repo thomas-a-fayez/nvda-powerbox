@@ -5,9 +5,11 @@
 # - Windows Explorer active tab path resolution uses native window title and focus inspection
 #   paired with safe Shell.Application COM querying, eliminating C++ assertion crashes.
 # - Detached terminal process spawning via Win32 ShellExecuteW prevents child process handle lockups.
+# - Uses isolated WinDLL instances and 64-bit safe HWND prototypes to prevent handle truncation.
 
 import os
 import ctypes
+from ctypes import wintypes
 import comtypes.client
 import wx
 import addonHandler
@@ -19,6 +21,29 @@ import winUser
 
 # Initialize translation support for this module
 addonHandler.initTranslation()
+
+# Isolated Win32 DLL instances preventing prototype clashes
+user32 = ctypes.WinDLL("user32", use_last_error=True)
+shell32 = ctypes.WinDLL("shell32", use_last_error=True)
+
+# 64-bit safe function prototypes
+user32.GetForegroundWindow.restype = wintypes.HWND
+
+user32.GetAncestor.argtypes = [wintypes.HWND, wintypes.UINT]
+user32.GetAncestor.restype = wintypes.HWND
+
+user32.GetClassNameW.argtypes = [wintypes.HWND, wintypes.LPWSTR, ctypes.c_int]
+user32.GetClassNameW.restype = ctypes.c_int
+
+shell32.ShellExecuteW.argtypes = [
+    wintypes.HWND,
+    wintypes.LPCWSTR,
+    wintypes.LPCWSTR,
+    wintypes.LPCWSTR,
+    wintypes.LPCWSTR,
+    ctypes.c_int
+]
+shell32.ShellExecuteW.restype = wintypes.HINSTANCE
 
 
 def get_current_explorer_path():
@@ -37,11 +62,11 @@ def get_current_explorer_path():
         if app_name != "explorer":
             return os.path.expanduser("~")
 
-        foreground_hwnd = ctypes.windll.user32.GetForegroundWindow()
+        foreground_hwnd = user32.GetForegroundWindow()
         if not foreground_hwnd:
             return os.path.expanduser("~")
 
-        root_hwnd = ctypes.windll.user32.GetAncestor(foreground_hwnd, 2)
+        root_hwnd = user32.GetAncestor(foreground_hwnd, 2)
         if not root_hwnd:
             root_hwnd = foreground_hwnd
 
@@ -51,7 +76,7 @@ def get_current_explorer_path():
 
         # Check for Desktop (Progman / WorkerW)
         class_buf = ctypes.create_unicode_buffer(256)
-        ctypes.windll.user32.GetClassNameW(root_hwnd, class_buf, 256)
+        user32.GetClassNameW(root_hwnd, class_buf, 256)
         if class_buf.value in ("Progman", "WorkerW"):
             desktop_path = os.path.join(os.path.expanduser("~"), "Desktop")
             if os.path.isdir(desktop_path):
@@ -146,12 +171,13 @@ def launch_terminal(terminal_type="powershell", as_admin=False):
         else:
             return False, _("Unsupported terminal type")
 
-        # SW_SHOWNORMAL = 1; Detached process execution
-        result = ctypes.windll.shell32.ShellExecuteW(
+        # SW_SHOWNORMAL = 1; Detached process execution using isolated shell32 instance
+        result = shell32.ShellExecuteW(
             None, verb, exe, args, target_path, 1
         )
 
-        if result <= 32:
+        # In Win32 API, a return value <= 32 indicates an execution or elevation failure
+        if (result or 0) <= 32:
             return False, _("Elevation was canceled or operation failed")
 
         return True, target_path
@@ -186,7 +212,6 @@ def open_terminal(terminal_type="powershell", as_admin=False):
         if mode in ("beep", "both"):
             tones.beep(500, 50)
         if mode in ("speech", "both"):
-            # Safe execution on the main UI thread (Zero C++ assertion errors)
             wx.CallLater(1000, ui.message, msg)
     else:
         err_msg = result if result else _("Failed to open terminal")

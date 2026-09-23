@@ -5,8 +5,10 @@
 # - Workstation locking utilizes Windows user32.dll (LockWorkStation).
 # - Power suspension and hibernation utilize powrprof.dll and Windows native shutdown utility.
 # - Accessible timer dialog and confirmation workflows follow NV Access standards.
+# - Uses isolated WinDLL instances to prevent cross-module ctypes prototype collisions.
 
 import ctypes
+from ctypes import wintypes
 import subprocess
 import threading
 import time
@@ -20,6 +22,17 @@ import tones
 
 # Initialize translation support for this module
 addonHandler.initTranslation()
+
+# Isolated Win32 DLL instances preventing prototype clashes
+user32 = ctypes.WinDLL("user32", use_last_error=True)
+powrprof = ctypes.WinDLL("powrprof", use_last_error=True)
+
+# Safe function prototypes
+user32.LockWorkStation.argtypes = []
+user32.LockWorkStation.restype = wintypes.BOOL
+
+powrprof.SetSuspendState.argtypes = [wintypes.BOOLEAN, wintypes.BOOLEAN, wintypes.BOOLEAN]
+powrprof.SetSuspendState.restype = wintypes.BOOLEAN
 
 # Global timer tracking
 _timer_thread = None
@@ -51,7 +64,7 @@ def lock_workstation():
     if mode in ("speech", "both"):
         time.sleep(0.8)
     try:
-        ctypes.windll.user32.LockWorkStation()
+        user32.LockWorkStation()
     except Exception:
         ui.message(_("Failed to lock workstation"))
 
@@ -63,7 +76,7 @@ def sleep_system():
     if mode in ("speech", "both"):
         time.sleep(1.0)
     try:
-        ctypes.windll.powrprof.SetSuspendState(False, False, False)
+        powrprof.SetSuspendState(False, False, False)
     except Exception:
         ui.message(_("Failed to enter sleep mode"))
 

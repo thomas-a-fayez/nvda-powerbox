@@ -4,6 +4,7 @@
 # Acknowledgment:
 # - Master audio volume & mute queries utilize Win32 Core Audio COM VTable (IAudioEndpointVolume).
 # - Per-application session enumeration & volume control utilize IAudioSessionManager2 and ISimpleAudioVolume via ctypes.
+# - Utilizes isolated WinDLL ole32 instances to prevent cross-add-on COM initialization collisions.
 
 import ctypes
 from ctypes import wintypes
@@ -19,6 +20,9 @@ import winUser
 
 # Initialize translation support for this module
 addonHandler.initTranslation()
+
+# Isolated ole32 instance preventing cross-module ctypes prototype collisions
+ole32 = ctypes.WinDLL("ole32", use_last_error=True)
 
 # Global state tracker for master mute state reliability
 _last_known_master_mute = False
@@ -44,18 +48,24 @@ _IID_IAudioSessionManager2 = _GUID(0x77AA99A0, 0x1BD6, 0x484F, (ctypes.c_ubyte *
 _IID_IAudioSessionControl2 = _GUID(0xBFB7FF88, 0x7239, 0x4FC9, (ctypes.c_ubyte * 8)(0x8F, 0xA2, 0x07, 0xC9, 0x50, 0xBE, 0x9C, 0x6D))
 _IID_ISimpleAudioVolume = _GUID(0x87CE5498, 0x68D6, 0x44E5, (ctypes.c_ubyte * 8)(0x92, 0x15, 0x6D, 0xA4, 0x7E, 0xF8, 0x83, 0xD8))
 
+# Define CoCreateInstance prototype using c_void_p to ensure universal immunity
+ole32.CoCreateInstance.argtypes = [
+    ctypes.c_void_p, ctypes.c_void_p, wintypes.DWORD, ctypes.c_void_p, ctypes.c_void_p
+]
+ole32.CoCreateInstance.restype = ctypes.c_long
+
 
 def _get_default_audio_device():
     """Helper to instantiate and return the default audio playback endpoint device."""
     try:
-        ctypes.windll.ole32.CoInitialize(None)
+        ole32.CoInitialize(None)
     except Exception:
         pass
 
     try:
         Release_Proto = ctypes.WINFUNCTYPE(ctypes.c_ulong, ctypes.c_void_p)
         pEnum = ctypes.c_void_p()
-        hr = ctypes.windll.ole32.CoCreateInstance(
+        hr = ole32.CoCreateInstance(
             ctypes.byref(_CLSID_MMDeviceEnumerator),
             None,
             1,  # CLSCTX_INPROC_SERVER
@@ -95,7 +105,7 @@ def _get_audio_endpoint_volume_pointer():
         Release_Proto = ctypes.WINFUNCTYPE(ctypes.c_ulong, ctypes.c_void_p)
         vtbl_dev = ctypes.cast(pDevice.value, ctypes.POINTER(ctypes.POINTER(ctypes.c_void_p))).contents
         Activate_Proto = ctypes.WINFUNCTYPE(
-            ctypes.c_long, ctypes.c_void_p, ctypes.POINTER(_GUID), wintypes.DWORD, ctypes.c_void_p, ctypes.POINTER(ctypes.c_void_p)
+            ctypes.c_long, ctypes.c_void_p, ctypes.c_void_p, wintypes.DWORD, ctypes.c_void_p, ctypes.POINTER(ctypes.c_void_p)
         )
         pVolume = ctypes.c_void_p()
         hr = Activate_Proto(vtbl_dev[3])(pDevice, ctypes.byref(_IID_IAudioEndpointVolume), 1, None, ctypes.byref(pVolume))
@@ -255,12 +265,12 @@ def _modify_app_audio_session(target_pid, volume_delta=None, toggle_mute=False):
     try:
         Release_Proto = ctypes.WINFUNCTYPE(ctypes.c_ulong, ctypes.c_void_p)
         QueryInterface_Proto = ctypes.WINFUNCTYPE(
-            ctypes.c_long, ctypes.c_void_p, ctypes.POINTER(_GUID), ctypes.POINTER(ctypes.c_void_p)
+            ctypes.c_long, ctypes.c_void_p, ctypes.c_void_p, ctypes.POINTER(ctypes.c_void_p)
         )
 
         vtbl_dev = ctypes.cast(pDevice.value, ctypes.POINTER(ctypes.POINTER(ctypes.c_void_p))).contents
         Activate_Proto = ctypes.WINFUNCTYPE(
-            ctypes.c_long, ctypes.c_void_p, ctypes.POINTER(_GUID), wintypes.DWORD, ctypes.c_void_p, ctypes.POINTER(ctypes.c_void_p)
+            ctypes.c_long, ctypes.c_void_p, ctypes.c_void_p, wintypes.DWORD, ctypes.c_void_p, ctypes.POINTER(ctypes.c_void_p)
         )
 
         pMgr = ctypes.c_void_p()

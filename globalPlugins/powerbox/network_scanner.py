@@ -3,12 +3,14 @@
 
 # Acknowledgment:
 # - Low-level ARP discovery uses Microsoft Windows IP Helper API (iphlpapi.dll).
+# - Uses isolated WinDLL instances for ws2_32 and iphlpapi to prevent prototype collisions.
 # - MAC address randomization detection complies with IEEE 802 Locally Administered Address (LAA) specifications.
 # - Multi-tier web interface probing covers standard (80, 443) and alternate (8080, 8443) service ports.
 # - Manufacturer resolution incorporates a curated IEEE OUI table and maclookup.app API fallback.
 # - GUI dialog accessibility and modal lifecycle patterns follow NV Access add-on development standards.
 
 import ctypes
+from ctypes import wintypes
 import socket
 import ipaddress
 import threading
@@ -28,6 +30,17 @@ from . import network_info
 
 # Initialize translation support for this module
 addonHandler.initTranslation()
+
+# Isolated DLL instances preventing cross-module ctypes prototype collisions
+iphlpapi = ctypes.WinDLL("iphlpapi", use_last_error=True)
+ws2_32 = ctypes.WinDLL("ws2_32", use_last_error=True)
+
+# 64-bit safe function prototypes
+ws2_32.inet_addr.argtypes = [ctypes.c_char_p]
+ws2_32.inet_addr.restype = wintypes.DWORD
+
+iphlpapi.SendARP.argtypes = [wintypes.DWORD, wintypes.DWORD, ctypes.c_void_p, ctypes.c_void_p]
+iphlpapi.SendARP.restype = wintypes.DWORD
 
 # Global state tracking to allow non-blocking toggle and safe cancellation
 _is_scanning = False
@@ -118,14 +131,14 @@ def get_mac_vendor(mac_address):
 def send_arp_probe(ip_str):
     """Sends a fast single-pass Win32 ARP request using SendARP from iphlpapi.dll."""
     try:
-        dest_ip = ctypes.windll.ws2_32.inet_addr(ip_str.encode("ascii"))
+        dest_ip = ws2_32.inet_addr(ip_str.encode("ascii"))
         if dest_ip == 0xFFFFFFFF:
             return None
 
         mac_buffer = (ctypes.c_ubyte * 6)()
-        mac_len = ctypes.c_ulong(6)
+        mac_len = wintypes.ULONG(6)
 
-        status = ctypes.windll.iphlpapi.SendARP(
+        status = iphlpapi.SendARP(
             dest_ip, 0, ctypes.byref(mac_buffer), ctypes.byref(mac_len)
         )
         if status == 0 and mac_len.value == 6:
