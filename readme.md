@@ -1,7 +1,7 @@
 # PowerBox for NVDA
 
 **Author:** Thomas A. Fayez  
-**Version:** 1.4.1  
+**Version:** 1.5.0  
 
 PowerBox is a powerful, lightweight multi-tool add-on designed for speed, comfort, and productivity. It maps ergonomic NVDA gestures to master and per-application volume controls, simulates smart mouse clicks with automatic cursor routing, provides terminal launches in the current folder, and introduces clean **Gesture Layers** for quick application launching, advanced network auditing with an accessible LAN device scanner, and comprehensive system power management with an intelligent sleep/shutdown timer.
 
@@ -62,7 +62,7 @@ Adjust the volume of the currently focused program (such as Firefox, Zoom, Spoti
 ## ⚡ Smart System & Power Layer
 **Prefix Shortcut:** `NVDA + Win + S`
 
-Provides centralized, accessible, and accidental-proof power controls for Windows. Press the prefix above, followed by:
+Provides centralized, accessible, accidental-proof power controls, real-time process resource inspection, and full Windows Server session administration. Press the prefix above, followed by:
 * **T:** **Set Shutdown Timer:** Opens an accessible configuration dialog to schedule automatic computer shutdown. Choose from quick presets (15m, 30m, 45m, 60m) or enter a custom duration in minutes.
 * **Shift + T:** **Query Timer Status:** Speaks the exact time remaining (minutes and seconds) before scheduled shutdown.
 * **C:** **Cancel Timer:** Cancels any active shutdown timer immediately.
@@ -71,7 +71,36 @@ Provides centralized, accessible, and accidental-proof power controls for Window
 * **S:** **Sleep Mode:** Puts the computer into low-power standby mode.
 * **B:** **Hibernate:** Saves memory state to disk and powers off.
 * **L:** **Lock Workstation:** Instantly locks the Windows desktop.
+* **P:** **Inspect Active Application:** Instantly announces live RAM (Working Set) and CPU usage percentage of the focused application.
+* **Shift + P:** **Copy & Speak Active Application Stats:** Copies active application RAM and CPU metrics directly to the clipboard and speaks them.
+* **Control + P:** **Server Process Hub & Session Manager:** Launches the enterprise management console. Displays server health status, live CPU% and RAM usage grouped by application, user drill-downs, Arabic-compliant window titles, uptime, process architecture, and full session management (Disconnect, Logoff, Kill Process).
 * **H:** Show System Layer Help.
+
+### 🖥️ Server Process Hub & Enterprise Session Manager
+Pressing **NVDA + Win + S** followed by **Control + P** launches an accessible, high-performance administrative console built with native Windows Terminal Services APIs (`wtsapi32.dll`). It dynamically monitors user applications, multi-session resource footprints, and active Remote Desktop sessions across Windows 10/11 workstations and Windows Server (RDSH / RemoteApp) environments.
+
+#### Console Navigation & Features:
+* **Real-time Server Pulse:** Displays overall server health (Active vs. Disconnected sessions, total application count, and aggregate RAM).
+* **Live Instant Filter (`Alt + F`):** Instantly filter applications as you type without losing keyboard focus. Press **Down Arrow** to jump straight into the filtered results.
+* **Enter / Alt + V:** **View Users Drill-Down:** Inspect which specific users and Remote Desktop sessions are running the selected application, along with per-user RAM and session states.
+* **Alt + T:** **Detailed Application Properties:** Opens a comprehensive, scrollable text viewer displaying live recalculated CPU%, binary executable path, architecture (64-bit / 32-bit), process uptime duration, and Unicode/Arabic window titles.
+* **F6 / Alt + S:** **Toggle All Sessions Dashboard:** Instantly switches between the Applications Overview and the Global Server Sessions Manager. In Sessions view, administrators can monitor connected client machine names/IPs (e.g. `CLIENT-PC (10.10.x.x)`), session states, and total RAM consumed per session.
+* **Backspace / Alt + B:** Return back to the Applications overview from the User Drill-down view.
+* **Alt + E:** **Terminate Application / Process:** Safely terminates the application across all users or for the selected user only, with safe confirmation prompts.
+* **Alt + L / Alt + D:** **Logoff or Disconnect Sessions:** Instantly disconnect or log off stale/disconnected sessions directly from the console.
+* **Copy Report (`Alt + R`):** Copies a clean diagnostic summary to the clipboard.
+* **F5 / Alt + F:** Asynchronously refresh all server metrics.
+* **Escape / Alt + C:** Close the console.
+
+#### 💡 Design Philosophy: Smart Noise Filtering & Enterprise Scope
+Unlike the standard Windows Task Manager—which overwhelms screen reader users with over 150 non-interactive operating system daemons, driver containers, and background services (such as `svchost.exe` and driver hooks)—PowerBox intentionally adopts a **Noise-Free, Application-Centric Philosophy**:
+* **Smart Heuristic Filtering:** The console automatically filters out Windows 11 internal component tasks (e.g. `SystemApps`), driver service containers, and non-interactive `SYSTEM` daemons. This delivers a clean, high-signal view dedicated exclusively to **real, user-facing applications** and heavy background runtimes (e.g. multi-process browsers, Edge WebView2 instances, and developer IDEs).
+* **Role-Based Security & Permissions Boundaries:**
+  * **When Run as Administrator:** Unlocks full administrative capabilities across the entire server—allowing administrators to monitor all domain users (`DOMAIN\User`), aggregate multi-user instances (e.g., combining 100+ Edge processes across sessions), identify disconnected session memory leaks, and terminate processes or log off remote users.
+  * **When Run as Standard User:** Gracefully respects Windows OS security boundaries without errors. Users have full control over their own applications and local session, while cross-session modifications for other colleagues are safely restricted.
+* **User Accounts & Connected Client Resolution:** Accounts are displayed using standard Windows security naming conventions (`DOMAIN\User` in Active Directory environments or `COMPUTER\User` on standalone workstations). The Sessions view (`F6`) explicitly resolves the physical remote client computer name and IP address (e.g. `MACHINE-NAME (192.168.x.x)`), providing invaluable network transparency.
+* **Window Titles Behavior (Local vs. RemoteApp Isolation):** Interactive window and tab titles (including full Arabic Unicode text) are captured when querying applications within the caller's active session. In multi-user remote environments (RDS / RemoteApp), Windows kernel security boundaries intentionally enforce desktop isolation between sessions to prevent cross-session window snooping.
+* **Safety by Design (Screen Reader Protection):** Critical core Windows architecture and NVDA's own internal processes (such as `nvda.exe` and `nvda_synthDriverHost.exe`) are deliberately protected and excluded from termination actions to prevent accidental loss of speech synthesis or system lockouts.
 
 ### 🛡️ Accidental Shutdown Protection
 To prevent data loss, PowerBox supports two configurable confirmation styles in Settings:
@@ -154,7 +183,11 @@ Configure PowerBox preferences from **NVDA Menu -> Preferences -> Settings -> Po
 * **Héctor J. Benítez Corredera & Rui Fontes:** For the hardware scancode emulation concepts (`MapVirtualKeyW`) and context menu mouse routing derived from their `remapApplicationsKey` add-on.
 * **NVDA Community & Open Source Contributors:** For inspiration and techniques regarding Windows Explorer Shell COM automation, Windows 11 active tab resolution without C++ assertions, mouse-to-navigator object routing, and dynamic gesture mapping.
 * **NV Access Standards:** For modal dialog lifecycle management patterns (`prePopup` and `postPopup`) and SettingsPanel integration.
-* **Microsoft Windows API:** For native low-level input simulation (`SendInput`), master volume querying & direct kernel muting (`IAudioEndpointVolume`), per-application audio session mixer controls (`IAudioSessionManager2`, `ISimpleAudioVolume` via ctypes), power management (`user32.dll`: `LockWorkStation`, `powrprof.dll`: `SetSuspendState`), and network discovery APIs (`iphlpapi.dll`: `SendARP`, `GetBestRoute`, `GetIpNetTable`).
+* **Microsoft Windows API & Terminal Services:**
+  * **Audio & Input:** Native low-level input simulation (`SendInput`), master volume querying & direct kernel muting (`IAudioEndpointVolume`), and per-application audio session mixer controls (`IAudioSessionManager2`, `ISimpleAudioVolume` via ctypes).
+  * **System Power & Networking:** Power management (`user32.dll`: `LockWorkStation`, `powrprof.dll`: `SetSuspendState`), and network discovery APIs (`iphlpapi.dll`: `SendARP`, `GetBestRoute`, `GetIpNetTable`).
+  * **Process Inspection & Memory:** Native performance counters (`time.perf_counter`), process time delta calculations (`GetProcessTimes`), working set memory metrics (`K32GetProcessMemoryInfo`), image path querying (`QueryFullProcessImageNameW`), architecture detection (`IsWow64Process`), and Unicode window enumeration (`EnumWindows`, `GetWindowTextW`).
+  * **Enterprise Remote Desktop & Sessions:** Microsoft Windows Terminal Services API (`wtsapi32.dll`: `WTSEnumerateSessionsW`, `WTSEnumerateProcessesW`, `WTSQuerySessionInformationW`, `WTSDisconnectSession`, `WTSLogoffSession`) and Security Account Manager API (`advapi32.dll`: `LookupAccountSidW`) for multi-session process aggregation and client IP resolution.
 * **IEEE Standards Association:** For the IEEE 802 Locally Administered Address (LAA) specifications used in mathematical detection of randomized mobile MAC addresses.
 * **Python Open Source Community:** For the UDP routable socket technique (credited to Christian Kauhaus) used for offline-safe local IP detection.
 * **ipify.org & maclookup.app:** For providing open API services used to resolve public IP addresses and hardware vendor prefixes.

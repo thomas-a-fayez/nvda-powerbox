@@ -19,6 +19,8 @@ from . import network_info
 from . import network_scanner
 from . import power_manager
 from . import audio_manager
+from . import process_inspector
+from . import server_process_hub
 from .settings_gui import PowerBoxSettingsPanel
 from . import help_manager
 
@@ -168,6 +170,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
             "kb:s": "layerSleep",
             "kb:b": "layerHibernate",
             "kb:l": "layerLock",
+            "kb:p": "layerProcessInspector",
+            "kb:shift+p": "layerCopyProcessInspector",
+            "kb:control+p": "layerServerProcessHub",
             "kb:h": "layerHelp",
         })
         self.activeLayer = "system"
@@ -220,6 +225,18 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
     @scriptHandler.script(description=_("Locks the Windows workstation"))
     def script_layerLock(self, gesture):
         power_manager.lock_workstation()
+
+    @scriptHandler.script(description=_("Inspects CPU and RAM usage of the active application"))
+    def script_layerProcessInspector(self, gesture):
+        process_inspector.inspect_active_process(copy_to_clip=False)
+
+    @scriptHandler.script(description=_("Copies and speaks CPU and RAM usage of the active application"))
+    def script_layerCopyProcessInspector(self, gesture):
+        process_inspector.inspect_active_process(copy_to_clip=True)
+
+    @scriptHandler.script(description=_("Opens Server Process Hub and Session Manager"))
+    def script_layerServerProcessHub(self, gesture):
+        wx.CallAfter(server_process_hub.show_server_process_hub_dialog)
 
     # --- Terminal Layer Scripts ---
     @scriptHandler.script(description=_("Terminal Layer: Press p, shift+p, c, shift+c, or w next"))
@@ -497,6 +514,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
                 "s": _("Sleep"),
                 "b": _("Hibernate"),
                 "l": _("Lock workstation"),
+                "p": _("Inspect active application CPU and RAM usage"),
+                "shift+p": _("Copy and speak active application CPU and RAM usage"),
+                "control+p": _("Open Server Process Hub (Enterprise Manager)"),
                 "h": _("Show this help message"),
             }
         else:
