@@ -85,9 +85,13 @@ def _filetime_to_uint64(ft):
 
 
 def trigger_inspector_feedback(msg, is_success=True, is_copy=False):
-    """Provides user feedback respecting the configured feedbackMode in PowerBox."""
+    """
+    Provides user feedback strictly respecting configured feedbackMode.
+    Ensures process resource statistics are always spoken across all modes.
+    """
     mode = config.conf.get("powerBox", {}).get("feedbackMode", "beep")
 
+    # Play distinct tones only if beep feedback is enabled
     if mode in ("beep", "both"):
         if not is_success:
             tones.beep(250, 60)
@@ -96,7 +100,9 @@ def trigger_inspector_feedback(msg, is_success=True, is_copy=False):
         else:
             tones.beep(850, 45)
 
-    if mode in ("speech", "both"):
+    if is_copy and mode in ("speech", "both"):
+        ui.message(f"{msg} {_('(Copied)')}")
+    else:
         ui.message(msg)
 
 
@@ -193,8 +199,7 @@ def _inspect_worker(hwnd, app_name, copy_to_clip=False):
 
         if copy_to_clip:
             api.copyToClip(result_msg)
-            feedback_msg = _("{info} (Copied)").format(info=result_msg)
-            wx.CallAfter(trigger_inspector_feedback, feedback_msg, True, True)
+            wx.CallAfter(trigger_inspector_feedback, result_msg, True, True)
         else:
             wx.CallAfter(trigger_inspector_feedback, result_msg, True, False)
 

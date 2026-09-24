@@ -7,14 +7,14 @@
 <body>
     <h1>PowerBox for NVDA</h1>
     <p><strong>Author:</strong> Thomas A. Fayez<br>
-    <strong>Version:</strong> 1.6.0</p>
-    <p>PowerBox is a powerful, lightweight multi-tool add-on designed for speed, comfort, and productivity. It maps ergonomic NVDA gestures to master and per-application volume controls, simulates smart mouse clicks with automatic cursor routing, provides terminal launches in the current folder, and introduces clean <strong>Gesture Layers</strong> for quick application launching, advanced network auditing with an accessible LAN device scanner, real-time socket and security analysis, smart Windows Explorer shell reviving, and comprehensive system power management with an intelligent sleep timer.</p>
+    <strong>Version:</strong> 1.7.0</p>
+    <p>PowerBox is an enterprise-grade, high-performance productivity and administration add-on designed for speed, comfort, and deep system control. It maps ergonomic NVDA gestures to master and per-application volume controls, simulates smart mouse clicks with automatic cursor routing, provides instant terminal launches in the current folder, and introduces clean <strong>Gesture Layers</strong> for quick applications, advanced LAN network scanning, real-time socket and security analysis, file and storage management with locked-file inspection, native process freezing, and comprehensive system power management with an intelligent sleep timer.</p>
     
     <h2>✨ The Concept of "Layers"</h2>
     <p>To avoid shortcut conflicts, complex finger gymnastics, and awkward multi-key combinations, PowerBox utilizes a clean "Layered" architecture. You press a single prefix shortcut to activate a modal layer, followed by a single key to trigger the action. <em>Pressing <strong>H</strong> inside any active layer will open an accessible contextual help dialog displaying all available keys.</em></p>
     <p><strong>Smart Layer Entry &amp; Error Feedback:</strong> Entering any layer strictly respects your configured Feedback Mode:</p>
     <ul>
-        <li><strong>Both (Beep and speak):</strong> Plays the layer's distinct audio tone and announces the layer name immediately (e.g. <em>"System Layer"</em>, <em>"Terminal Layer"</em>).</li>
+        <li><strong>Both (Beep and speak):</strong> Plays the layer's distinct audio tone and announces the layer name immediately (e.g. <em>"System Layer"</em>, <em>"Files Layer"</em>, <em>"Network Layer"</em>).</li>
         <li><strong>Speech only:</strong> Announces the layer name clearly without any beeps.</li>
         <li><strong>Beep only:</strong> Plays the quick layer identification tone only.</li>
         <li><strong>None (Silent):</strong> Completely silent operation; enters the layer silently without disturbing you.</li>
@@ -87,7 +87,7 @@
         <li><strong>S:</strong> <strong>Sleep Mode:</strong> Puts the computer into low-power standby mode.</li>
         <li><strong>B:</strong> <strong>Hibernate:</strong> Saves memory state to disk and powers off.</li>
         <li><strong>L:</strong> <strong>Lock Workstation:</strong> Instantly locks the Windows desktop.</li>
-        <li><strong>P:</strong> <strong>Inspect Active Application:</strong> Instantly announces live RAM (Working Set) and CPU usage percentage of the focused application.</li>
+        <li><strong>P:</strong> <strong>Inspect Active Application:</strong> Instantly announces live physical RAM (Working Set) and CPU usage percentage of the focused application.</li>
         <li><strong>Shift + P:</strong> <strong>Copy &amp; Speak Active Application Stats:</strong> Copies active application RAM and CPU metrics directly to the clipboard and speaks them.</li>
         <li><strong>Control + P:</strong> <strong>Server Process Hub &amp; Session Manager:</strong> Launches the enterprise management console. Displays server health status, live CPU% and RAM usage grouped by application, user drill-downs, Arabic-compliant window titles, uptime, process architecture, and full session management (Disconnect, Logoff, Kill Process, Process Suspension).</li>
         <li><strong>Control + E:</strong> <strong>Smart Explorer Revive / Restart:</strong> Intelligently revives a crashed/dead Windows Explorer shell or restarts a frozen taskbar in seconds without rebooting.</li>
@@ -168,6 +168,32 @@
         <li><strong>Double-Press Confirmation:</strong> Requires pressing <code>D</code> or <code>R</code> twice within 2 seconds. If you change your mind and do not press the key again, PowerBox automatically dismisses the layer and restores normal keyboard functionality after 2 seconds.</li>
     </ol>
     <p><em>Additionally, when a shutdown timer reaches 60 seconds remaining, PowerBox plays a distinctive dual warning chime and speaks an alert, giving you time to cancel if you are still working.</em></p>
+
+    <hr>
+
+    <h2>📁 Smart Files &amp; Storage Layer</h2>
+    <p><strong>Prefix Shortcut:</strong> <code>NVDA + Win + F</code></p>
+    <p>Comprehensive file diagnostics, real-time storage pulse, checksum verification, and locked-file management. Press the prefix above, followed by:</p>
+    <ul>
+        <li><strong>S:</strong> <strong>Calculate Item Size:</strong> Context-aware size calculator:
+            <ul>
+                <li><strong>Focused File:</strong> Instantly announces physical file size.</li>
+                <li><strong>Focused Folder:</strong> Recursively calculates true folder size, file count, and subdirectory count in the background with an audible progress ticker. Pressing <code>S</code> again cancels instantly.</li>
+                <li><strong>Selected Drive or Empty Background:</strong> Instantly announces the active drive's full partition metrics (Free space, percentage free, Used space, and Total capacity).</li>
+            </ul>
+        </li>
+        <li><strong>Shift + S:</strong> <strong>Copy Item Size:</strong> Copies the formatted size metrics to the clipboard and speaks them.</li>
+        <li><strong>D:</strong> <strong>Drives Space Pulse:</strong> Announces total capacity, used space, free space, and percentage free across <strong>all</strong> local and external drives (C:, D:, E:), with low space alerts (&lt; 15%).</li>
+        <li><strong>Shift + D:</strong> <strong>Copy Drives Report:</strong> Copies the full multi-drive storage report to the clipboard and speaks it.</li>
+        <li><strong>L:</strong> <strong>File Lock Inspector (Who Locks This File?):</strong> Uses native Windows Restart Manager API (<code>rstrtmgr.dll</code>) to detect applications or services holding the selected file/folder. If locked, opens an accessible dialog to terminate locking processes.</li>
+        <li><strong>Shift + L:</strong> <strong>Copy Lock Details:</strong> Copies locking application names and PIDs directly to the clipboard.</li>
+        <li><strong>C:</strong> <strong>File Checksum &amp; Matcher:</strong> Computes the cryptographic hash (SHA-256, MD5, or SHA-1 based on settings) of the selected file. <strong>Intelligently compares against clipboard:</strong> if a candidate hash was previously copied, announces an instant <code>HASH MATCH!</code> or <code>HASH MISMATCH!</code> verification.</li>
+        <li><strong>Shift + C:</strong> <strong>Copy Checksum:</strong> Copies the computed file hash directly to the clipboard.</li>
+        <li><strong>N:</strong> <strong>Instant New File (Touch):</strong> Prompts with an accessible dialog displaying the destination folder path to instantly create an empty file (e.g. <code>notes.txt</code>, <code>script.py</code>) in 0.01 seconds without slow context menus.</li>
+        <li><strong>P:</strong> <strong>Copy Windows Path:</strong> Copies the full path of the selected item or current folder. Automatically resolves Desktop <code>.lnk</code> shortcuts to their true target executable or folder!</li>
+        <li><strong>Shift + P:</strong> <strong>Copy WSL Linux Path:</strong> Converts and copies the selected path into WSL Linux format (e.g. <code>/mnt/c/Projects/app.py</code>).</li>
+        <li><strong>H:</strong> Show Files Layer Help.</li>
+    </ul>
 
     <hr>
 
@@ -259,15 +285,11 @@
     <h2>⚙️ Settings Configuration</h2>
     <p>Configure PowerBox preferences from <strong>NVDA Menu -&gt; Preferences -&gt; Settings -&gt; PowerBox</strong>:</p>
     <ul>
-        <li><strong>Action feedback mode:</strong> Choose between <em>No feedback (Silent)</em>, <em>Beep only</em>, <em>Speak action name</em>, or <em>Beep and speak</em>. This setting globally controls:
-            <ul>
-                <li>Audio tones and spoken announcements when entering/exiting layers.</li>
-                <li>Keyboard actions, smart clicks, and application launching feedback.</li>
-                <li>Clipboard copy confirmation tones and messages.</li>
-                <li>Network scanner background pulses and completion chimes.</li>
-            </ul>
-        </li>
+        <li><strong>Action feedback mode:</strong> Choose between <em>No feedback (Silent)</em>, <em>Beep only</em>, <em>Speak action name</em>, or <em>Beep and speak</em>. Controls tones, layer entry announcements, action names, and completion chimes. <em>(Data queries like drive space, folder size, hash, and CPU metrics always speak their essential values cleanly)</em>.</li>
         <li><strong>Shutdown and restart confirmation style:</strong> Choose between <em>Confirmation dialog (Recommended)</em> or <em>Press key twice within 2 seconds</em>.</li>
+        <li><strong>Files and folders size format:</strong> Choose between <em>Smart Adaptive (Recommended)</em>, <em>Always Megabytes (MB)</em>, or <em>Always Gigabytes (GB)</em>.</li>
+        <li><strong>Drives storage space format:</strong> Choose between <em>Smart Adaptive (Recommended)</em>, <em>Always Gigabytes (GB)</em>, or <em>Always Terabytes (TB)</em>.</li>
+        <li><strong>Default file checksum algorithm:</strong> Choose your preferred default hashing digest between <em>SHA-256 (Standard &amp; Secure)</em>, <em>MD5 (Fast)</em>, or <em>SHA-1</em>.</li>
     </ul>
 
     <hr>
@@ -283,6 +305,8 @@
                 <li><strong>Audio &amp; Input:</strong> Native low-level input simulation (<code>SendInput</code>), master volume querying &amp; direct kernel muting (<code>IAudioEndpointVolume</code>), and per-application audio session mixer controls (<code>IAudioSessionManager2</code>, <code>ISimpleAudioVolume</code> via ctypes).</li>
                 <li><strong>System Power &amp; Shell:</strong> Power management (<code>user32.dll</code>: <code>LockWorkStation</code>, <code>powrprof.dll</code>: <code>SetSuspendState</code>), and intelligent Explorer shell restart and revival via process monitoring and subprocess creation.</li>
                 <li><strong>Process Inspection, Freezing &amp; Memory:</strong> Native performance counters (<code>time.perf_counter</code>), process time delta calculations (<code>GetProcessTimes</code>), working set memory metrics (<code>K32GetProcessMemoryInfo</code>), image path querying (<code>QueryFullProcessImageNameW</code>), architecture detection (<code>IsWow64Process</code>), Unicode window enumeration (<code>EnumWindows</code>, <code>GetWindowTextW</code>), and native NT kernel process freezing/resuming (<code>ntdll.dll</code>: <code>NtSuspendProcess</code>, <code>NtResumeProcess</code>).</li>
+                <li><strong>File Diagnostics &amp; Restart Manager:</strong> Microsoft Restart Manager API (<code>rstrtmgr.dll</code>: <code>RmStartSession</code>, <code>RmRegisterResources</code>, <code>RmGetList</code>, <code>RmEndSession</code>) for active file lock detection, and <code>WScript.Shell</code> COM automation for resolving shortcut (<code>.lnk</code>) targets.</li>
+                <li><strong>Storage &amp; Drives:</strong> Physical partition storage metrics via Win32 <code>GetDiskFreeSpaceExW</code> and <code>GetLogicalDriveStringsW</code>.</li>
                 <li><strong>Network Discovery &amp; Sockets:</strong> Low-level ARP discovery (<code>iphlpapi.dll</code>: <code>SendARP</code>, <code>GetBestRoute</code>, <code>GetIpNetTable</code>), extended IPv4 TCP/UDP table enumeration (<code>GetExtendedTcpTable</code>, <code>GetExtendedUdpTable</code>), and individual TCP connection dropping (<code>SetTcpEntry</code>).</li>
                 <li><strong>Enterprise Remote Desktop &amp; Sessions:</strong> Microsoft Windows Terminal Services API (<code>wtsapi32.dll</code>: <code>WTSEnumerateSessionsW</code>, <code>WTSEnumerateProcessesW</code>, <code>WTSQuerySessionInformationW</code>, <code>WTSDisconnectSession</code>, <code>WTSLogoffSession</code>) and Security Account Manager API (<code>advapi32.dll</code>: <code>LookupAccountSidW</code>) for multi-session process aggregation and client IP resolution.</li>
             </ul>

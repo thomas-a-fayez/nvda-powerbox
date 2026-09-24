@@ -1,16 +1,16 @@
 # PowerBox for NVDA
 
 **Author:** Thomas A. Fayez  
-**Version:** 1.6.0  
+**Version:** 1.7.0  
 
-PowerBox is a powerful, lightweight multi-tool add-on designed for speed, comfort, and productivity. It maps ergonomic NVDA gestures to master and per-application volume controls, simulates smart mouse clicks with automatic cursor routing, provides terminal launches in the current folder, and introduces clean **Gesture Layers** for quick application launching, advanced network auditing with an accessible LAN device scanner, real-time socket and security analysis, smart Windows Explorer shell reviving, and comprehensive system power management with an intelligent sleep timer.
+PowerBox is an enterprise-grade, high-performance productivity and administration add-on designed for speed, comfort, and deep system control. It maps ergonomic NVDA gestures to master and per-application volume controls, simulates smart mouse clicks with automatic cursor routing, provides instant terminal launches in the current folder, and introduces clean **Gesture Layers** for quick applications, advanced LAN network scanning, real-time socket and security analysis, file and storage management with locked-file inspection, native process freezing, and comprehensive system power management with an intelligent sleep timer.
 
 ## ✨ The Concept of "Layers"
 To avoid shortcut conflicts, complex finger gymnastics, and awkward multi-key combinations, PowerBox utilizes a clean "Layered" architecture. You press a single prefix shortcut to activate a modal layer, followed by a single key to trigger the action. 
 *Pressing `H` inside any active layer will open an accessible contextual help dialog displaying all available keys.*
 
 **Smart Layer Entry & Error Feedback:** Entering any layer strictly respects your configured Feedback Mode:
-* **Both (Beep and speak):** Plays the layer's distinct audio tone and announces the layer name immediately (e.g. *"System Layer"*, *"Terminal Layer"*).
+* **Both (Beep and speak):** Plays the layer's distinct audio tone and announces the layer name immediately (e.g. *"System Layer"*, *"Files Layer"*, *"Network Layer"*).
 * **Speech only:** Announces the layer name clearly without any beeps.
 * **Beep only:** Plays the quick layer identification tone only.
 * **None (Silent):** Completely silent operation; enters the layer silently without disturbing you.
@@ -38,7 +38,7 @@ Adjust the volume of the currently focused program (such as Firefox, Zoom, Spoti
 ### 🖱️ Smart Mouse Simulation & Context Menus
 **The Problem:** Have you ever encountered an inaccessible or custom button (such as in installer wizards like Foxit Reader or custom web applications) that NVDA reads via Object Navigation, but pressing `Enter` or `Space` does absolutely nothing?
 
-**The Solution:** PowerBox's Smart Click solves this instantly. It dynamically calculates the exact geometric center of the focused NVDA navigator object, routes the physical Windows mouse cursor directly to that position, and executes a native hardware click.
+**The Solution:** PowerBox's Smart Click dynamically calculates the exact geometric center of the focused NVDA navigator object, routes the physical Windows mouse cursor directly to that coordinate, and executes a native hardware click.
 
 **How to use it:**
 1. Navigate to the stubborn control using NVDA Object Navigation (e.g. `NVDA + Numpad 4 / 6` on Desktop, or `NVDA + Shift + Left / Right Arrows` on Laptop).
@@ -71,7 +71,7 @@ Provides centralized, accessible, accidental-proof power controls, real-time pro
 * **S:** **Sleep Mode:** Puts the computer into low-power standby mode.
 * **B:** **Hibernate:** Saves memory state to disk and powers off.
 * **L:** **Lock Workstation:** Instantly locks the Windows desktop.
-* **P:** **Inspect Active Application:** Instantly announces live RAM (Working Set) and CPU usage percentage of the focused application.
+* **P:** **Inspect Active Application:** Instantly announces live physical RAM (Working Set) and CPU usage percentage of the focused application.
 * **Shift + P:** **Copy & Speak Active Application Stats:** Copies active application RAM and CPU metrics directly to the clipboard and speaks them.
 * **Control + P:** **Server Process Hub & Session Manager:** Launches the enterprise management console. Displays server health status, live CPU% and RAM usage grouped by application, user drill-downs, Arabic-compliant window titles, uptime, process architecture, and full session management (Disconnect, Logoff, Kill Process, Process Suspension).
 * **Control + E:** **Smart Explorer Revive / Restart:** Intelligently revives a crashed/dead Windows Explorer shell or restarts a frozen taskbar in seconds without rebooting.
@@ -133,6 +133,28 @@ To prevent data loss, PowerBox supports two configurable confirmation styles in 
 2. **Double-Press Confirmation:** Requires pressing `D` or `R` twice within 2 seconds. If you change your mind and do not press the key again, PowerBox automatically dismisses the layer and restores normal keyboard functionality after 2 seconds.
 
 *Additionally, when a shutdown timer reaches 60 seconds remaining, PowerBox plays a distinctive dual warning chime and speaks an alert, giving you time to cancel if you are still working.*
+
+---
+
+## 📁 Smart Files & Storage Layer
+**Prefix Shortcut:** `NVDA + Win + F`
+
+Comprehensive file diagnostics, real-time storage pulse, checksum verification, and locked-file management. Press the prefix above, followed by:
+* **S:** **Calculate Item Size:** Context-aware size calculator:
+  * **Focused File:** Instantly announces physical file size.
+  * **Focused Folder:** Recursively calculates true folder size, file count, and subdirectory count in the background with an audible progress ticker. Pressing `S` again cancels instantly.
+  * **Selected Drive or Empty Background:** Instantly announces the active drive's full partition metrics (Free space, percentage free, Used space, and Total capacity).
+* **Shift + S:** **Copy Item Size:** Copies the formatted size metrics to the clipboard and speaks them.
+* **D:** **Drives Space Pulse:** Announces total capacity, used space, free space, and percentage free across **all** local and external drives (C:, D:, E:), with low space alerts (< 15%).
+* **Shift + D:** **Copy Drives Report:** Copies the full multi-drive storage report to the clipboard and speaks it.
+* **L:** **File Lock Inspector (Who Locks This File?):** Uses native Windows Restart Manager API (`rstrtmgr.dll`) to detect applications or services holding the selected file/folder. If locked, opens an accessible dialog to terminate locking processes.
+* **Shift + L:** **Copy Lock Details:** Copies locking application names and PIDs directly to the clipboard.
+* **C:** **File Checksum & Matcher:** Computes the cryptographic hash (SHA-256, MD5, or SHA-1 based on settings) of the selected file. **Intelligently compares against clipboard:** if a candidate hash was previously copied, announces an instant `HASH MATCH!` or `HASH MISMATCH!` verification.
+* **Shift + C:** **Copy Checksum:** Copies the computed file hash directly to the clipboard.
+* **N:** **Instant New File (Touch):** Prompts with an accessible dialog displaying the destination folder path to instantly create an empty file (e.g. `notes.txt`, `script.py`) in 0.01 seconds without slow context menus.
+* **P:** **Copy Windows Path:** Copies the full path of the selected item or current folder. Automatically resolves Desktop `.lnk` shortcuts to their true target executable or folder!
+* **Shift + P:** **Copy WSL Linux Path:** Converts and copies the selected path into WSL Linux format (e.g. `/mnt/c/Projects/app.py`).
+* **H:** Show Files Layer Help.
 
 ---
 
@@ -213,12 +235,11 @@ All terminals open targeted directly at the <strong>current File Explorer direct
 
 ## ⚙️ Settings Configuration
 Configure PowerBox preferences from **NVDA Menu -> Preferences -> Settings -> PowerBox**:
-* **Action feedback mode:** Choose between *No feedback (Silent)*, *Beep only*, *Speak action name*, or *Beep and speak*. This setting globally controls:
-  * Audio tones and spoken announcements when entering/exiting layers.
-  * Keyboard actions, smart clicks, and application launching feedback.
-  * Clipboard copy confirmation tones and messages.
-  * Network scanner background pulses and completion chimes.
+* **Action feedback mode:** Choose between *No feedback (Silent)*, *Beep only*, *Speak action name*, or *Beep and speak*. Controls tones, layer entry announcements, action names, and completion chimes. *(Data queries like drive space, folder size, hash, and CPU metrics always speak their essential values cleanly)*.
 * **Shutdown and restart confirmation style:** Choose between *Confirmation dialog (Recommended)* or *Press key twice within 2 seconds*.
+* **Files and folders size format:** Choose between *Smart Adaptive (Recommended)*, *Always Megabytes (MB)*, or *Always Gigabytes (GB)*.
+* **Drives storage space format:** Choose between *Smart Adaptive (Recommended)*, *Always Gigabytes (GB)*, or *Always Terabytes (TB)*.
+* **Default file checksum algorithm:** Choose your preferred default hashing digest between *SHA-256 (Standard & Secure)*, *MD5 (Fast)*, or *SHA-1*.
 
 ---
 
@@ -231,6 +252,8 @@ Configure PowerBox preferences from **NVDA Menu -> Preferences -> Settings -> Po
   * **Audio & Input:** Native low-level input simulation (`SendInput`), master volume querying & direct kernel muting (`IAudioEndpointVolume`), and per-application audio session mixer controls (`IAudioSessionManager2`, `ISimpleAudioVolume` via ctypes).
   * **System Power & Shell:** Power management (`user32.dll`: `LockWorkStation`, `powrprof.dll`: `SetSuspendState`), and intelligent Explorer shell restart and revival via process monitoring and subprocess creation.
   * **Process Inspection, Freezing & Memory:** Native performance counters (`time.perf_counter`), process time delta calculations (`GetProcessTimes`), working set memory metrics (`K32GetProcessMemoryInfo`), image path querying (`QueryFullProcessImageNameW`), architecture detection (`IsWow64Process`), Unicode window enumeration (`EnumWindows`, `GetWindowTextW`), and native NT kernel process freezing/resuming (`ntdll.dll`: `NtSuspendProcess`, `NtResumeProcess`).
+  * **File Diagnostics & Restart Manager:** Microsoft Restart Manager API (`rstrtmgr.dll`: `RmStartSession`, `RmRegisterResources`, `RmGetList`, `RmEndSession`) for active file lock detection, and `WScript.Shell` COM automation for resolving shortcut (`.lnk`) targets.
+  * **Storage & Drives:** Physical partition storage metrics via Win32 `GetDiskFreeSpaceExW` and `GetLogicalDriveStringsW`.
   * **Network Discovery & Sockets:** Low-level ARP discovery (`iphlpapi.dll`: `SendARP`, `GetBestRoute`, `GetIpNetTable`), extended IPv4 TCP/UDP table enumeration (`GetExtendedTcpTable`, `GetExtendedUdpTable`), and individual TCP connection dropping (`SetTcpEntry`).
   * **Enterprise Remote Desktop & Sessions:** Microsoft Windows Terminal Services API (`wtsapi32.dll`: `WTSEnumerateSessionsW`, `WTSEnumerateProcessesW`, `WTSQuerySessionInformationW`, `WTSDisconnectSession`, `WTSLogoffSession`) and Security Account Manager API (`advapi32.dll`: `LookupAccountSidW`) for multi-session process aggregation and client IP resolution.
 * **IEEE Standards Association:** For the IEEE 802 Locally Administered Address (LAA) specifications used in mathematical detection of randomized mobile MAC addresses.

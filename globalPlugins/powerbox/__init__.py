@@ -22,6 +22,7 @@ from . import audio_manager
 from . import process_inspector
 from . import server_process_hub
 from . import process_network_tracker
+from . import file_manager
 from .settings_gui import PowerBoxSettingsPanel
 from . import help_manager
 
@@ -32,6 +33,9 @@ addonHandler.initTranslation()
 confspec = {
     "feedbackMode": "string(default='beep')",
     "powerConfirmStyle": "string(default='dialog')",
+    "fileSizeUnit": "string(default='auto')",
+    "driveSizeUnit": "string(default='auto')",
+    "hashAlgorithm": "string(default='sha256')",
 }
 config.conf.spec["powerBox"] = confspec
 
@@ -67,6 +71,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
         "kb:NVDA+windows+t": "terminalLayer",
         "kb:NVDA+windows+n": "networkLayer",
         "kb:NVDA+windows+s": "systemLayer",
+        "kb:NVDA+windows+f": "filesLayer",
 
         # Smart Mouse mappings
         "kb:NVDA+windows+c": "smartLeftClick",
@@ -471,6 +476,74 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
         else:
             network_info.speak_public_ip()
 
+    # --- Files & Storage Layer Scripts ---
+    @scriptHandler.script(description=_("Files Layer: Press s, shift+s, d, shift+d, l, shift+l, c, shift+c, n, p, shift+p, or h next"))
+    def script_filesLayer(self, gesture):
+        if self.activeLayer:
+            self.script_error(gesture)
+            return
+
+        self.bindGestures({
+            "kb:s": "layerItemSize",
+            "kb:shift+s": "layerCopyItemSize",
+            "kb:d": "layerDrivesPulse",
+            "kb:shift+d": "layerCopyDrivesPulse",
+            "kb:l": "layerFileLock",
+            "kb:shift+l": "layerCopyFileLock",
+            "kb:c": "layerFileChecksum",
+            "kb:shift+c": "layerCopyFileChecksum",
+            "kb:n": "layerCreateNewFile",
+            "kb:p": "layerCopyPathWindows",
+            "kb:shift+p": "layerCopyPathWSL",
+            "kb:h": "layerHelp",
+        })
+        self.activeLayer = "files"
+        self.trigger_layer_entry_feedback(_("Files Layer"), 520, 50)
+
+    @scriptHandler.script(description=_("Speaks size of focused file, folder, or drive"))
+    def script_layerItemSize(self, gesture):
+        file_manager.calculate_size(copy_to_clip=False)
+
+    @scriptHandler.script(description=_("Copies and speaks size of focused file, folder, or drive"))
+    def script_layerCopyItemSize(self, gesture):
+        file_manager.calculate_size(copy_to_clip=True)
+
+    @scriptHandler.script(description=_("Announces free space across all system drives"))
+    def script_layerDrivesPulse(self, gesture):
+        file_manager.check_drives_pulse(copy_to_clip=False)
+
+    @scriptHandler.script(description=_("Copies and speaks free space across all system drives"))
+    def script_layerCopyDrivesPulse(self, gesture):
+        file_manager.check_drives_pulse(copy_to_clip=True)
+
+    @scriptHandler.script(description=_("Inspects applications locking the focused file or folder"))
+    def script_layerFileLock(self, gesture):
+        file_manager.inspect_file_lock(copy_to_clip=False)
+
+    @scriptHandler.script(description=_("Copies locking application details to clipboard"))
+    def script_layerCopyFileLock(self, gesture):
+        file_manager.inspect_file_lock(copy_to_clip=True)
+
+    @scriptHandler.script(description=_("Computes file checksum and matches against clipboard"))
+    def script_layerFileChecksum(self, gesture):
+        file_manager.calculate_file_checksum(copy_to_clip=False)
+
+    @scriptHandler.script(description=_("Copies file checksum directly to clipboard"))
+    def script_layerCopyFileChecksum(self, gesture):
+        file_manager.calculate_file_checksum(copy_to_clip=True)
+
+    @scriptHandler.script(description=_("Instantly creates a new file in current directory"))
+    def script_layerCreateNewFile(self, gesture):
+        file_manager.create_new_file()
+
+    @scriptHandler.script(description=_("Copies Windows path of focused item or current folder"))
+    def script_layerCopyPathWindows(self, gesture):
+        file_manager.copy_path(wsl=False)
+
+    @scriptHandler.script(description=_("Copies WSL Linux path of focused item or current folder"))
+    def script_layerCopyPathWSL(self, gesture):
+        file_manager.copy_path(wsl=True)
+
     # --- Global Help Script ---
     @scriptHandler.script(description=_("Shows PowerBox Global Help"))
     def script_globalHelp(self, gesture):
@@ -530,6 +603,22 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
                 "shift+p": _("Copy and speak active application CPU and RAM usage"),
                 "control+p": _("Open Server Process Hub (Enterprise Manager)"),
                 "control+e": _("Restart or start Windows Explorer"),
+                "h": _("Show this help message"),
+            }
+        elif layer == "files":
+            layer_title = _("Files Layer")
+            keys_dict = {
+                "s": _("Calculate size of focused file, folder, or drive"),
+                "shift+s": _("Copy size of focused file, folder, or drive"),
+                "d": _("Check free space across all drives"),
+                "shift+d": _("Copy drives free space report"),
+                "l": _("Inspect and unlock file locking processes"),
+                "shift+l": _("Copy locking process details"),
+                "c": _("Compute checksum and match with clipboard"),
+                "shift+c": _("Copy file checksum to clipboard"),
+                "n": _("Create new file in current folder"),
+                "p": _("Copy Windows path"),
+                "shift+p": _("Copy WSL Linux path"),
                 "h": _("Show this help message"),
             }
         else:

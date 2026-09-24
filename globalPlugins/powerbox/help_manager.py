@@ -122,6 +122,7 @@ def show_global_help(plugin_obj):
         f"{_('Quick Apps Layer')}: {get_current_gesture(plugin_obj, 'appLayer', 'NVDA+Windows+Q')}",
         f"{_('Network Layer')}: {get_current_gesture(plugin_obj, 'networkLayer', 'NVDA+Windows+N')}",
         f"{_('System Layer')}: {get_current_gesture(plugin_obj, 'systemLayer', 'NVDA+Windows+S')}",
+        f"{_('Files Layer')}: {get_current_gesture(plugin_obj, 'filesLayer', 'NVDA+Windows+F')}",
         f"{_('Global Help')}: {get_current_gesture(plugin_obj, 'globalHelp', 'NVDA+Windows+H')}\n",
 
         _("--- System Audio (Master) ---"),

@@ -176,17 +176,21 @@ CloseHandle.argtypes = [wintypes.HANDLE]
 CloseHandle.restype = wintypes.BOOL
 
 
-def _trigger_hub_feedback(msg, is_success=True):
-    """Provides user feedback respecting user's configured feedbackMode."""
+def _trigger_hub_feedback(msg, is_success=True, is_copy=False):
+    """Provides user feedback strictly respecting configured feedbackMode."""
     mode = config.conf.get("powerBox", {}).get("feedbackMode", "beep")
 
     if mode in ("beep", "both"):
-        if is_success:
-            tones.beep(850, 40)
-        else:
+        if not is_success:
             tones.beep(250, 60)
+        elif is_copy:
+            tones.beep(950, 40)
+        else:
+            tones.beep(850, 40)
 
-    if mode in ("speech", "both"):
+    if is_copy and mode in ("speech", "both"):
+        ui.message(f"{msg} {_('(Copied)')}")
+    else:
         ui.message(msg)
 
 
@@ -764,13 +768,18 @@ class ServerNetworkHubDialog(wx.Dialog):
         return None
 
     def on_copy_ip(self, event):
-        """Copies remote IP or socket endpoint to clipboard."""
+        """Copies remote IP or socket endpoint to clipboard respecting feedbackMode."""
         conn = self.get_selected_connection()
         if not conn:
             return
         target = conn["remote_ip"] if conn["remote_ip"] != "*" else conn["local_endpoint"]
         api.copyToClip(target)
-        _trigger_hub_feedback(_("Address {addr} copied to clipboard").format(addr=target), is_success=True)
+
+        mode = config.conf.get("powerBox", {}).get("feedbackMode", "beep")
+        if mode in ("beep", "both"):
+            tones.beep(800, 35)
+        if mode in ("speech", "both"):
+            ui.message(_("Address {addr} copied to clipboard").format(addr=target))
 
     def on_test_port_action(self, event=None, force_copy=False):
         """
