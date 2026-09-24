@@ -1,9 +1,9 @@
 # PowerBox for NVDA
 
 **Author:** Thomas A. Fayez  
-**Version:** 1.5.1  
+**Version:** 1.6.0  
 
-PowerBox is a powerful, lightweight multi-tool add-on designed for speed, comfort, and productivity. It maps ergonomic NVDA gestures to master and per-application volume controls, simulates smart mouse clicks with automatic cursor routing, provides terminal launches in the current folder, and introduces clean **Gesture Layers** for quick application launching, advanced network auditing with an accessible LAN device scanner, and comprehensive system power management with an intelligent sleep/shutdown timer.
+PowerBox is a powerful, lightweight multi-tool add-on designed for speed, comfort, and productivity. It maps ergonomic NVDA gestures to master and per-application volume controls, simulates smart mouse clicks with automatic cursor routing, provides terminal launches in the current folder, and introduces clean **Gesture Layers** for quick application launching, advanced network auditing with an accessible LAN device scanner, real-time socket and security analysis, smart Windows Explorer shell reviving, and comprehensive system power management with an intelligent sleep timer.
 
 ## ✨ The Concept of "Layers"
 To avoid shortcut conflicts, complex finger gymnastics, and awkward multi-key combinations, PowerBox utilizes a clean "Layered" architecture. You press a single prefix shortcut to activate a modal layer, followed by a single key to trigger the action. 
@@ -62,7 +62,7 @@ Adjust the volume of the currently focused program (such as Firefox, Zoom, Spoti
 ## ⚡ Smart System & Power Layer
 **Prefix Shortcut:** `NVDA + Win + S`
 
-Provides centralized, accessible, accidental-proof power controls, real-time process resource inspection, and full Windows Server session administration. Press the prefix above, followed by:
+Provides centralized, accessible, accidental-proof power controls, real-time process resource inspection, shell reviving, and full Windows Server session administration. Press the prefix above, followed by:
 * **T:** **Set Shutdown Timer:** Opens an accessible configuration dialog to schedule automatic computer shutdown. Choose from quick presets (15m, 30m, 45m, 60m) or enter a custom duration in minutes.
 * **Shift + T:** **Query Timer Status:** Speaks the exact time remaining (minutes and seconds) before scheduled shutdown.
 * **C:** **Cancel Timer:** Cancels any active shutdown timer immediately.
@@ -73,13 +73,14 @@ Provides centralized, accessible, accidental-proof power controls, real-time pro
 * **L:** **Lock Workstation:** Instantly locks the Windows desktop.
 * **P:** **Inspect Active Application:** Instantly announces live RAM (Working Set) and CPU usage percentage of the focused application.
 * **Shift + P:** **Copy & Speak Active Application Stats:** Copies active application RAM and CPU metrics directly to the clipboard and speaks them.
-* **Control + P:** **Server Process Hub & Session Manager:** Launches the enterprise management console. Displays server health status, live CPU% and RAM usage grouped by application, user drill-downs, Arabic-compliant window titles, uptime, process architecture, and full session management (Disconnect, Logoff, Kill Process).
+* **Control + P:** **Server Process Hub & Session Manager:** Launches the enterprise management console. Displays server health status, live CPU% and RAM usage grouped by application, user drill-downs, Arabic-compliant window titles, uptime, process architecture, and full session management (Disconnect, Logoff, Kill Process, Process Suspension).
+* **Control + E:** **Smart Explorer Revive / Restart:** Intelligently revives a crashed/dead Windows Explorer shell or restarts a frozen taskbar in seconds without rebooting.
 * **H:** Show System Layer Help.
 
 ### 🖥️ Server Process Hub & Enterprise Session Manager
 Pressing **NVDA + Win + S** followed by **Control + P** launches an accessible, high-performance administrative console built with native Windows Terminal Services APIs (`wtsapi32.dll`). It dynamically monitors user applications, multi-session resource footprints, and active Remote Desktop sessions across Windows 10/11 workstations and Windows Server (RDSH / RemoteApp) environments.
 
-#### Console Navigation & Features:
+#### Console Navigation & Dialog Features:
 * **Real-time Server Pulse:** Displays overall server health (Active vs. Disconnected sessions, total application count, and aggregate RAM).
 * **Live Instant Filter (`Alt + F`):** Instantly filter applications as you type without losing keyboard focus. Press **Down Arrow** to jump straight into the filtered results.
 * **Enter / Alt + V:** **View Users Drill-Down:** Inspect which specific users and Remote Desktop sessions are running the selected application, along with per-user RAM and session states.
@@ -89,8 +90,32 @@ Pressing **NVDA + Win + S** followed by **Control + P** launches an accessible, 
 * **Alt + E:** **Terminate Application / Process:** Safely terminates the application across all users or for the selected user only, with safe confirmation prompts.
 * **Alt + L / Alt + D:** **Logoff or Disconnect Sessions:** Instantly disconnect or log off stale/disconnected sessions directly from the console.
 * **Copy Report (`Alt + R`):** Copies a clean diagnostic summary to the clipboard.
-* **F5 / Alt + F:** Asynchronously refresh all server metrics.
+* **F5:** Asynchronously refresh all server metrics.
 * **Escape / Alt + C:** Close the console.
+
+#### 🎛️ Context Menu Actions (`Shift + F10` or `Applications Key`):
+Press `Shift + F10` on any application or user row to access advanced administrative actions:
+* **Suspend Application / Process (Freeze):** Uses native Windows NT Kernel APIs (`ntdll.dll: NtSuspendProcess`) to freeze all execution threads of the application instantly, dropping its CPU consumption to 0% and saving battery/heat without closing the program or losing unsaved work.
+* **Resume Application / Process:** Resumes suspended execution threads immediately (`NtResumeProcess`), allowing the program to continue running seamlessly.
+* **Track Network Connections...:** Launches the dedicated enterprise **Server Network Hub** (`server_network_hub.py`) for the selected application or user, providing multi-user socket attribution and live filtering.
+* **End Application / Process:** Terminate rogue tasks with safety verification.
+* **Copy Details / Summary:** Quickly export selected row metadata to the clipboard.
+
+#### 🌐 Enterprise Server Network Hub (`server_network_hub.py`):
+When launched from the Server Process Hub context menu (`Shift + F10` -> `Track Network Connections...`), a specialized multi-user network console opens:
+* **Live User Filter Dropdown (`Alt + U`):** In multi-user server environments, administrators can view all network sockets across the entire server (`All Users`), or switch the dropdown to any specific domain user (e.g. `AD\thomas`) to isolate and audit that employee's network activity in real time.
+* **User & Session Attribution Column:** Every socket connection displays the exact domain account and session ID owning the stream (e.g. `AD\thomas (S:38)`). On standalone single-user workstations, this column and the filter dropdown hide automatically for clean simplicity.
+* **Three Dedicated Traffic Tabs:**
+  * **🌐 Internet Connections Tab:** Shows real external cloud and web servers.
+  * **🏠 Local Network (LAN) Tab:** Tracks traffic to local routers, printers, and internal domain servers (`192.168.x.x`, `10.x.x.x`).
+  * **💻 Localhost / Listeners Tab:** Inspects internal IPC sockets (`127.0.0.1`) and local listening developer ports (`0.0.0.0:8000`, `3000`).
+* **Interactive Enterprise Controls:**
+  * **Alt + T:** **Port & Latency Benchmark:** Pressing `Alt + T` (or `Space` / `Enter`) speaks the connection state and ping latency in milliseconds. **Holding Shift while pressing (e.g. `Shift + Space` or `Shift + Enter`) copies the benchmark result to the clipboard and speaks it in one clean action.**
+  * **Alt + D:** **Sever Connection (`SetTcpEntry`):** Instantly terminates an individual rogue TCP socket without closing the application or affecting other users.
+  * **Alt + I:** Clear inactive/closed sockets history.
+  * **Alt + V:** Check IP security reputation on VirusTotal.
+  * **Alt + O:** Open remote server address in default browser.
+  * **Alt + E:** Emergency kill switch across all application PIDs.
 
 #### 💡 Design Philosophy: Smart Noise Filtering & Enterprise Scope
 Unlike the standard Windows Task Manager—which overwhelms screen reader users with over 150 non-interactive operating system daemons, driver containers, and background services (such as `svchost.exe` and driver hooks)—PowerBox intentionally adopts a **Noise-Free, Application-Centric Philosophy**:
@@ -114,8 +139,9 @@ To prevent data loss, PowerBox supports two configurable confirmation styles in 
 ## 🌐 Smart Network Layer
 **Prefix Shortcut:** `NVDA + Win + N`
 
-Unified network diagnostics and auditing tools. Press the prefix above, followed by:
+Unified network diagnostics, auditing, and live socket tracking tools. Press the prefix above, followed by:
 * **S:** **Scan Local Network:** Launches the high-speed (2-3 seconds) non-blocking LAN scanner. Plays an audible pulse during scanning. Pressing `NVDA + Win + N` then `S` again while scanning cancels immediately.
+* **C:** **Track Active App Network Connections:** Opens the real-time, 3-tier process socket and security tracker for the currently focused application.
 * **L:** Speak Local IP
 * **Shift + L:** Copy and speak Local IP
 * **P:** Speak Public IP
@@ -123,6 +149,24 @@ Unified network diagnostics and auditing tools. Press the prefix above, followed
 * **G:** Speak Default Gateway (Router IP)
 * **Shift + G:** Copy and speak Default Gateway (Router IP)
 * **H:** Show Network Layer Help
+
+### 🌐 Real-Time Process Network Tracker Console (`process_network_tracker.py`)
+Pressing **NVDA + Win + N** followed by **C** launches a high-speed, live socket and security analyzer for the active application. Built on native IP Helper APIs (`GetExtendedTcpTable`, `GetExtendedUdpTable`), it segregates traffic into three dedicated, non-disruptive tabs without focus-stealing:
+* **🌐 Internet Connections Tab:** Shows real external web/cloud servers (Google, WhatsApp, CDNs, Fastly).
+* **🏠 Local Network (LAN) Tab:** Tracks connections to routers, local printers, or domain servers (`192.168.x.x`, `10.x.x.x`).
+* **💻 Localhost / Listeners Tab:** Inspects internal IPC sockets (`127.0.0.1`) and local listening dev ports (`0.0.0.0:8000`, `3000`) cleanly isolated from internet traffic.
+
+#### Features & Superpowers:
+* **Non-Disruptive Live Refresh:** Updates in-place every 2.5 seconds without resetting focus, clearing the list, or cutting off NVDA speech.
+* **Retain Closed Connections (`Closed`):** Fleeting connections remain visible in the history so you never miss momentary background pings. Press **Alt + I** (`Clear Inactive`) to wipe history and start fresh.
+* **Alt + T:** **Ultra-Fast Port & Latency Probe (0.2s):** Tests connection latency in milliseconds directly without opening any modal popups. 
+  * **Pressing normally (`Space`, `Enter`, or `Alt + T`):** Speaks the connection state and ping latency.
+  * **Holding Shift while pressing (`Shift + Space`, `Shift + Enter`):** Copies the benchmark result to clipboard and speaks it in one clean action.
+* **Alt + D:** **Drop / Sever Connection:** Terminates a single active TCP socket instantly using native `SetTcpEntry(MIB_TCP_STATE_DELETE_TCB)` without closing the application.
+* **Alt + V:** **Check Threat on VirusTotal:** Opens real-time security reputation reports for public remote IPs.
+* **Alt + O:** **Open in Browser:** Opens web server addresses directly in default web browser.
+* **Alt + E:** **Emergency End App:** Emergency kill switch terminating the application across all its PIDs if rogue or malicious behavior is detected.
+* **Context Menu (`Shift + F10`):** Offers direct, accessible actions including separate items for `Test Port & Measure Latency` and `Test Port and Copy Result`.
 
 ### Network Scanner Dialog Features
 When the scan completes, an accessible, centered dialog presents all discovered hosts:
@@ -185,8 +229,9 @@ Configure PowerBox preferences from **NVDA Menu -> Preferences -> Settings -> Po
 * **NV Access Standards:** For modal dialog lifecycle management patterns (`prePopup` and `postPopup`) and SettingsPanel integration.
 * **Microsoft Windows API & Terminal Services:**
   * **Audio & Input:** Native low-level input simulation (`SendInput`), master volume querying & direct kernel muting (`IAudioEndpointVolume`), and per-application audio session mixer controls (`IAudioSessionManager2`, `ISimpleAudioVolume` via ctypes).
-  * **System Power & Networking:** Power management (`user32.dll`: `LockWorkStation`, `powrprof.dll`: `SetSuspendState`), and network discovery APIs (`iphlpapi.dll`: `SendARP`, `GetBestRoute`, `GetIpNetTable`).
-  * **Process Inspection & Memory:** Native performance counters (`time.perf_counter`), process time delta calculations (`GetProcessTimes`), working set memory metrics (`K32GetProcessMemoryInfo`), image path querying (`QueryFullProcessImageNameW`), architecture detection (`IsWow64Process`), and Unicode window enumeration (`EnumWindows`, `GetWindowTextW`).
+  * **System Power & Shell:** Power management (`user32.dll`: `LockWorkStation`, `powrprof.dll`: `SetSuspendState`), and intelligent Explorer shell restart and revival via process monitoring and subprocess creation.
+  * **Process Inspection, Freezing & Memory:** Native performance counters (`time.perf_counter`), process time delta calculations (`GetProcessTimes`), working set memory metrics (`K32GetProcessMemoryInfo`), image path querying (`QueryFullProcessImageNameW`), architecture detection (`IsWow64Process`), Unicode window enumeration (`EnumWindows`, `GetWindowTextW`), and native NT kernel process freezing/resuming (`ntdll.dll`: `NtSuspendProcess`, `NtResumeProcess`).
+  * **Network Discovery & Sockets:** Low-level ARP discovery (`iphlpapi.dll`: `SendARP`, `GetBestRoute`, `GetIpNetTable`), extended IPv4 TCP/UDP table enumeration (`GetExtendedTcpTable`, `GetExtendedUdpTable`), and individual TCP connection dropping (`SetTcpEntry`).
   * **Enterprise Remote Desktop & Sessions:** Microsoft Windows Terminal Services API (`wtsapi32.dll`: `WTSEnumerateSessionsW`, `WTSEnumerateProcessesW`, `WTSQuerySessionInformationW`, `WTSDisconnectSession`, `WTSLogoffSession`) and Security Account Manager API (`advapi32.dll`: `LookupAccountSidW`) for multi-session process aggregation and client IP resolution.
 * **IEEE Standards Association:** For the IEEE 802 Locally Administered Address (LAA) specifications used in mathematical detection of randomized mobile MAC addresses.
 * **Python Open Source Community:** For the UDP routable socket technique (credited to Christian Kauhaus) used for offline-safe local IP detection.

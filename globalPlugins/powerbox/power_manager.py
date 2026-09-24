@@ -25,7 +25,10 @@ addonHandler.initTranslation()
 
 # Isolated Win32 DLL instances preventing prototype clashes
 user32 = ctypes.WinDLL("user32", use_last_error=True)
+user32.FindWindowW.argtypes = [wintypes.LPCWSTR, wintypes.LPCWSTR]
+user32.FindWindowW.restype = wintypes.HWND
 powrprof = ctypes.WinDLL("powrprof", use_last_error=True)
+
 
 # Safe function prototypes
 user32.LockWorkStation.argtypes = []
@@ -280,6 +283,46 @@ def get_timer_status():
         ui.message(_("Shutdown scheduled in {m} minutes, {s} seconds").format(m=mins, s=secs))
     else:
         ui.message(_("Shutdown scheduled in {s} seconds").format(s=secs))
+
+
+# --- Windows Explorer Smart Revive / Restart Engine ---
+def _is_explorer_alive():
+    """Ultra-fast detection (0.0001s) checking if Windows Explorer shell is currently running."""
+    # Check if Taskbar (Shell_TrayWnd) or Desktop (Progman) windows exist
+    return bool(user32.FindWindowW("Shell_TrayWnd", None) or user32.FindWindowW("Progman", None))
+
+
+def _restart_explorer_worker(was_running):
+    """Background worker handling both hung restart and clean revive states."""
+    if was_running:
+        # Terminate hanging explorer instance and allow shell resources to release
+        subprocess.run(
+            ["taskkill", "/f", "/im", "explorer.exe"],
+            creationflags=subprocess.CREATE_NO_WINDOW,
+            capture_output=True
+        )
+        time.sleep(0.3)
+
+    try:
+        # Launch fresh Windows Explorer shell process
+        subprocess.Popen(["explorer.exe"])
+        
+        msg = _("Windows Explorer restarted") if was_running else _("Windows Explorer started")
+        wx.CallAfter(trigger_power_feedback, msg, 650, 45)
+    except Exception:
+        err_msg = _("Failed to start Windows Explorer")
+        wx.CallAfter(trigger_power_feedback, err_msg, 250, 60)
+
+
+def restart_explorer():
+    """Entry point intelligently determining whether to restart or revive Windows Explorer."""
+    was_running = _is_explorer_alive()
+    
+    # Context-aware announcement before dispatching to thread
+    init_msg = _("Restarting Windows Explorer...") if was_running else _("Starting Windows Explorer...")
+    trigger_power_feedback(init_msg, 500, 40)
+    
+    threading.Thread(target=_restart_explorer_worker, args=(was_running,), daemon=True).start()
 
 
 # --- Accessible Timer Configuration Dialog ---

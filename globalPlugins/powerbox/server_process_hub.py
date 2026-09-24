@@ -29,6 +29,7 @@ addonHandler.initTranslation()
 WTS_CURRENT_SERVER_HANDLE = wintypes.HANDLE(0).value
 PROCESS_QUERY_LIMITED_INFORMATION = 0x1000
 PROCESS_TERMINATE = 0x0001
+PROCESS_SUSPEND_RESUME = 0x0800
 INVALID_HANDLE_VALUE = wintypes.HANDLE(-1).value
 
 # WTS Session Information Query Classes
@@ -131,6 +132,15 @@ wtsapi32 = ctypes.windll.wtsapi32
 advapi32 = ctypes.windll.advapi32
 kernel32 = ctypes.WinDLL("kernel32", use_last_error=True)
 user32 = ctypes.windll.user32
+
+# Isolated ntdll instance for native kernel process suspension
+ntdll = ctypes.WinDLL("ntdll", use_last_error=True)
+
+ntdll.NtSuspendProcess.argtypes = [wintypes.HANDLE]
+ntdll.NtSuspendProcess.restype = wintypes.LONG
+
+ntdll.NtResumeProcess.argtypes = [wintypes.HANDLE]
+ntdll.NtResumeProcess.restype = wintypes.LONG
 
 WTSEnumerateProcesses = wtsapi32.WTSEnumerateProcessesW
 WTSEnumerateProcesses.argtypes = [
@@ -482,6 +492,30 @@ def _kill_process_pid(pid):
         return False
     try:
         return bool(TerminateProcess(h_proc, 1))
+    finally:
+        CloseHandle(h_proc)
+
+
+def _suspend_process_pid(pid):
+    """Freezes all threads of a process cleanly using native NtSuspendProcess."""
+    h_proc = OpenProcess(PROCESS_SUSPEND_RESUME, False, pid)
+    if not h_proc or h_proc == INVALID_HANDLE_VALUE:
+        return False
+    try:
+        status = ntdll.NtSuspendProcess(h_proc)
+        return status == 0
+    finally:
+        CloseHandle(h_proc)
+
+
+def _resume_process_pid(pid):
+    """Resumes all threads of a suspended process using native NtResumeProcess."""
+    h_proc = OpenProcess(PROCESS_SUSPEND_RESUME, False, pid)
+    if not h_proc or h_proc == INVALID_HANDLE_VALUE:
+        return False
+    try:
+        status = ntdll.NtResumeProcess(h_proc)
+        return status == 0
     finally:
         CloseHandle(h_proc)
 
@@ -1151,6 +1185,37 @@ class ServerProcessHubDialog(wx.Dialog):
             if gui_parent:
                 gui_parent.postPopup()
 
+    def on_track_network_connections(self):
+        """Launches the Enterprise Server Network Hub with multi-user attribution."""
+        item = self.get_selected_item_data()
+        if not item:
+            return
+
+        from . import server_network_hub
+
+        # Build mapping: PID -> "DOMAIN\\User (Session X)"
+        pid_to_user = {}
+        if self.current_view == self.VIEW_USERS:
+            app_name = f"{self.selected_app['app_name']}"
+            pids = item["pids"]
+            default_filter = f"{item['user_name']} (S:{item['session_id']})"
+            for p in item["pids"]:
+                pid_to_user[p] = default_filter
+        elif self.current_view == self.VIEW_APPS:
+            app_name = item["app_name"]
+            pids = item["all_pids"]
+            default_filter = ""
+            for u in item.get("users", []):
+                label = f"{u['user_name']} (S:{u['session_id']})"
+                for p in u.get("pids", []):
+                    pid_to_user[p] = label
+        else:
+            return
+
+        server_network_hub.show_server_network_hub_dialog(
+            app_name, pids, pid_to_user_map=pid_to_user, default_user_filter=default_filter
+        )
+
     def on_secondary_action(self, event):
         if self.current_view == self.VIEW_APPS:
             self.on_kill_all_app_instances()
@@ -1203,6 +1268,84 @@ class ServerProcessHubDialog(wx.Dialog):
 
         success_count = sum(1 for pid in total_pids if _kill_process_pid(pid))
         res_msg = _("Terminated {s} of {t} instances of {app}").format(s=success_count, t=len(total_pids), app=app_name)
+
+        def notify_and_refresh():
+            _trigger_hub_feedback(res_msg, is_success=(success_count > 0))
+            self.on_refresh()
+
+        wx.CallLater(350, notify_and_refresh)
+
+    def on_suspend_user_process(self):
+        user_data = self.get_selected_item_data()
+        if not user_data:
+            return
+
+        user_name = user_data["user_name"]
+        app_name = self.selected_app["app_name"]
+        pids = user_data["pids"]
+
+        success_count = sum(1 for pid in pids if _suspend_process_pid(pid))
+        res_msg = _("Suspended {s} of {t} instances of {app} for {user}").format(
+            s=success_count, t=len(pids), app=app_name, user=user_name
+        )
+
+        def notify_and_refresh():
+            _trigger_hub_feedback(res_msg, is_success=(success_count > 0))
+            self.on_refresh()
+
+        wx.CallLater(350, notify_and_refresh)
+
+    def on_resume_user_process(self):
+        user_data = self.get_selected_item_data()
+        if not user_data:
+            return
+
+        user_name = user_data["user_name"]
+        app_name = self.selected_app["app_name"]
+        pids = user_data["pids"]
+
+        success_count = sum(1 for pid in pids if _resume_process_pid(pid))
+        res_msg = _("Resumed {s} of {t} instances of {app} for {user}").format(
+            s=success_count, t=len(pids), app=app_name, user=user_name
+        )
+
+        def notify_and_refresh():
+            _trigger_hub_feedback(res_msg, is_success=(success_count > 0))
+            self.on_refresh()
+
+        wx.CallLater(350, notify_and_refresh)
+
+    def on_suspend_all_app_instances(self):
+        app = self.get_selected_item_data()
+        if not app:
+            return
+
+        app_name = app["app_name"]
+        total_pids = app["all_pids"]
+
+        success_count = sum(1 for pid in total_pids if _suspend_process_pid(pid))
+        res_msg = _("Suspended {s} of {t} instances of {app} across server").format(
+            s=success_count, t=len(total_pids), app=app_name
+        )
+
+        def notify_and_refresh():
+            _trigger_hub_feedback(res_msg, is_success=(success_count > 0))
+            self.on_refresh()
+
+        wx.CallLater(350, notify_and_refresh)
+
+    def on_resume_all_app_instances(self):
+        app = self.get_selected_item_data()
+        if not app:
+            return
+
+        app_name = app["app_name"]
+        total_pids = app["all_pids"]
+
+        success_count = sum(1 for pid in total_pids if _resume_process_pid(pid))
+        res_msg = _("Resumed {s} of {t} instances of {app} across server").format(
+            s=success_count, t=len(total_pids), app=app_name
+        )
 
         def notify_and_refresh():
             _trigger_hub_feedback(res_msg, is_success=(success_count > 0))
@@ -1272,6 +1415,7 @@ class ServerProcessHubDialog(wx.Dialog):
                 _trigger_hub_feedback(_("Session details copied to clipboard"), is_success=True)
 
     def on_context_menu(self, event):
+        """Rich accessible context menu with Process and Network tracking actions."""
         item = self.get_selected_item_data()
         if not item:
             return
@@ -1280,21 +1424,36 @@ class ServerProcessHubDialog(wx.Dialog):
         if self.current_view == self.VIEW_APPS:
             m_view = menu.Append(wx.ID_ANY, _("&View Users Running this App"))
             m_details = menu.Append(wx.ID_ANY, _("View &Detailed Information..."))
+            m_track_net = menu.Append(wx.ID_ANY, _("&Track Network Connections..."))
             m_copy = menu.Append(wx.ID_ANY, _("&Copy App Summary"))
+            menu.AppendSeparator()
+            m_suspend = menu.Append(wx.ID_ANY, _("&Suspend Application (Freeze)"))
+            m_resume = menu.Append(wx.ID_ANY, _("&Resume Application"))
             menu.AppendSeparator()
             m_kill_all = menu.Append(wx.ID_ANY, _("&End Application for ALL Users"))
 
             self.Bind(wx.EVT_MENU, lambda evt: self.show_users_view(item), m_view)
             self.Bind(wx.EVT_MENU, lambda evt: self.on_show_details(None), m_details)
+            self.Bind(wx.EVT_MENU, lambda evt: self.on_track_network_connections(), m_track_net)
             self.Bind(wx.EVT_MENU, self.on_copy_action, m_copy)
+            self.Bind(wx.EVT_MENU, lambda evt: self.on_suspend_all_app_instances(), m_suspend)
+            self.Bind(wx.EVT_MENU, lambda evt: self.on_resume_all_app_instances(), m_resume)
             self.Bind(wx.EVT_MENU, lambda evt: self.on_kill_all_app_instances(), m_kill_all)
         elif self.current_view == self.VIEW_USERS:
+            m_track_net_u = menu.Append(wx.ID_ANY, _("&Track Network Connections for this User..."))
+            menu.AppendSeparator()
+            m_suspend_u = menu.Append(wx.ID_ANY, _("&Suspend Process for this User"))
+            m_resume_u = menu.Append(wx.ID_ANY, _("&Resume Process for this User"))
+            menu.AppendSeparator()
             m_kill = menu.Append(wx.ID_ANY, _("&End Process for this User"))
             m_copy = menu.Append(wx.ID_ANY, _("&Copy User Details"))
             menu.AppendSeparator()
             m_disc = menu.Append(wx.ID_ANY, _("&Disconnect Session"))
             m_logoff = menu.Append(wx.ID_ANY, _("&Logoff Session"))
 
+            self.Bind(wx.EVT_MENU, lambda evt: self.on_track_network_connections(), m_track_net_u)
+            self.Bind(wx.EVT_MENU, lambda evt: self.on_suspend_user_process(), m_suspend_u)
+            self.Bind(wx.EVT_MENU, lambda evt: self.on_resume_user_process(), m_resume_u)
             self.Bind(wx.EVT_MENU, lambda evt: self.on_kill_user_process(), m_kill)
             self.Bind(wx.EVT_MENU, self.on_copy_action, m_copy)
             self.Bind(wx.EVT_MENU, lambda evt: self.on_disconnect_session(), m_disc)

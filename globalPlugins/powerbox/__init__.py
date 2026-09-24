@@ -21,6 +21,7 @@ from . import power_manager
 from . import audio_manager
 from . import process_inspector
 from . import server_process_hub
+from . import process_network_tracker
 from .settings_gui import PowerBoxSettingsPanel
 from . import help_manager
 
@@ -173,6 +174,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
             "kb:p": "layerProcessInspector",
             "kb:shift+p": "layerCopyProcessInspector",
             "kb:control+p": "layerServerProcessHub",
+            "kb:control+e": "layerRestartExplorer",
             "kb:h": "layerHelp",
         })
         self.activeLayer = "system"
@@ -237,6 +239,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
     @scriptHandler.script(description=_("Opens Server Process Hub and Session Manager"))
     def script_layerServerProcessHub(self, gesture):
         wx.CallAfter(server_process_hub.show_server_process_hub_dialog)
+
+    @scriptHandler.script(description=_("Restarts or starts Windows Explorer"))
+    def script_layerRestartExplorer(self, gesture):
+        power_manager.restart_explorer()
 
     # --- Terminal Layer Scripts ---
     @scriptHandler.script(description=_("Terminal Layer: Press p, shift+p, c, shift+c, or w next"))
@@ -406,6 +412,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
         self.bindGestures({
             "kb:s": "layerScanNetwork",
+            "kb:c": "layerTrackConnections",
             "kb:l": "layerLocalIP",
             "kb:shift+l": "layerCopyLocalIP",
             "kb:p": "layerPublicIP",
@@ -420,6 +427,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
     @scriptHandler.script(description=_("Scans local network for connected devices"))
     def script_layerScanNetwork(self, gesture):
         network_scanner.start_async_network_scan()
+
+    @scriptHandler.script(description=_("Tracks real-time network connections of the active application"))
+    def script_layerTrackConnections(self, gesture):
+        process_network_tracker.track_active_app_network()
 
     @scriptHandler.script(description=_("Speaks the Local IP"))
     def script_layerLocalIP(self, gesture):
@@ -495,6 +506,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
             layer_title = _("Network Layer")
             keys_dict = {
                 "s": _("Scan local network devices"),
+                "c": _("Track active application network connections"),
                 "l": _("Speak Local IP"),
                 "shift+l": _("Copy and speak Local IP"),
                 "p": _("Speak Public IP"),
@@ -517,6 +529,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
                 "p": _("Inspect active application CPU and RAM usage"),
                 "shift+p": _("Copy and speak active application CPU and RAM usage"),
                 "control+p": _("Open Server Process Hub (Enterprise Manager)"),
+                "control+e": _("Restart or start Windows Explorer"),
                 "h": _("Show this help message"),
             }
         else:
