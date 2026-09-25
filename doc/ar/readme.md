@@ -1,6 +1,6 @@
 # إضافة PowerBox لقارئ الشاشة NVDA
 
-[English](../../README.md) | [العربية](readme.md)
+[English](../../readme.md) | [العربية](readme.md)
 
 **المطور:** توماس أ. فايز (Thomas A. Fayez)  
 **الإصدار:** 2.0.0  
