@@ -1,0 +1,1443 @@
+# Vietnamese translation for PowerBox add-on for NVDA.
+# Copyright (C) 2026 Thomas A. Fayez & Hoàng Bolero
+# This file is distributed under the same license as the PowerBox package.
+# Hoàng Bolero <nguyenninhhoang2005@gmail.com>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PowerBox 2.0.0\n"
+"Report-Msgid-Bugs-To: thomas.a.fayez@gmail.com\n"
+"POT-Creation-Date: 2026-09-25 10:00+0300\n"
+"PO-Revision-Date: 2026-09-25 10:20+0300\n"
+"Last-Translator: Hoàng Bolero <nguyenninhhoang2005@gmail.com>\n"
+"Language-Team: Vietnamese <vi@li.org>\n"
+"Language: vi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.9\n"
+
+# --- Core & Layer Activation Names ---
+msgid "PowerBox"
+msgstr "PowerBox"
+
+msgid "Invalid key"
+msgstr "Phím không hợp lệ"
+
+msgid ""
+"Provides feedback when an unmapped key is pressed inside an active layer"
+msgstr ""
+"Cung cấp phản hồi khi nhấn phím chưa được gán trong một lớp đang hoạt động"
+
+msgid "(Copied)"
+msgstr "(Đã sao chép)"
+
+msgid "Application"
+msgstr "Ứng dụng"
+
+msgid "Current App"
+msgstr "Ứng dụng hiện tại"
+
+msgid "Unknown User"
+msgstr "Người dùng không xác định"
+
+msgid "User"
+msgstr "Người dùng"
+
+msgid "Unknown"
+msgstr "Không xác định"
+
+msgid "System Layer"
+msgstr "Lớp hệ thống"
+
+msgid "Terminal Layer"
+msgstr "Lớp dòng lệnh"
+
+msgid "Quick Apps Layer"
+msgstr "Lớp ứng dụng nhanh"
+
+msgid "Network Layer"
+msgstr "Lớp mạng"
+
+msgid "Files Layer"
+msgstr "Lớp tệp"
+
+# --- Layer Script Descriptions in Input Gestures ---
+msgid "Quick Apps Layer: Press c, m, b, e, p, or h next"
+msgstr "Lớp ứng dụng nhanh: Nhấn c, m, b, e, p hoặc h tiếp theo"
+
+msgid "Terminal Layer: Press p, shift+p, c, shift+c, w, or h next"
+msgstr "Lớp dòng lệnh: Nhấn p, shift+p, c, shift+c, w hoặc h tiếp theo"
+
+msgid ""
+"Network Layer: Press s, c, l, shift+l, p, shift+p, g, shift+g, or h next"
+msgstr ""
+"Lớp mạng: Nhấn s, c, l, shift+l, p, shift+p, g, shift+g hoặc h tiếp theo"
+
+msgid ""
+"System Layer: Press t, shift+t, c, d, r, s, b, l, p, shift+p, control+p, "
+"control+e, or h next"
+msgstr ""
+"Lớp hệ thống: Nhấn t, shift+t, c, d, r, s, b, l, p, shift+p, control+p, "
+"control+e hoặc h tiếp theo"
+
+msgid ""
+"Files Layer: Press s, shift+s, d, shift+d, l, shift+l, c, shift+c, n, p, "
+"shift+p, or h next"
+msgstr ""
+"Lớp tệp: Nhấn s, shift+s, d, shift+d, l, shift+l, c, shift+c, n, p, shift+p "
+"hoặc h tiếp theo"
+
+# --- Script Actions & Help Names ---
+msgid "Set shutdown timer"
+msgstr "Đặt hẹn giờ tắt máy"
+
+msgid "Check shutdown timer remaining time"
+msgstr "Kiểm tra thời gian còn lại của hẹn giờ tắt máy"
+
+msgid "Cancel shutdown timer"
+msgstr "Hủy hẹn giờ tắt máy"
+
+msgid "Shut down computer"
+msgstr "Tắt máy tính"
+
+msgid "Restart computer"
+msgstr "Khởi động lại máy tính"
+
+msgid "Sleep"
+msgstr "Ngủ (Sleep)"
+
+msgid "Hibernate"
+msgstr "Ngủ đông (Hibernate)"
+
+msgid "Lock workstation"
+msgstr "Khóa máy tính"
+
+msgid "Inspect active application CPU and RAM usage"
+msgstr "Kiểm tra mức sử dụng CPU và RAM của ứng dụng đang hoạt động"
+
+msgid "Copy and speak active application CPU and RAM usage"
+msgstr "Sao chép và đọc mức sử dụng CPU và RAM của ứng dụng đang hoạt động"
+
+msgid "Open Server Process Hub (Enterprise Manager)"
+msgstr "Mở Trung tâm tiến trình máy chủ (Quản lý doanh nghiệp)"
+
+msgid "Restart or start Windows Explorer"
+msgstr "Khởi động lại hoặc mở Windows Explorer"
+
+msgid "PowerShell"
+msgstr "PowerShell"
+
+msgid "PowerShell (Admin)"
+msgstr "PowerShell (Quản trị viên)"
+
+msgid "Command Prompt"
+msgstr "Command Prompt"
+
+msgid "Command Prompt (Admin)"
+msgstr "Command Prompt (Quản trị viên)"
+
+msgid "WSL"
+msgstr "WSL"
+
+msgid "Smart Left Click"
+msgstr "Nhấp chuột trái thông minh"
+
+msgid "Smart Right Click"
+msgstr "Nhấp chuột phải thông minh"
+
+msgid "Smart Double Click"
+msgstr "Nhấp đúp chuột thông minh"
+
+msgid "Applications menu (Modern Context Menu)"
+msgstr "Trình đơn ứng dụng (Trình đơn ngữ cảnh hiện đại)"
+
+msgid "Applications menu"
+msgstr "Trình đơn ứng dụng"
+
+msgid "Applications Menu"
+msgstr "Trình đơn ứng dụng"
+
+msgid "Opens the classic context menu (Shift+F10)"
+msgstr "Mở trình đơn ngữ cảnh cổ điển (Shift+F10)"
+
+msgid "Classic context menu"
+msgstr "Trình đơn ngữ cảnh cổ điển"
+
+msgid "Classic Context Menu"
+msgstr "Trình đơn ngữ cảnh cổ điển"
+
+msgid "Master Volume Mute"
+msgstr "Tắt/Bật âm lượng tổng"
+
+msgid "Master Volume Down"
+msgstr "Giảm âm lượng tổng"
+
+msgid "Master Volume Up"
+msgstr "Tăng âm lượng tổng"
+
+msgid "Mutes or unmutes the active application"
+msgstr "Tắt hoặc bật tiếng ứng dụng đang hoạt động"
+
+msgid "Decreases the volume of the active application"
+msgstr "Giảm âm lượng ứng dụng đang hoạt động"
+
+msgid "Increases the volume of the active application"
+msgstr "Tăng âm lượng ứng dụng đang hoạt động"
+
+msgid "Play/Pause"
+msgstr "Phát/Tạm dừng"
+
+msgid "Play Pause"
+msgstr "Phát tạm dừng"
+
+msgid "Next Track"
+msgstr "Bài tiếp theo"
+
+msgid "Previous Track"
+msgstr "Bài trước"
+
+msgid "Browser Back"
+msgstr "Quay lại trong trình duyệt"
+
+msgid "Browser Forward"
+msgstr "Tiến lên trong trình duyệt"
+
+msgid "Browser Refresh"
+msgstr "Làm mới trình duyệt"
+
+msgid "Launch Calculator"
+msgstr "Khởi chạy Máy tính"
+
+msgid "Calculator"
+msgstr "Máy tính"
+
+msgid "Launch Mail"
+msgstr "Khởi chạy Thư điện tử"
+
+msgid "Mail"
+msgstr "Thư điện tử"
+
+msgid "Launch Browser Home"
+msgstr "Mở Trang chủ trình duyệt"
+
+msgid "Browser Home"
+msgstr "Trang chủ trình duyệt"
+
+msgid "Launch File Explorer (This PC)"
+msgstr "Khởi chạy File Explorer (This PC)"
+
+msgid "File Explorer"
+msgstr "File Explorer"
+
+msgid "Launch Media Player"
+msgstr "Khởi chạy Trình phát đa phương tiện"
+
+msgid "Media Player"
+msgstr "Trình phát đa phương tiện"
+
+msgid "Scan local network devices"
+msgstr "Quét thiết bị mạng cục bộ"
+
+msgid "Track active application network connections"
+msgstr "Theo dõi kết nối mạng của ứng dụng đang hoạt động"
+
+msgid "Speak Local IP"
+msgstr "Đọc IP cục bộ"
+
+msgid "Copy and speak Local IP"
+msgstr "Sao chép và đọc IP cục bộ"
+
+msgid "Speak Public IP"
+msgstr "Đọc IP công cộng"
+
+msgid "Copy and speak Public IP"
+msgstr "Sao chép và đọc IP công cộng"
+
+msgid "Speak Default Gateway (Router IP)"
+msgstr "Đọc Gateway mặc định (IP Router)"
+
+msgid "Copy and speak Default Gateway"
+msgstr "Sao chép và đọc Gateway mặc định"
+
+msgid "Speaks the Local IP. Press twice quickly to copy to clipboard."
+msgstr ""
+"Đọc địa chỉ IP cục bộ. Nhấn hai lần nhanh để sao chép vào khay nhớ tạm."
+
+msgid "Speaks the Public IP. Press twice quickly to copy to clipboard."
+msgstr ""
+"Đọc địa chỉ IP công cộng. Nhấn hai lần nhanh để sao chép vào khay nhớ tạm."
+
+msgid "Shows PowerBox Global Help"
+msgstr "Hiển thị trợ giúp chung của PowerBox"
+
+msgid "Shows help for the currently active layer"
+msgstr "Hiển thị trợ giúp cho lớp đang hoạt động"
+
+msgid "Show this help message"
+msgstr "Hiển thị thông báo trợ giúp này"
+
+msgid "Calculate size of focused file, folder, or drive"
+msgstr "Tính kích thước của tệp, thư mục hoặc ổ đĩa được chọn"
+
+msgid "Copy size of focused file, folder, or drive"
+msgstr "Sao chép kích thước của tệp, thư mục hoặc ổ đĩa được chọn"
+
+msgid "Check free space across all drives"
+msgstr "Kiểm tra dung lượng trống trên tất cả các ổ đĩa"
+
+msgid "Copy drives free space report"
+msgstr "Sao chép báo cáo dung lượng trống của các ổ đĩa"
+
+msgid "Inspect and unlock file locking processes"
+msgstr "Kiểm tra và mở khóa các tiến trình đang khóa tệp"
+
+msgid "Copy locking process details"
+msgstr "Sao chép chi tiết tiến trình đang khóa"
+
+msgid "Compute checksum and match with clipboard"
+msgstr "Tính mã băm và so sánh với khay nhớ tạm"
+
+msgid "Copy file checksum to clipboard"
+msgstr "Sao chép mã băm tệp vào khay nhớ tạm"
+
+msgid "Create new file in current folder"
+msgstr "Tạo tệp mới trong thư mục hiện tại"
+
+msgid "Copy Windows path"
+msgstr "Sao chép đường dẫn Windows"
+
+msgid "Copy WSL Linux path"
+msgstr "Sao chép đường dẫn WSL Linux"
+
+msgid "PowerBox - {name} Help"
+msgstr "Trợ giúp PowerBox - {name}"
+
+msgid "{name} Help"
+msgstr "Trợ giúp {name}"
+
+msgid "Press the layer shortcut, followed by one of these keys:\n"
+msgstr "Nhấn phím tắt của lớp, sau đó nhấn một trong các phím sau:\n"
+
+# --- Audio Manager Strings ---
+msgid "Muted ({vol}%)"
+msgstr "Đã tắt tiếng ({vol}%)"
+
+msgid "Volume: {vol}%"
+msgstr "Âm lượng: {vol}%"
+
+msgid "Volume Up"
+msgstr "Tăng âm lượng"
+
+msgid "Volume Down"
+msgstr "Giảm âm lượng"
+
+msgid "Muted"
+msgstr "Đã tắt tiếng"
+
+msgid "Unmuted: {vol}%"
+msgstr "Đã bật tiếng: {vol}%"
+
+msgid "Unmuted"
+msgstr "Đã bật tiếng"
+
+msgid "{app} muted ({vol}%)"
+msgstr "{app} đã tắt tiếng ({vol}%)"
+
+msgid "{app}: {vol}%"
+msgstr "{app}: {vol}%"
+
+msgid "No audio session for {app}"
+msgstr "Không có phiên âm thanh nào cho {app}"
+
+msgid "{app} muted"
+msgstr "{app} đã tắt tiếng"
+
+msgid "{app} unmuted: {vol}%"
+msgstr "{app} đã bật tiếng: {vol}%"
+
+# --- Actions Module Strings ---
+msgid "Object has no location"
+msgstr "Đối tượng không có vị trí"
+
+msgid "Failed to route mouse to object"
+msgstr "Không thể di chuyển chuột tới đối tượng"
+
+# --- Smart Path Module Strings ---
+msgid "Unsupported terminal type"
+msgstr "Loại dòng lệnh không được hỗ trợ"
+
+msgid "Elevation was canceled or operation failed"
+msgstr "Quyền quản trị đã bị hủy hoặc thao tác thất bại"
+
+msgid "Terminal executable was not found on this system"
+msgstr "Không tìm thấy tệp thực thi dòng lệnh trên hệ thống này"
+
+msgid "{terminal} opened in {folder}"
+msgstr "{terminal} đã mở trong {folder}"
+
+msgid "Failed to open terminal"
+msgstr "Không thể mở dòng lệnh"
+
+# --- Network Info Module Strings ---
+msgid "127.0.0.1 (Offline)"
+msgstr "127.0.0.1 (Ngoại tuyến)"
+
+msgid "No internet connection"
+msgstr "Không có kết nối Internet"
+
+msgid "Error retrieving public IP"
+msgstr "Lỗi khi lấy địa chỉ IP công cộng"
+
+msgid "Local IP: {ip}"
+msgstr "IP cục bộ: {ip}"
+
+msgid "Local IP {ip} copied to clipboard"
+msgstr "Đã sao chép IP cục bộ {ip} vào khay nhớ tạm"
+
+msgid "Default Gateway: {gw}"
+msgstr "Gateway mặc định: {gw}"
+
+msgid "Default Gateway unavailable"
+msgstr "Gateway mặc định không khả dụng"
+
+msgid "Default Gateway {gw} copied to clipboard"
+msgstr "Đã sao chép Gateway mặc định {gw} vào khay nhớ tạm"
+
+msgid "Public IP: {ip}"
+msgstr "IP công cộng: {ip}"
+
+msgid "Public IP {ip} copied to clipboard"
+msgstr "Đã sao chép IP công cộng {ip} vào khay nhớ tạm"
+
+# --- Network Scanner Module Strings ---
+msgid "Randomized MAC (Phone / Mobile)"
+msgstr "MAC ngẫu nhiên (Điện thoại / Di động)"
+
+msgid "Hardware Device"
+msgstr "Thiết bị phần cứng"
+
+msgid "This PC"
+msgstr "This PC"
+
+msgid "Router / Default Gateway"
+msgstr "Router / Gateway mặc định"
+
+msgid "Mobile Device"
+msgstr "Thiết bị di động"
+
+msgid "Network Scanner - Discovered Devices ({count})"
+msgstr "Trình quét mạng - Thiết bị phát hiện ({count})"
+
+msgid ""
+"Active devices on your local network. Press Enter on any item to copy its IP:"
+msgstr ""
+"Các thiết bị đang hoạt động trên mạng cục bộ. Nhấn Enter trên bất kỳ mục nào "
+"để sao chép IP:"
+
+msgid "IP Address"
+msgstr "Địa chỉ IP"
+
+msgid "Device Name"
+msgstr "Tên thiết bị"
+
+msgid "Manufacturer"
+msgstr "Nhà sản xuất"
+
+msgid "MAC Address"
+msgstr "Địa chỉ MAC"
+
+msgid "Copy &IP"
+msgstr "Sao chép &IP"
+
+msgid "Copy &MAC"
+msgstr "Sao chép &MAC"
+
+msgid "&Open in Browser"
+msgstr "&Mở trong trình duyệt"
+
+msgid "&Rescan"
+msgstr "Quét &lại"
+
+msgid "Copy &All Details"
+msgstr "Sao chép &tất cả chi tiết"
+
+msgid "&Close"
+msgstr "Đón&g"
+
+msgid "IP {ip} copied to clipboard"
+msgstr "Đã sao chép IP {ip} vào khay nhớ tạm"
+
+msgid "MAC {mac} copied to clipboard"
+msgstr "Đã sao chép MAC {mac} vào khay nhớ tạm"
+
+msgid "Opening {url} in web browser"
+msgstr "Đang mở {url} trong trình duyệt web"
+
+msgid "No standard web port detected. Opening default address..."
+msgstr "Không phát hiện cổng web tiêu chuẩn. Đang mở địa chỉ mặc định..."
+
+msgid "Failed to open web browser"
+msgstr "Không thể mở trình duyệt web"
+
+msgid "IP"
+msgstr "IP"
+
+msgid "Name"
+msgstr "Tên"
+
+msgid "Vendor"
+msgstr "Nhà cung cấp"
+
+msgid "MAC"
+msgstr "MAC"
+
+msgid "Device details copied to clipboard"
+msgstr "Đã sao chép chi tiết thiết bị vào khay nhớ tạm"
+
+msgid "Copy IP Address"
+msgstr "Sao chép địa chỉ IP"
+
+msgid "Copy MAC Address"
+msgstr "Sao chép địa chỉ MAC"
+
+msgid "Copy All Details"
+msgstr "Sao chép tất cả chi tiết"
+
+msgid "Open in Web Browser"
+msgstr "Mở trong trình duyệt web"
+
+msgid "Not connected to a local network"
+msgstr "Không kết nối với mạng cục bộ"
+
+msgid "No active devices found on the local network"
+msgstr "Không tìm thấy thiết bị đang hoạt động trên mạng cục bộ"
+
+msgid "Scan canceled"
+msgstr "Đã hủy quét"
+
+msgid "Scanning local network, please wait..."
+msgstr "Đang quét mạng cục bộ, vui lòng đợi..."
+
+# --- Power Manager Strings ---
+msgid "Locking workstation"
+msgstr "Đang khóa máy tính"
+
+msgid "Failed to lock workstation"
+msgstr "Không thể khóa máy tính"
+
+msgid "Entering sleep mode"
+msgstr "Đang chuyển sang chế độ ngủ"
+
+msgid "Failed to enter sleep mode"
+msgstr "Không thể chuyển sang chế độ ngủ"
+
+msgid "Entering hibernation"
+msgstr "Đang chuyển sang chế độ ngủ đông"
+
+msgid "Failed to hibernate system"
+msgstr "Không thể cho hệ thống ngủ đông"
+
+msgid "Shutting down computer"
+msgstr "Đang tắt máy tính"
+
+msgid "Failed to shut down computer"
+msgstr "Không thể tắt máy tính"
+
+msgid "Restarting computer"
+msgstr "Đang khởi động lại máy tính"
+
+msgid "Failed to restart computer"
+msgstr "Không thể khởi động lại máy tính"
+
+msgid "shut down"
+msgstr "tắt máy"
+
+msgid "restart"
+msgstr "khởi động lại"
+
+msgid "Press again within 2 seconds to confirm {action}"
+msgstr "Nhấn lại trong vòng 2 giây để xác nhận {action}"
+
+msgid "Confirm Shutdown"
+msgstr "Xác nhận tắt máy"
+
+msgid "Confirm Restart"
+msgstr "Xác nhận khởi động lại"
+
+msgid "Are you sure you want to shut down your computer?"
+msgstr "Bạn có chắc chắn muốn tắt máy tính không?"
+
+msgid "Are you sure you want to restart your computer?"
+msgstr "Bạn có chắc chắn muốn khởi động lại máy tính không?"
+
+msgid "Warning: Computer will shut down in 1 minute."
+msgstr "Cảnh báo: Máy tính sẽ tắt sau 1 phút."
+
+msgid "Shutdown timer set for {mins} minutes"
+msgstr "Đã đặt hẹn giờ tắt máy trong {mins} phút"
+
+msgid "No active shutdown timer"
+msgstr "Không có hẹn giờ tắt máy nào đang hoạt động"
+
+msgid "Shutdown timer canceled"
+msgstr "Đã hủy hẹn giờ tắt máy"
+
+msgid "Shutdown scheduled in {m} minutes, {s} seconds"
+msgstr "Dự kiến tắt máy sau {m} phút, {s} giây"
+
+msgid "Shutdown scheduled in {s} seconds"
+msgstr "Dự kiến tắt máy sau {s} giây"
+
+msgid "Set Shutdown Timer"
+msgstr "Đặt hẹn giờ tắt máy"
+
+msgid "&Duration (minutes):"
+msgstr "&Thời gian (phút):"
+
+msgid "Quick Presets"
+msgstr "Cài đặt nhanh"
+
+msgid "{m}m"
+msgstr "{m}ph"
+
+msgid "&Start Timer"
+msgstr "&Bắt đầu hẹn giờ"
+
+msgid "&Cancel"
+msgstr "&Hủy"
+
+msgid "Windows Explorer restarted"
+msgstr "Đã khởi động lại Windows Explorer thành công"
+
+msgid "Windows Explorer started"
+msgstr "Đã khởi chạy Windows Explorer thành công"
+
+msgid "Failed to start Windows Explorer"
+msgstr "Không thể khởi chạy Windows Explorer"
+
+msgid "Restarting Windows Explorer..."
+msgstr "Đang khởi động lại Windows Explorer..."
+
+msgid "Starting Windows Explorer..."
+msgstr "Đang khởi chạy Windows Explorer..."
+
+# --- Process Inspector Strings ---
+msgid "Could not identify the active process"
+msgstr "Không thể xác định tiến trình đang hoạt động"
+
+msgid "Access denied for {app}"
+msgstr "Bị từ chối truy cập cho {app}"
+
+msgid "Could not read resources for {app}"
+msgstr "Không thể đọc tài nguyên của {app}"
+
+msgid "{size:.1f} GB"
+msgstr "{size:.1f} GB"
+
+msgid "{size:.0f} MB"
+msgstr "{size:.0f} MB"
+
+msgid "{app}: {ram}, CPU {cpu:.1f}%"
+msgstr "{app}: {ram}, CPU {cpu:.1f}%"
+
+msgid "Error inspecting process"
+msgstr "Lỗi khi kiểm tra tiến trình"
+
+msgid "No active window found"
+msgstr "Không tìm thấy cửa sổ đang hoạt động"
+
+msgid "Failed to start process inspector"
+msgstr "Không thể khởi chạy trình kiểm tra tiến trình"
+
+# --- Server Process Hub Strings ---
+msgid "Active"
+msgstr "Hoạt động"
+
+msgid "Connected"
+msgstr "Đã kết nối"
+
+msgid "ConnectQuery"
+msgstr "Truy vấn kết nối"
+
+msgid "Shadow"
+msgstr "Theo dõi"
+
+msgid "Disconnected"
+msgstr "Đã ngắt kết nối"
+
+msgid "Idle"
+msgstr "Nhàn rỗi"
+
+msgid "Listen"
+msgstr "Lắng nghe"
+
+msgid "Reset"
+msgstr "Đặt lại"
+
+msgid "Down"
+msgstr "Tắt"
+
+msgid "Init"
+msgstr "Khởi tạo"
+
+msgid "SYSTEM / Service"
+msgstr "SYSTEM / Dịch vụ"
+
+msgid "Console / Local"
+msgstr "Console / Cục bộ"
+
+msgid "Access Denied / Protected"
+msgstr "Bị từ chối truy cập / Tiến trình được bảo vệ"
+
+msgid "Not available"
+msgstr "Không khả dụng"
+
+msgid "64-bit"
+msgstr "64-bit"
+
+msgid "32-bit (WoW64)"
+msgstr "32-bit (WoW64)"
+
+msgid "{s} seconds"
+msgstr "{s} giây"
+
+msgid "{d}d {h}h"
+msgstr "{d}ng {h}g"
+
+msgid "{h}h {m}m"
+msgstr "{h}g {m}ph"
+
+msgid "{m} minutes"
+msgstr "{m} phút"
+
+msgid "Application Details - {app}"
+msgstr "Chi tiết ứng dụng - {app}"
+
+msgid "Copy &Details"
+msgstr "Sao chép &chi tiết"
+
+msgid "Recalculating live CPU usage, uptime, and window titles, please wait..."
+msgstr ""
+"Đang tính toán lại mức sử dụng CPU trực tiếp, thời gian hoạt động và tiêu đề "
+"cửa sổ, vui lòng đợi..."
+
+msgid "=== Application Details Report ==="
+msgstr "=== Báo cáo chi tiết ứng dụng ==="
+
+msgid "Application: {app}"
+msgstr "Ứng dụng: {app}"
+
+msgid "Binary Path: {path}"
+msgstr "Đường dẫn tệp thực thi: {path}"
+
+msgid "Architecture: {arch}"
+msgstr "Kiến trúc: {arch}"
+
+msgid "Process Uptime: {uptime}"
+msgstr "Thời gian hoạt động của tiến trình: {uptime}"
+
+msgid "Active Users Count: {cnt}"
+msgstr "Số lượng người dùng hoạt động: {cnt}"
+
+msgid "Running Processes (PIDs): {cnt}"
+msgstr "Các tiến trình đang chạy (PIDs): {cnt}"
+
+msgid "Live CPU Usage: {cpu:.1f}%"
+msgstr "Mức sử dụng CPU trực tiếp: {cpu:.1f}%"
+
+msgid "Total Working Set RAM: {ram}"
+msgstr "Tổng bộ nhớ RAM thực tế: {ram}"
+
+msgid "Peak Working Set RAM: {ram}"
+msgstr "Mức sử dụng RAM thực tế đỉnh điểm: {ram}"
+
+msgid "--- Open Windows & Tabs Titles ({count}) ---"
+msgstr "--- Tiêu đề cửa sổ & thẻ đang mở ({count}) ---"
+
+msgid "  (No interactive windows found)"
+msgstr "  (Không tìm thấy cửa sổ tương tác nào)"
+
+msgid "--- User Accounts Breakdown ---"
+msgstr "--- Phân bổ theo tài khoản người dùng ---"
+
+msgid "Process IDs (PIDs): "
+msgstr "Mã tiến trình (PIDs): "
+
+msgid "Application details copied to clipboard"
+msgstr "Đã sao chép chi tiết ứng dụng vào khay nhớ tạm"
+
+msgid "Server Process Hub - Enterprise Manager"
+msgstr "Trung tâm tiến trình máy chủ - Quản lý doanh nghiệp"
+
+msgid "Scanning server sessions and processes..."
+msgstr "Đang quét các phiên và tiến trình máy chủ..."
+
+msgid "&Filter Application:"
+msgstr "&Lọc ứng dụng:"
+
+msgid "Total RAM"
+msgstr "Tổng RAM"
+
+msgid "Total CPU"
+msgstr "Tổng CPU"
+
+msgid "Active Users"
+msgstr "Người dùng hoạt động"
+
+msgid "Top Consumer"
+msgstr "Sử dụng nhiều nhất"
+
+msgid "&View Users (Enter)"
+msgstr "&Xem người dùng (Enter)"
+
+msgid "&Details..."
+msgstr "&Chi tiết..."
+
+msgid "&All Sessions (F6)"
+msgstr "&Tất cả phiên (F6)"
+
+msgid "&View Apps (F6)"
+msgstr "&Xem ứng dụng (F6)"
+
+msgid "&End App Across Server"
+msgstr "&Kết thúc ứng dụng trên toàn máy chủ"
+
+msgid "Copy &Report"
+msgstr "Sao chép &báo cáo"
+
+msgid "Re&fresh (F5)"
+msgstr "Làm &mới (F5)"
+
+msgid "&Close (Esc)"
+msgstr "Đón&g (Esc)"
+
+msgid "Refreshing server metrics (RAM, CPU, and Sessions), please wait..."
+msgstr "Đang làm mới các số liệu máy chủ (RAM, CPU và Phiên), vui lòng đợi..."
+
+msgid ""
+"Failed to query Terminal Services. Administrator privileges recommended."
+msgstr "Không thể truy vấn Terminal Services. Khuyên dùng quyền Quản trị viên."
+
+msgid ""
+"Server Pulse: {act} Active, {disc} Disconnected Sessions | {apps} User Apps "
+"({ram})"
+msgstr ""
+"Nhịp đập máy chủ: {act} Hoạt động, {disc} Đã ngắt kết nối | {apps} Ứng dụng "
+"người dùng ({ram})"
+
+msgid "&End Process for User"
+msgstr "&Kết thúc tiến trình cho người dùng"
+
+msgid "&Back to Apps (Backspace)"
+msgstr "&Quay lại ứng dụng (Backspace)"
+
+msgid ""
+"Application: {app} | Total RAM: {ram} | CPU: {cpu:.1f}% | Active across "
+"{count} users"
+msgstr ""
+"Ứng dụng: {app} | Tổng RAM: {ram} | CPU: {cpu:.1f}% | Hoạt động trên {count} "
+"người dùng"
+
+msgid "User Account"
+msgstr "Tài khoản người dùng"
+
+msgid "Session ID"
+msgstr "ID phiên"
+
+msgid "Session State"
+msgstr "Trạng thái phiên"
+
+msgid "User RAM"
+msgstr "RAM người dùng"
+
+msgid "&Logoff Session"
+msgstr "&Đăng xuất phiên"
+
+msgid "&Disconnect Session"
+msgstr "&Ngắt kết nối phiên"
+
+msgid ""
+"All Server Sessions: {total} Sessions ({act} Active, {disc} Disconnected) | "
+"RAM: {ram}"
+msgstr ""
+"Tất cả phiên máy chủ: {total} Phiên ({act} Hoạt động, {disc} Đã ngắt kết "
+"nối) | RAM: {ram}"
+
+msgid "Client IP / Machine"
+msgstr "IP Máy khách / Tên máy"
+
+msgid "Total Session RAM"
+msgstr "Tổng RAM của phiên"
+
+msgid "Are you sure you want to end {app} for user {user} ({count} instances)?"
+msgstr ""
+"Bạn có chắc chắn muốn kết thúc {app} cho người dùng {user} ({count} phiên "
+"bản) không?"
+
+msgid "Confirm Terminate Application"
+msgstr "Xác nhận kết thúc ứng dụng"
+
+msgid "Terminated {s} of {t} instances for {user}"
+msgstr "Đã kết thúc {s} trên {t} phiên bản cho người dùng {user}"
+
+msgid ""
+"Are you sure you want to terminate ALL {count} instances of {app} across ALL "
+"users?"
+msgstr ""
+"Bạn có chắc chắn muốn kết thúc TẤT CẢ {count} phiên bản của {app} trên TẤT "
+"CẢ người dùng không?"
+
+msgid "Confirm Server-Wide Termination"
+msgstr "Xác nhận kết thúc trên toàn máy chủ"
+
+msgid "Terminated {s} of {t} instances of {app}"
+msgstr "Đã kết thúc {s} trên {t} phiên bản của {app}"
+
+msgid "Session {id} ({user}) disconnected"
+msgstr "Phiên {id} ({user}) đã bị ngắt kết nối"
+
+msgid "Failed to disconnect session"
+msgstr "Không thể ngắt kết nối phiên"
+
+msgid ""
+"Are you sure you want to log off session {id} ({user})? Any unsaved work "
+"will be lost."
+msgstr ""
+"Bạn có chắc chắn muốn đăng xuất phiên {id} ({user}) không? Mọi công việc "
+"chưa lưu sẽ bị mất."
+
+msgid "Confirm Logoff Session"
+msgstr "Xác nhận đăng xuất phiên"
+
+msgid "Session {id} ({user}) logged off"
+msgstr "Phiên {id} ({user}) đã đăng xuất thành công"
+
+msgid "Failed to log off session"
+msgstr "Không thể đăng xuất phiên"
+
+msgid "PowerBox - Server Applications Report"
+msgstr "PowerBox - Báo cáo ứng dụng máy chủ"
+
+msgid "======================================\n"
+msgstr "======================================\n"
+
+msgid "Server applications report copied to clipboard"
+msgstr "Đã sao chép báo cáo ứng dụng máy chủ vào khay nhớ tạm"
+
+msgid "User application details copied to clipboard"
+msgstr "Đã sao chép chi tiết ứng dụng của người dùng vào khay nhớ tạm"
+
+msgid "Session details copied to clipboard"
+msgstr "Đã sao chép chi tiết phiên vào khay nhớ tạm"
+
+msgid "&View Users Running this App"
+msgstr "&Xem người dùng đang chạy ứng dụng này"
+
+msgid "View &Detailed Information..."
+msgstr "Xem &thông tin chi tiết..."
+
+msgid "&Track Network Connections..."
+msgstr "&Theo dõi kết nối mạng..."
+
+msgid "&Copy App Summary"
+msgstr "Sao chép &tóm tắt ứng dụng"
+
+msgid "&Suspend Application (Freeze)"
+msgstr "&Tạm dừng ứng dụng (Đóng băng)"
+
+msgid "&Resume Application"
+msgstr "&Tiếp tục ứng dụng"
+
+msgid "&End Application for ALL Users"
+msgstr "&Kết thúc ứng dụng cho TẤT CẢ người dùng"
+
+msgid "&Track Network Connections for this User..."
+msgstr "&Theo dõi kết nối mạng cho người dùng này..."
+
+msgid "&Suspend Process for this User"
+msgstr "&Tạm dừng tiến trình cho người dùng này"
+
+msgid "&Resume Process for this User"
+msgstr "&Tiếp tục tiến trình cho người dùng này"
+
+msgid "&End Process for this User"
+msgstr "&Kết thúc tiến trình cho người dùng này"
+
+msgid "&Copy User Details"
+msgstr "Sao chép &chi tiết người dùng"
+
+msgid "&Copy Session Details"
+msgstr "Sao chép chi tiết &phiên"
+
+# --- Process Network Tracker & Server Network Hub Strings ---
+msgid "Closed"
+msgstr "Đã đóng"
+
+msgid "Listening"
+msgstr "Đang lắng nghe"
+
+msgid "Syn_Sent"
+msgstr "Syn_Sent"
+
+msgid "Syn_Received"
+msgstr "Syn_Received"
+
+msgid "Established"
+msgstr "Đã thiết lập (Established)"
+
+msgid "Fin_Wait1"
+msgstr "Fin_Wait1"
+
+msgid "Fin_Wait2"
+msgstr "Fin_Wait2"
+
+msgid "Close_Wait"
+msgstr "Close_Wait"
+
+msgid "Closing"
+msgstr "Đang đóng"
+
+msgid "Last_Ack"
+msgstr "Last_Ack"
+
+msgid "Time_Wait"
+msgstr "Time_Wait"
+
+msgid "Deleting"
+msgstr "Đang xóa"
+
+msgid "Local Device"
+msgstr "Thiết bị cục bộ"
+
+msgid "Local LAN"
+msgstr "Mạng LAN cục bộ"
+
+msgid "Local Listener"
+msgstr "Cổng lắng nghe cục bộ"
+
+msgid "Private Network"
+msgstr "Mạng riêng tư"
+
+msgid "Network Connections - {app} ({count} PIDs)"
+msgstr "Kết nối mạng - {app} ({count} PIDs)"
+
+msgid "Server Network Hub - {app} ({count} PIDs)"
+msgstr "Trung tâm mạng máy chủ - {app} ({count} PIDs)"
+
+msgid "Connecting to kernel network tables..."
+msgstr "Đang kết nối với bảng mạng hạt nhân..."
+
+msgid "&User Filter:"
+msgstr "&Lọc người dùng:"
+
+msgid "All Users ({count})"
+msgstr "Tất cả người dùng ({count})"
+
+msgid "All Users"
+msgstr "Tất cả người dùng"
+
+msgid "Internet Connections"
+msgstr "Kết nối Internet"
+
+msgid "Local Network (LAN)"
+msgstr "Mạng cục bộ (LAN)"
+
+msgid "Localhost / Listeners"
+msgstr "Localhost / Đang lắng nghe"
+
+msgid "Internet ({cnt})"
+msgstr "Internet ({cnt})"
+
+msgid "Local LAN ({cnt})"
+msgstr "Mạng LAN cục bộ ({cnt})"
+
+msgid "Localhost / Listeners ({cnt})"
+msgstr "Localhost / Đang lắng nghe ({cnt})"
+
+msgid "Remote IP"
+msgstr "IP từ xa"
+
+msgid "Host / Domain"
+msgstr "Máy chủ / Tên miền"
+
+msgid "Port / Service"
+msgstr "Cổng / Dịch vụ"
+
+msgid "Protocol"
+msgstr "Giao thức"
+
+msgid "State"
+msgstr "Trạng thái"
+
+msgid "Local Endpoint"
+msgstr "Điểm cuối cục bộ"
+
+msgid "Connections Monitor: {act} Active, {cls} Closed/History | App: {app}"
+msgstr ""
+"Giám sát kết nối: {act} Hoạt động, {cls} Đã đóng/Lịch sử | Ứng dụng: {app}"
+
+msgid "Filtered by {user}"
+msgstr "Đã lọc theo {user}"
+
+msgid "&Test Port & Latency"
+msgstr "&Kiểm tra cổng và độ trễ"
+
+msgid "&Drop Connection"
+msgstr "&Ngắt kết nối này"
+
+msgid "Clear &Inactive"
+msgstr "Xóa kết nối &không hoạt động"
+
+msgid "Check &VirusTotal"
+msgstr "Kiểm tra &VirusTotal"
+
+msgid "&Emergency End App"
+msgstr "&Kết thúc ứng dụng khẩn cấp"
+
+msgid ""
+"Tests port latency. Hold Shift while pressing to copy result to clipboard."
+msgstr ""
+"Kiểm tra độ trễ cổng. Giữ Shift khi nhấn để sao chép kết quả vào khay nhớ "
+"tạm."
+
+msgid "Address {addr} copied to clipboard"
+msgstr "Đã sao chép địa chỉ {addr} vào khay nhớ tạm"
+
+msgid "Cannot test local or listening endpoint"
+msgstr "Không thể kiểm tra điểm cuối cục bộ hoặc đang lắng nghe"
+
+msgid "{ip}:{port} is OPEN (Latency: {ms:.0f} ms)"
+msgstr "{ip}:{port} đang MỞ (Độ trễ: {ms:.0f} ms)"
+
+msgid "{ip}:{port} is UNREACHABLE or Timed Out"
+msgstr "{ip}:{port} KHÔNG THỂ TRUY CẬP hoặc Hết thời gian"
+
+msgid "Cannot drop this connection"
+msgstr "Không thể ngắt kết nối này"
+
+msgid "Connection severed successfully"
+msgstr "Đã ngắt kết nối thành công"
+
+msgid "Failed to sever connection (Admin privileges recommended)"
+msgstr "Không thể ngắt kết nối (Khuyên dùng quyền Quản trị viên)"
+
+msgid "Cleared inactive connections"
+msgstr "Đã xóa lịch sử các kết nối không hoạt động"
+
+msgid "Cannot open local or internal address"
+msgstr "Không thể mở địa chỉ cục bộ hoặc nội bộ"
+
+msgid "Opening {url}"
+msgstr "Đang mở {url}"
+
+msgid "Threat lookup is available for public internet IPs only"
+msgstr "Tra cứu mối đe dọa chỉ khả dụng cho địa chỉ IP công cộng"
+
+msgid "Invalid IP for threat lookup"
+msgstr "Địa chỉ IP không hợp lệ để tra cứu mối đe dọa"
+
+msgid "Checking IP safety on VirusTotal..."
+msgstr "Đang kiểm tra an toàn IP trên VirusTotal..."
+
+msgid "Failed to open threat lookup"
+msgstr "Không thể mở tra cứu mối đe dọa"
+
+msgid ""
+"Are you sure you want to emergency-terminate {app} across ALL {cnt} PIDs?"
+msgstr ""
+"Bạn có chắc chắn muốn kết thúc khẩn cấp {app} trên TẤT CẢ {cnt} PIDs không?"
+
+msgid "Confirm Emergency Termination"
+msgstr "Xác nhận kết thúc khẩn cấp"
+
+msgid "Terminated {s} of {t} PIDs for {app}"
+msgstr "Đã kết thúc {s} trên {t} PIDs cho {app}"
+
+msgid "&Copy Remote IP Address (Enter)"
+msgstr "&Sao chép địa chỉ IP từ xa (Enter)"
+
+msgid "&Test Port & Measure Latency (Alt+T)"
+msgstr "&Kiểm tra cổng & đo độ trễ (Alt+T)"
+
+msgid "Test Port and &Copy Result"
+msgstr "Kiểm tra cổng và &sao chép kết quả"
+
+msgid "&Drop This Connection (Alt+D)"
+msgstr "&Ngắt kết nối này (Alt+D)"
+
+msgid "&Open in Web Browser (Alt+O)"
+msgstr "&Mở trong trình duyệt web (Alt+O)"
+
+msgid "Check &Threat Safety (VirusTotal) (Alt+V)"
+msgstr "Kiểm tra an toàn &mối đe dọa (VirusTotal) (Alt+V)"
+
+msgid "&Clear Inactive Connections (Alt+I)"
+msgstr "&Xóa các kết nối không hoạt động (Alt+I)"
+
+msgid "&Emergency Terminate Application (Alt+E)"
+msgstr "&Kết thúc ứng dụng khẩn cấp (Alt+E)"
+
+msgid "No active PIDs to track for {app}"
+msgstr "Không có PID nào đang hoạt động để theo dõi cho {app}"
+
+# --- File Manager Module Strings ---
+msgid "Desktop"
+msgstr "Desktop"
+
+msgid "Virtual Location"
+msgstr "Vị trí ảo"
+
+msgid "Item"
+msgstr "Mục"
+
+msgid "Please open File Explorer to copy path"
+msgstr "Vui lòng mở File Explorer để sao chép đường dẫn"
+
+msgid "{item} is a system icon and does not have a physical path"
+msgstr "{item} là biểu tượng hệ thống và không có đường dẫn vật lý"
+
+msgid "Cannot copy path in {loc}"
+msgstr "Không thể sao chép đường dẫn trong {loc}"
+
+msgid "WSL Path copied: {p}"
+msgstr "Đã sao chép đường dẫn WSL: {p}"
+
+msgid "Path copied: {p}"
+msgstr "Đã sao chép đường dẫn: {p}"
+
+msgid "WSL Path: {p}"
+msgstr "Đường dẫn WSL: {p}"
+
+msgid "Path: {p}"
+msgstr "Đường dẫn: {p}"
+
+msgid "Please select an item in File Explorer to calculate size"
+msgstr "Vui lòng chọn một mục trong File Explorer để tính kích thước"
+
+msgid "{name} is a system icon and has no physical size"
+msgstr "{name} là biểu tượng hệ thống và không có kích thước vật lý"
+
+msgid ""
+"Cannot calculate size in {loc}. Please select a physical file, folder, or "
+"drive"
+msgstr ""
+"Không thể tính kích thước trong {loc}. Vui lòng chọn tệp, thư mục hoặc ổ đĩa "
+"vật lý"
+
+msgid "Drive {d}: {free} free ({pct:.0f}%), {used} used, Total: {tot}"
+msgstr ""
+"Ổ đĩa {d}: Còn trống {free} ({pct:.0f}%), Đã dùng {used}, Tổng số: {tot}"
+
+msgid "File {name}: {size}"
+msgstr "Tệp {name}: {size}"
+
+msgid "Error reading file size"
+msgstr "Lỗi khi đọc kích thước tệp"
+
+msgid "Calculating size for {name}, please wait..."
+msgstr "Đang tính kích thước cho {name}, vui lòng đợi..."
+
+msgid "Folder size calculation canceled"
+msgstr "Đã hủy tính kích thước thư mục"
+
+msgid "Folder {name}: {size} ({files} files, {dirs} folders)"
+msgstr "Thư mục {name}: {size} ({files} tệp, {dirs} thư mục)"
+
+msgid "Failed to query drive space"
+msgstr "Không thể truy vấn dung lượng ổ đĩa"
+
+msgid " [LOW SPACE]"
+msgstr " [DUNG LƯỢNG THẤP]"
+
+msgid "{d}: {free} free ({pct:.0f}%), {used} used, Total: {tot}"
+msgstr "{d}: Còn trống {free} ({pct:.0f}%), Đã dùng {used}, Tổng số: {tot}"
+
+msgid "Locked File - {name}"
+msgstr "Tệp bị khóa - {name}"
+
+msgid ""
+"The following applications are holding this file. Terminate them to unlock:"
+msgstr "Các ứng dụng sau đang giữ tệp này. Hãy kết thúc chúng để mở khóa:"
+
+msgid "PID"
+msgstr "PID"
+
+msgid "Session"
+msgstr "Phiên"
+
+msgid "Service Name"
+msgstr "Tên dịch vụ"
+
+msgid "&Terminate Process"
+msgstr "&Kết thúc tiến trình"
+
+msgid "Terminate &All"
+msgstr "Kết thúc &tất cả"
+
+msgid "Locking process details copied to clipboard"
+msgstr "Đã sao chép chi tiết tiến trình đang khóa vào khay nhớ tạm"
+
+msgid "Please select an item in File Explorer to inspect locks"
+msgstr "Vui lòng chọn một mục trong File Explorer để kiểm tra khóa"
+
+msgid "{item} is a system icon and cannot be locked by applications"
+msgstr "{item} là biểu tượng hệ thống và không thể bị khóa bởi ứng dụng"
+
+msgid ""
+"Cannot inspect file locks in {loc}. Please select a physical file, folder, "
+"or drive"
+msgstr ""
+"Không thể kiểm tra khóa tệp trong {loc}. Vui lòng chọn tệp, thư mục hoặc ổ "
+"đĩa vật lý"
+
+msgid "{name} is not locked by any application"
+msgstr "{name} không bị khóa bởi bất kỳ ứng dụng nào"
+
+msgid "Please open File Explorer to calculate checksum"
+msgstr "Vui lòng mở File Explorer để tính mã băm"
+
+msgid "{item} is a system icon and does not have a checksum"
+msgstr "{item} là biểu tượng hệ thống và không có mã băm"
+
+msgid "Please select a physical file to calculate checksum"
+msgstr "Vui lòng chọn một tệp vật lý để tính mã băm"
+
+msgid "Computing {algo} for {name}, please wait..."
+msgstr "Đang tính {algo} cho {name}, vui lòng đợi..."
+
+msgid "Checksum computation canceled"
+msgstr "Đã hủy tính toán mã băm"
+
+msgid "Failed to compute checksum"
+msgstr "Không thể tính mã băm"
+
+msgid "HASH MATCH! Authentic {algo}: {h}"
+msgstr "MÃ BĂM TRÙNG KHỚP! {algo} gốc: {h}"
+
+msgid "HASH MISMATCH! Computed: {comp} | Expected: {clip}"
+msgstr "MÃ BĂM KHÔNG TRÙNG KHỚP! Tính được: {comp} | Dự kiến: {clip}"
+
+msgid "{algo}: {h} (No hash found in clipboard to compare)"
+msgstr "{algo}: {h} (Không tìm thấy mã băm nào trong khay nhớ tạm để so sánh)"
+
+msgid "Please open a folder in File Explorer to create a file"
+msgstr "Vui lòng mở một thư mục trong File Explorer để tạo tệp"
+
+msgid "Cannot create a file in {loc}. Please open a physical folder"
+msgstr "Không thể tạo tệp trong {loc}. Vui lòng mở một thư mục vật lý"
+
+msgid ""
+"Create file in: {dest}\n"
+"Enter file name with extension (e.g. notes.txt, script.py):"
+msgstr ""
+"Tạo tệp trong: {dest}\n"
+"Nhập tên tệp kèm phần mở rộng (ví dụ: notes.txt, script.py):"
+
+msgid "Create New File"
+msgstr "Tạo tệp mới"
+
+msgid "File already exists: {name}"
+msgstr "Tệp đã tồn tại: {name}"
+
+msgid "File {name} created successfully"
+msgstr "Đã tạo tệp {name} thành công"
+
+# --- Settings GUI Module Strings ---
+msgid "Action feedback mode:"
+msgstr "Chế độ phản hồi thao tác:"
+
+msgid "No feedback (Silent)"
+msgstr "Không phản hồi (Im lặng)"
+
+msgid "Beep only"
+msgstr "Chỉ phát tiếng bíp"
+
+msgid "Speak action name"
+msgstr "Đọc tên thao tác"
+
+msgid "Beep and speak"
+msgstr "Phát tiếng bíp và đọc"
+
+msgid "Shutdown and restart confirmation style:"
+msgstr "Kiểu xác nhận tắt máy và khởi động lại:"
+
+msgid "Confirmation dialog (Recommended)"
+msgstr "Hộp thoại xác nhận (Khuyên dùng)"
+
+msgid "Press key twice within 2 seconds"
+msgstr "Nhấn phím hai lần trong vòng 2 giây"
+
+msgid "Files and folders size format:"
+msgstr "Định dạng kích thước tệp và thư mục:"
+
+msgid "Smart Adaptive (Recommended)"
+msgstr "Tự động điều chỉnh (Khuyên dùng)"
+
+msgid "Always Megabytes (MB)"
+msgstr "Luôn hiển thị Megabyte (MB)"
+
+msgid "Always Gigabytes (GB)"
+msgstr "Luôn hiển thị Gigabyte (GB)"
+
+msgid "Drives storage space format:"
+msgstr "Định dạng dung lượng ổ đĩa:"
+
+msgid "Always Terabytes (TB)"
+msgstr "Luôn hiển thị Terabyte (TB)"
+
+msgid "Default file checksum algorithm:"
+msgstr "Thuật toán mã băm tệp mặc định:"
+
+msgid "SHA-256 (Standard & Secure)"
+msgstr "SHA-256 (Tiêu chuẩn & An toàn)"
+
+msgid "MD5 (Fast)"
+msgstr "MD5 (Nhanh)"
+
+msgid "Standard & Secure"
+msgstr "Tiêu chuẩn & An toàn"
+
+msgid "Fast"
+msgstr "Nhanh"
+
+# --- Help Manager Module Strings ---
+msgid "PowerBox - Global Shortcuts Help"
+msgstr "PowerBox - Trợ giúp phím tắt chung"
+
+msgid "--- Layer Modifiers (Prefix Keys) ---"
+msgstr "--- Phím bổ trợ lớp (Phím tiền tố) ---"
+
+msgid "Global Help"
+msgstr "Trợ giúp chung"
+
+msgid "--- System Audio (Master) ---"
+msgstr "--- Âm thanh hệ thống (Âm lượng tổng) ---"
+
+msgid "--- Active Application Audio ---"
+msgstr "--- Âm thanh ứng dụng đang hoạt động ---"
+
+msgid "App Volume Up"
+msgstr "Tăng âm lượng ứng dụng"
+
+msgid "App Volume Down"
+msgstr "Giảm âm lượng ứng dụng"
+
+msgid "App Volume Mute"
+msgstr "Tắt tiếng ứng dụng"
+
+msgid "--- Media & Browser Navigation ---"
+msgstr "--- Điều khiển đa phương tiện & Trình duyệt ---"
+
+msgid "--- Smart Mouse & Context Menus ---"
+msgstr "--- Chuột thông minh & Trình đơn ngữ cảnh ---"
+
+msgid "--- Network Info ---"
+msgstr "--- Thông tin mạng ---"
+
+msgid "Get Local IP"
+msgstr "Lấy IP cục bộ"
+
+msgid "Get Public IP"
+msgstr "Lấy IP công cộng"

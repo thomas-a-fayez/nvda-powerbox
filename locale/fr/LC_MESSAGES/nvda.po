@@ -1,0 +1,1473 @@
+# French translation for PowerBox add-on for NVDA.
+# Copyright (C) 2026 Thomas A. Fayez
+# This file is distributed under the same license as the PowerBox package.
+# Thomas A. Fayez <thomas.a.fayez@gmail.com>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PowerBox 2.0.0\n"
+"Report-Msgid-Bugs-To: thomas.a.fayez@gmail.com\n"
+"POT-Creation-Date: 2026-09-25 10:00+0300\n"
+"PO-Revision-Date: 2026-09-25 10:26+0300\n"
+"Last-Translator: Thomas A. Fayez <thomas.a.fayez@gmail.com>\n"
+"Language-Team: French <fr@li.org>\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 3.9\n"
+
+# --- Core & Layer Activation Names ---
+msgid "PowerBox"
+msgstr "PowerBox"
+
+msgid "Invalid key"
+msgstr "Touche non valide"
+
+msgid ""
+"Provides feedback when an unmapped key is pressed inside an active layer"
+msgstr ""
+"Fournit un retour lorsqu'une touche non assignée est pressée dans une couche "
+"active"
+
+msgid "(Copied)"
+msgstr "(Copié)"
+
+msgid "Application"
+msgstr "Application"
+
+msgid "Current App"
+msgstr "Application actuelle"
+
+msgid "Unknown User"
+msgstr "Utilisateur inconnu"
+
+msgid "User"
+msgstr "Utilisateur"
+
+msgid "Unknown"
+msgstr "Inconnu"
+
+msgid "System Layer"
+msgstr "Couche système"
+
+msgid "Terminal Layer"
+msgstr "Couche terminal"
+
+msgid "Quick Apps Layer"
+msgstr "Couche applications rapides"
+
+msgid "Network Layer"
+msgstr "Couche réseau"
+
+msgid "Files Layer"
+msgstr "Couche fichiers"
+
+# --- Layer Script Descriptions in Input Gestures ---
+msgid "Quick Apps Layer: Press c, m, b, e, p, or h next"
+msgstr "Couche applications rapides : appuyez ensuite sur c, m, b, e, p ou h"
+
+msgid "Terminal Layer: Press p, shift+p, c, shift+c, w, or h next"
+msgstr "Couche terminal : appuyez ensuite sur p, shift+p, c, shift+c, w ou h"
+
+msgid ""
+"Network Layer: Press s, c, l, shift+l, p, shift+p, g, shift+g, or h next"
+msgstr ""
+"Couche réseau : appuyez ensuite sur s, c, l, shift+l, p, shift+p, g, shift+g "
+"ou h"
+
+msgid ""
+"System Layer: Press t, shift+t, c, d, r, s, b, l, p, shift+p, control+p, "
+"control+e, or h next"
+msgstr ""
+"Couche système : appuyez ensuite sur t, shift+t, c, d, r, s, b, l, p, "
+"shift+p, control+p, control+e ou h"
+
+msgid ""
+"Files Layer: Press s, shift+s, d, shift+d, l, shift+l, c, shift+c, n, p, "
+"shift+p, or h next"
+msgstr ""
+"Couche fichiers : appuyez ensuite sur s, shift+s, d, shift+d, l, shift+l, c, "
+"shift+c, n, p, shift+p ou h"
+
+# --- Script Actions & Help Names ---
+msgid "Set shutdown timer"
+msgstr "Définir le minuteur d'arrêt"
+
+msgid "Check shutdown timer remaining time"
+msgstr "Vérifier le temps restant du minuteur d'arrêt"
+
+msgid "Cancel shutdown timer"
+msgstr "Annuler le minuteur d'arrêt"
+
+msgid "Shut down computer"
+msgstr "Arrêter l'ordinateur"
+
+msgid "Restart computer"
+msgstr "Redémarrer l'ordinateur"
+
+msgid "Sleep"
+msgstr "Mettre en veille"
+
+msgid "Hibernate"
+msgstr "Mettre en veille prolongée"
+
+msgid "Lock workstation"
+msgstr "Verrouiller la session"
+
+msgid "Inspect active application CPU and RAM usage"
+msgstr ""
+"Inspecter l'utilisation du processeur et de la mémoire de l'application "
+"active"
+
+msgid "Copy and speak active application CPU and RAM usage"
+msgstr ""
+"Copier et énoncer l'utilisation du processeur et de la mémoire de "
+"l'application active"
+
+msgid "Open Server Process Hub (Enterprise Manager)"
+msgstr "Ouvrir le Gestionnaire de processus serveur (Gestion d'entreprise)"
+
+msgid "Restart or start Windows Explorer"
+msgstr "Redémarrer ou démarrer l'Explorateur Windows"
+
+msgid "PowerShell"
+msgstr "PowerShell"
+
+msgid "PowerShell (Admin)"
+msgstr "PowerShell (Administrateur)"
+
+msgid "Command Prompt"
+msgstr "Invite de commandes"
+
+msgid "Command Prompt (Admin)"
+msgstr "Invite de commandes (Administrateur)"
+
+msgid "WSL"
+msgstr "WSL"
+
+msgid "Smart Left Click"
+msgstr "Clic gauche intelligent"
+
+msgid "Smart Right Click"
+msgstr "Clic droit intelligent"
+
+msgid "Smart Double Click"
+msgstr "Double-clic intelligent"
+
+msgid "Applications menu (Modern Context Menu)"
+msgstr "Menu Applications (Menu contextuel moderne)"
+
+msgid "Applications menu"
+msgstr "Menu Applications"
+
+msgid "Applications Menu"
+msgstr "Menu Applications"
+
+msgid "Opens the classic context menu (Shift+F10)"
+msgstr "Ouvre le menu contextuel classique (Shift+F10)"
+
+msgid "Classic context menu"
+msgstr "Menu contextuel classique"
+
+msgid "Classic Context Menu"
+msgstr "Menu contextuel classique"
+
+msgid "Master Volume Mute"
+msgstr "Couper le volume principal"
+
+msgid "Master Volume Down"
+msgstr "Baisser le volume principal"
+
+msgid "Master Volume Up"
+msgstr "Augmenter le volume principal"
+
+msgid "Mutes or unmutes the active application"
+msgstr "Coupe ou rétablit le son de l'application active"
+
+msgid "Decreases the volume of the active application"
+msgstr "Diminue le volume de l'application active"
+
+msgid "Increases the volume of the active application"
+msgstr "Augmente le volume de l'application active"
+
+msgid "Play/Pause"
+msgstr "Lecture/Pause"
+
+msgid "Play Pause"
+msgstr "Lecture pause"
+
+msgid "Next Track"
+msgstr "Piste suivante"
+
+msgid "Previous Track"
+msgstr "Piste précédente"
+
+msgid "Browser Back"
+msgstr "Page précédente du navigateur"
+
+msgid "Browser Forward"
+msgstr "Page suivante du navigateur"
+
+msgid "Browser Refresh"
+msgstr "Actualiser le navigateur"
+
+msgid "Launch Calculator"
+msgstr "Lancer la Calculatrice"
+
+msgid "Calculator"
+msgstr "Calculatrice"
+
+msgid "Launch Mail"
+msgstr "Lancer Courrier"
+
+msgid "Mail"
+msgstr "Courrier"
+
+msgid "Launch Browser Home"
+msgstr "Ouvrir la page d'accueil du navigateur"
+
+msgid "Browser Home"
+msgstr "Page d'accueil du navigateur"
+
+msgid "Launch File Explorer (This PC)"
+msgstr "Lancer l'Explorateur de fichiers (Ce PC)"
+
+msgid "File Explorer"
+msgstr "Explorateur de fichiers"
+
+msgid "Launch Media Player"
+msgstr "Lancer le Lecteur multimédia"
+
+msgid "Media Player"
+msgstr "Lecteur multimédia"
+
+msgid "Scan local network devices"
+msgstr "Analyser les périphériques du réseau local"
+
+msgid "Track active application network connections"
+msgstr "Suivre les connexions réseau de l'application active"
+
+msgid "Speak Local IP"
+msgstr "Énoncer l'IP locale"
+
+msgid "Copy and speak Local IP"
+msgstr "Copier et énoncer l'IP locale"
+
+msgid "Speak Public IP"
+msgstr "Énoncer l'IP publique"
+
+msgid "Copy and speak Public IP"
+msgstr "Copier et énoncer l'IP publique"
+
+msgid "Speak Default Gateway (Router IP)"
+msgstr "Énoncer la passerelle par défaut (IP du routeur)"
+
+msgid "Copy and speak Default Gateway"
+msgstr "Copier et énoncer la passerelle par défaut"
+
+msgid "Speaks the Local IP. Press twice quickly to copy to clipboard."
+msgstr ""
+"Énonce l'IP locale. Appuyez deux fois rapidement pour la copier dans le "
+"presse-papiers."
+
+msgid "Speaks the Public IP. Press twice quickly to copy to clipboard."
+msgstr ""
+"Énonce l'IP publique. Appuyez deux fois rapidement pour la copier dans le "
+"presse-papiers."
+
+msgid "Shows PowerBox Global Help"
+msgstr "Affiche l'aide globale de PowerBox"
+
+msgid "Shows help for the currently active layer"
+msgstr "Affiche l'aide de la couche actuellement active"
+
+msgid "Show this help message"
+msgstr "Afficher ce message d'aide"
+
+msgid "Calculate size of focused file, folder, or drive"
+msgstr "Calculer la taille du fichier, dossier ou lecteur actif"
+
+msgid "Copy size of focused file, folder, or drive"
+msgstr "Copier la taille du fichier, dossier ou lecteur actif"
+
+msgid "Check free space across all drives"
+msgstr "Vérifier l'espace libre sur tous les lecteurs"
+
+msgid "Copy drives free space report"
+msgstr "Copier le rapport d'espace libre des lecteurs"
+
+msgid "Inspect and unlock file locking processes"
+msgstr "Inspecter et déverrouiller les processus verrouillant le fichier"
+
+msgid "Copy locking process details"
+msgstr "Copier les détails des processus de verrouillage"
+
+msgid "Compute checksum and match with clipboard"
+msgstr "Calculer la somme de contrôle et comparer avec le presse-papiers"
+
+msgid "Copy file checksum to clipboard"
+msgstr "Copier la somme de contrôle du fichier dans le presse-papiers"
+
+msgid "Create new file in current folder"
+msgstr "Créer un nouveau fichier dans le dossier actuel"
+
+msgid "Copy Windows path"
+msgstr "Copier le chemin Windows"
+
+msgid "Copy WSL Linux path"
+msgstr "Copier le chemin Linux WSL"
+
+msgid "PowerBox - {name} Help"
+msgstr "Aide PowerBox - {name}"
+
+msgid "{name} Help"
+msgstr "Aide {name}"
+
+msgid "Press the layer shortcut, followed by one of these keys:\n"
+msgstr ""
+"Appuyez sur le raccourci de la couche, puis sur l'une de ces touches :\n"
+
+# --- Audio Manager Strings ---
+msgid "Muted ({vol}%)"
+msgstr "Muet ({vol}%)"
+
+msgid "Volume: {vol}%"
+msgstr "Volume : {vol}%"
+
+msgid "Volume Up"
+msgstr "Volume plus haut"
+
+msgid "Volume Down"
+msgstr "Volume plus bas"
+
+msgid "Muted"
+msgstr "Muet"
+
+msgid "Unmuted: {vol}%"
+msgstr "Rétabli : {vol}%"
+
+msgid "Unmuted"
+msgstr "Son rétabli"
+
+msgid "{app} muted ({vol}%)"
+msgstr "{app} muet ({vol}%)"
+
+msgid "{app}: {vol}%"
+msgstr "{app} : {vol}%"
+
+msgid "No audio session for {app}"
+msgstr "Aucune session audio pour {app}"
+
+msgid "{app} muted"
+msgstr "{app} son coupé"
+
+msgid "{app} unmuted: {vol}%"
+msgstr "{app} son rétabli : {vol}%"
+
+# --- Actions Module Strings ---
+msgid "Object has no location"
+msgstr "L'objet n'a pas d'emplacement"
+
+msgid "Failed to route mouse to object"
+msgstr "Échec de l'acheminement de la souris vers l'objet"
+
+# --- Smart Path Module Strings ---
+msgid "Unsupported terminal type"
+msgstr "Type de terminal non pris en charge"
+
+msgid "Elevation was canceled or operation failed"
+msgstr "L'élévation a été annulée ou l'opération a échoué"
+
+msgid "Terminal executable was not found on this system"
+msgstr "L'exécutable du terminal est introuvable sur ce système"
+
+msgid "{terminal} opened in {folder}"
+msgstr "{terminal} ouvert dans {folder}"
+
+msgid "Failed to open terminal"
+msgstr "Échec de l'ouverture du terminal"
+
+# --- Network Info Module Strings ---
+msgid "127.0.0.1 (Offline)"
+msgstr "127.0.0.1 (Hors ligne)"
+
+msgid "No internet connection"
+msgstr "Aucune connexion Internet"
+
+msgid "Error retrieving public IP"
+msgstr "Erreur lors de la récupération de l'IP publique"
+
+msgid "Local IP: {ip}"
+msgstr "IP locale : {ip}"
+
+msgid "Local IP {ip} copied to clipboard"
+msgstr "IP locale {ip} copiée dans le presse-papiers"
+
+msgid "Default Gateway: {gw}"
+msgstr "Passerelle par défaut : {gw}"
+
+msgid "Default Gateway unavailable"
+msgstr "Passerelle par défaut indisponible"
+
+msgid "Default Gateway {gw} copied to clipboard"
+msgstr "Passerelle par défaut {gw} copiée dans le presse-papiers"
+
+msgid "Public IP: {ip}"
+msgstr "IP publique : {ip}"
+
+msgid "Public IP {ip} copied to clipboard"
+msgstr "IP publique {ip} copiée dans le presse-papiers"
+
+# --- Network Scanner Module Strings ---
+msgid "Randomized MAC (Phone / Mobile)"
+msgstr "MAC aléatoire (Téléphone / Mobile)"
+
+msgid "Hardware Device"
+msgstr "Périphérique matériel"
+
+msgid "This PC"
+msgstr "Ce PC"
+
+msgid "Router / Default Gateway"
+msgstr "Routeur / Passerelle par défaut"
+
+msgid "Mobile Device"
+msgstr "Périphérique mobile"
+
+msgid "Network Scanner - Discovered Devices ({count})"
+msgstr "Scanner réseau - Périphériques découverts ({count})"
+
+msgid ""
+"Active devices on your local network. Press Enter on any item to copy its IP:"
+msgstr ""
+"Périphériques actifs sur votre réseau local. Appuyez sur Entrée pour copier "
+"son IP :"
+
+msgid "IP Address"
+msgstr "Adresse IP"
+
+msgid "Device Name"
+msgstr "Nom du périphérique"
+
+msgid "Manufacturer"
+msgstr "Fabricant"
+
+msgid "MAC Address"
+msgstr "Adresse MAC"
+
+msgid "Copy &IP"
+msgstr "Copier l'&IP"
+
+msgid "Copy &MAC"
+msgstr "Copier la &MAC"
+
+msgid "&Open in Browser"
+msgstr "&Ouvrir dans le navigateur"
+
+msgid "&Rescan"
+msgstr "&Réanalyser"
+
+msgid "Copy &All Details"
+msgstr "Copier &tous les détails"
+
+msgid "&Close"
+msgstr "&Fermer"
+
+msgid "IP {ip} copied to clipboard"
+msgstr "IP {ip} copiée dans le presse-papiers"
+
+msgid "MAC {mac} copied to clipboard"
+msgstr "MAC {mac} copiée dans le presse-papiers"
+
+msgid "Opening {url} in web browser"
+msgstr "Ouverture de {url} dans le navigateur web"
+
+msgid "No standard web port detected. Opening default address..."
+msgstr "Aucun port web standard détecté. Ouverture de l'adresse par défaut..."
+
+msgid "Failed to open web browser"
+msgstr "Échec de l'ouverture du navigateur web"
+
+msgid "IP"
+msgstr "IP"
+
+msgid "Name"
+msgstr "Nom"
+
+msgid "Vendor"
+msgstr "Vendeur"
+
+msgid "MAC"
+msgstr "MAC"
+
+msgid "Device details copied to clipboard"
+msgstr "Détails du périphérique copiés dans le presse-papiers"
+
+msgid "Copy IP Address"
+msgstr "Copier l'adresse IP"
+
+msgid "Copy MAC Address"
+msgstr "Copier l'adresse MAC"
+
+msgid "Copy All Details"
+msgstr "Copier tous les détails"
+
+msgid "Open in Web Browser"
+msgstr "Ouvrir dans le navigateur web"
+
+msgid "Not connected to a local network"
+msgstr "Non connecté à un réseau local"
+
+msgid "No active devices found on the local network"
+msgstr "Aucun périphérique actif trouvé sur le réseau local"
+
+msgid "Scan canceled"
+msgstr "Analyse annulée"
+
+msgid "Scanning local network, please wait..."
+msgstr "Analyse du réseau local en cours, veuillez patienter..."
+
+# --- Power Manager Strings ---
+msgid "Locking workstation"
+msgstr "Verrouillage de la session"
+
+msgid "Failed to lock workstation"
+msgstr "Échec du verrouillage de la session"
+
+msgid "Entering sleep mode"
+msgstr "Entrée en mode veille"
+
+msgid "Failed to enter sleep mode"
+msgstr "Échec du passage en mode veille"
+
+msgid "Entering hibernation"
+msgstr "Entrée en hibernation"
+
+msgid "Failed to hibernate system"
+msgstr "Échec de la mise en veille prolongée"
+
+msgid "Shutting down computer"
+msgstr "Arrêt de l'ordinateur en cours"
+
+msgid "Failed to shut down computer"
+msgstr "Échec de l'arrêt de l'ordinateur"
+
+msgid "Restarting computer"
+msgstr "Redémarrage de l'ordinateur en cours"
+
+msgid "Failed to restart computer"
+msgstr "Échec du redémarrage de l'ordinateur"
+
+msgid "shut down"
+msgstr "arrêter"
+
+msgid "restart"
+msgstr "redémarrer"
+
+msgid "Press again within 2 seconds to confirm {action}"
+msgstr "Appuyez à nouveau dans les 2 secondes pour confirmer : {action}"
+
+msgid "Confirm Shutdown"
+msgstr "Confirmer l'arrêt"
+
+msgid "Confirm Restart"
+msgstr "Confirmer le redémarrage"
+
+msgid "Are you sure you want to shut down your computer?"
+msgstr "Êtes-vous sûr de vouloir arrêter votre ordinateur ?"
+
+msgid "Are you sure you want to restart your computer?"
+msgstr "Êtes-vous sûr de vouloir redémarrer votre ordinateur ?"
+
+msgid "Warning: Computer will shut down in 1 minute."
+msgstr "Avertissement : L'ordinateur s'arrêtera dans 1 minute."
+
+msgid "Shutdown timer set for {mins} minutes"
+msgstr "Minuteur d'arrêt réglé sur {mins} minutes"
+
+msgid "No active shutdown timer"
+msgstr "Aucun minuteur d'arrêt actif"
+
+msgid "Shutdown timer canceled"
+msgstr "Minuteur d'arrêt annulé"
+
+msgid "Shutdown scheduled in {m} minutes, {s} seconds"
+msgstr "Arrêt prévu dans {m} minutes et {s} secondes"
+
+msgid "Shutdown scheduled in {s} seconds"
+msgstr "Arrêt prévu dans {s} secondes"
+
+msgid "Set Shutdown Timer"
+msgstr "Définir le minuteur d'arrêt"
+
+msgid "&Duration (minutes):"
+msgstr "&Durée (minutes) :"
+
+msgid "Quick Presets"
+msgstr "Préréglages rapides"
+
+msgid "{m}m"
+msgstr "{m}m"
+
+msgid "&Start Timer"
+msgstr "&Démarrer le minuteur"
+
+msgid "&Cancel"
+msgstr "&Annuler"
+
+msgid "Windows Explorer restarted"
+msgstr "Explorateur Windows redémarré avec succès"
+
+msgid "Windows Explorer started"
+msgstr "Explorateur Windows démarré avec succès"
+
+msgid "Failed to start Windows Explorer"
+msgstr "Échec du démarrage de l'Explorateur Windows"
+
+msgid "Restarting Windows Explorer..."
+msgstr "Redémarrage de l'Explorateur Windows..."
+
+msgid "Starting Windows Explorer..."
+msgstr "Démarrage de l'Explorateur Windows..."
+
+# --- Process Inspector Strings ---
+msgid "Could not identify the active process"
+msgstr "Impossible d'identifier le processus actif"
+
+msgid "Access denied for {app}"
+msgstr "Accès refusé pour {app}"
+
+msgid "Could not read resources for {app}"
+msgstr "Impossible de lire les ressources pour {app}"
+
+msgid "{size:.1f} GB"
+msgstr "{size:.1f} Go"
+
+msgid "{size:.0f} MB"
+msgstr "{size:.0f} Mo"
+
+msgid "{app}: {ram}, CPU {cpu:.1f}%"
+msgstr "{app} : {ram}, Processeur {cpu:.1f}%"
+
+msgid "Error inspecting process"
+msgstr "Erreur lors de l'inspection du processus"
+
+msgid "No active window found"
+msgstr "Aucune fenêtre active trouvée"
+
+msgid "Failed to start process inspector"
+msgstr "Échec du lancement de l'inspecteur de processus"
+
+# --- Server Process Hub Strings ---
+msgid "Active"
+msgstr "Actif"
+
+msgid "Connected"
+msgstr "Connecté"
+
+msgid "ConnectQuery"
+msgstr "Requête de connexion"
+
+msgid "Shadow"
+msgstr "Surveillance"
+
+msgid "Disconnected"
+msgstr "Déconnecté"
+
+msgid "Idle"
+msgstr "Inactif"
+
+msgid "Listen"
+msgstr "À l'écoute"
+
+msgid "Reset"
+msgstr "Réinitialisation"
+
+msgid "Down"
+msgstr "Hors service"
+
+msgid "Init"
+msgstr "Initialisation"
+
+msgid "SYSTEM / Service"
+msgstr "SYSTEM / Service"
+
+msgid "Console / Local"
+msgstr "Console / Local"
+
+msgid "Access Denied / Protected"
+msgstr "Accès refusé / Protégé"
+
+msgid "Not available"
+msgstr "Non disponible"
+
+msgid "64-bit"
+msgstr "64 bits"
+
+msgid "32-bit (WoW64)"
+msgstr "32 bits (WoW64)"
+
+msgid "{s} seconds"
+msgstr "{s} secondes"
+
+msgid "{d}d {h}h"
+msgstr "{d}j {h}h"
+
+msgid "{h}h {m}m"
+msgstr "{h}h {m}min"
+
+msgid "{m} minutes"
+msgstr "{m} minutes"
+
+msgid "Application Details - {app}"
+msgstr "Détails de l'application - {app}"
+
+msgid "Copy &Details"
+msgstr "Copier les &détails"
+
+msgid "Recalculating live CPU usage, uptime, and window titles, please wait..."
+msgstr ""
+"Recalcul de l'utilisation du processeur, du temps d'activité et des "
+"fenêtres, veuillez patienter..."
+
+msgid "=== Application Details Report ==="
+msgstr "=== Rapport de détails de l'application ==="
+
+msgid "Application: {app}"
+msgstr "Application : {app}"
+
+msgid "Binary Path: {path}"
+msgstr "Chemin du binaire : {path}"
+
+msgid "Architecture: {arch}"
+msgstr "Architecture : {arch}"
+
+msgid "Process Uptime: {uptime}"
+msgstr "Temps d'activité du processus : {uptime}"
+
+msgid "Active Users Count: {cnt}"
+msgstr "Nombre d'utilisateurs actifs : {cnt}"
+
+msgid "Running Processes (PIDs): {cnt}"
+msgstr "Processus en cours d'exécution (PID) : {cnt}"
+
+msgid "Live CPU Usage: {cpu:.1f}%"
+msgstr "Utilisation CPU en direct : {cpu:.1f}%"
+
+msgid "Total Working Set RAM: {ram}"
+msgstr "RAM totale active : {ram}"
+
+msgid "Peak Working Set RAM: {ram}"
+msgstr "RAM active maximale : {ram}"
+
+msgid "--- Open Windows & Tabs Titles ({count}) ---"
+msgstr "--- Titres des fenêtres et onglets ouverts ({count}) ---"
+
+msgid "  (No interactive windows found)"
+msgstr "  (Aucune fenêtre interactive trouvée)"
+
+msgid "--- User Accounts Breakdown ---"
+msgstr "--- Répartition des comptes utilisateurs ---"
+
+msgid "Process IDs (PIDs): "
+msgstr "ID des processus (PID) : "
+
+msgid "Application details copied to clipboard"
+msgstr "Détails de l'application copiés dans le presse-papiers"
+
+msgid "Server Process Hub - Enterprise Manager"
+msgstr "Gestionnaire de processus serveur - Gestion d'entreprise"
+
+msgid "Scanning server sessions and processes..."
+msgstr "Analyse des sessions et processus du serveur en cours..."
+
+msgid "&Filter Application:"
+msgstr "&Filtrer l'application :"
+
+msgid "Total RAM"
+msgstr "RAM totale"
+
+msgid "Total CPU"
+msgstr "Processeur total"
+
+msgid "Active Users"
+msgstr "Utilisateurs actifs"
+
+msgid "Top Consumer"
+msgstr "Plus grand consommateur"
+
+msgid "&View Users (Enter)"
+msgstr "&Voir les utilisateurs (Entrée)"
+
+msgid "&Details..."
+msgstr "&Détails..."
+
+msgid "&All Sessions (F6)"
+msgstr "&Toutes les sessions (F6)"
+
+msgid "&View Apps (F6)"
+msgstr "&Voir les applications (F6)"
+
+msgid "&End App Across Server"
+msgstr "&Arrêter l'application sur tout le serveur"
+
+msgid "Copy &Report"
+msgstr "Copier le &rapport"
+
+msgid "Re&fresh (F5)"
+msgstr "Actuali&ser (F5)"
+
+msgid "&Close (Esc)"
+msgstr "&Fermer (Échap)"
+
+msgid "Refreshing server metrics (RAM, CPU, and Sessions), please wait..."
+msgstr ""
+"Actualisation des métriques du serveur (RAM, processeur et sessions)..."
+
+msgid ""
+"Failed to query Terminal Services. Administrator privileges recommended."
+msgstr ""
+"Impossible d'interroger Terminal Services. Privilèges administrateur "
+"recommandés."
+
+msgid ""
+"Server Pulse: {act} Active, {disc} Disconnected Sessions | {apps} User Apps "
+"({ram})"
+msgstr ""
+"Pulsation du serveur : {act} sessions actives, {disc} déconnectées | {apps} "
+"applications ({ram})"
+
+msgid "&End Process for User"
+msgstr "&Terminer le processus pour l'utilisateur"
+
+msgid "&Back to Apps (Backspace)"
+msgstr "&Retour aux applications (Retour arrière)"
+
+msgid ""
+"Application: {app} | Total RAM: {ram} | CPU: {cpu:.1f}% | Active across "
+"{count} users"
+msgstr ""
+"Application : {app} | RAM totale : {ram} | Processeur : {cpu:.1f}% | Active "
+"pour {count} utilisateurs"
+
+msgid "User Account"
+msgstr "Compte utilisateur"
+
+msgid "Session ID"
+msgstr "ID de session"
+
+msgid "Session State"
+msgstr "État de session"
+
+msgid "User RAM"
+msgstr "RAM utilisateur"
+
+msgid "&Logoff Session"
+msgstr "&Fermer la session"
+
+msgid "&Disconnect Session"
+msgstr "&Déconnecter la session"
+
+msgid ""
+"All Server Sessions: {total} Sessions ({act} Active, {disc} Disconnected) | "
+"RAM: {ram}"
+msgstr ""
+"Toutes les sessions du serveur : {total} sessions ({act} actives, {disc} "
+"déconnectées) | RAM : {ram}"
+
+msgid "Client IP / Machine"
+msgstr "IP client / Machine"
+
+msgid "Total Session RAM"
+msgstr "RAM totale de session"
+
+msgid "Are you sure you want to end {app} for user {user} ({count} instances)?"
+msgstr ""
+"Êtes-vous sûr de vouloir arrêter {app} pour l'utilisateur {user} ({count} "
+"instances) ?"
+
+msgid "Confirm Terminate Application"
+msgstr "Confirmer l'arrêt de l'application"
+
+msgid "Terminated {s} of {t} instances for {user}"
+msgstr "{s} sur {t} instances arrêtées pour {user}"
+
+msgid ""
+"Are you sure you want to terminate ALL {count} instances of {app} across ALL "
+"users?"
+msgstr ""
+"Êtes-vous sûr de vouloir arrêter TOUTES les {count} instances de {app} pour "
+"TOUS les utilisateurs ?"
+
+msgid "Confirm Server-Wide Termination"
+msgstr "Confirmer l'arrêt sur tout le serveur"
+
+msgid "Terminated {s} of {t} instances of {app}"
+msgstr "{s} sur {t} instances de {app} arrêtées"
+
+msgid "Session {id} ({user}) disconnected"
+msgstr "Session {id} ({user}) déconnectée"
+
+msgid "Failed to disconnect session"
+msgstr "Échec de la déconnexion de la session"
+
+msgid ""
+"Are you sure you want to log off session {id} ({user})? Any unsaved work "
+"will be lost."
+msgstr ""
+"Êtes-vous sûr de vouloir fermer la session {id} ({user}) ? Tout travail non "
+"enregistré sera perdu."
+
+msgid "Confirm Logoff Session"
+msgstr "Confirmer la fermeture de session"
+
+msgid "Session {id} ({user}) logged off"
+msgstr "Session {id} ({user}) fermée"
+
+msgid "Failed to log off session"
+msgstr "Échec de la fermeture de la session"
+
+msgid "PowerBox - Server Applications Report"
+msgstr "PowerBox - Rapport des applications du serveur"
+
+msgid "======================================\n"
+msgstr "======================================\n"
+
+msgid "Server applications report copied to clipboard"
+msgstr "Rapport des applications du serveur copié dans le presse-papiers"
+
+msgid "User application details copied to clipboard"
+msgstr "Détails de l'application utilisateur copiés dans le presse-papiers"
+
+msgid "Session details copied to clipboard"
+msgstr "Détails de la session copiés dans le presse-papiers"
+
+msgid "&View Users Running this App"
+msgstr "&Voir les utilisateurs exécutant cette application"
+
+msgid "View &Detailed Information..."
+msgstr "Afficher les informations &détaillées..."
+
+msgid "&Track Network Connections..."
+msgstr "&Suivre les connexions réseau..."
+
+msgid "&Copy App Summary"
+msgstr "&Copier le résumé de l'application"
+
+msgid "&Suspend Application (Freeze)"
+msgstr "&Suspendre l'application (Figer)"
+
+msgid "&Resume Application"
+msgstr "&Reprendre l'application"
+
+msgid "&End Application for ALL Users"
+msgstr "&Arrêter l'application pour TOUS les utilisateurs"
+
+msgid "&Track Network Connections for this User..."
+msgstr "&Suivre les connexions réseau pour cet utilisateur..."
+
+msgid "&Suspend Process for this User"
+msgstr "&Suspendre le processus pour cet utilisateur"
+
+msgid "&Resume Process for this User"
+msgstr "&Reprendre le processus pour cet utilisateur"
+
+msgid "&End Process for this User"
+msgstr "&Terminer le processus pour cet utilisateur"
+
+msgid "&Copy User Details"
+msgstr "&Copier les détails de l'utilisateur"
+
+msgid "&Copy Session Details"
+msgstr "&Copier les détails de la session"
+
+# --- Process Network Tracker & Server Network Hub Strings ---
+msgid "Closed"
+msgstr "Fermé"
+
+msgid "Listening"
+msgstr "À l'écoute"
+
+msgid "Syn_Sent"
+msgstr "Syn_Sent"
+
+msgid "Syn_Received"
+msgstr "Syn_Received"
+
+msgid "Established"
+msgstr "Établi"
+
+msgid "Fin_Wait1"
+msgstr "Fin_Wait1"
+
+msgid "Fin_Wait2"
+msgstr "Fin_Wait2"
+
+msgid "Close_Wait"
+msgstr "Close_Wait"
+
+msgid "Closing"
+msgstr "En cours de fermeture"
+
+msgid "Last_Ack"
+msgstr "Last_Ack"
+
+msgid "Time_Wait"
+msgstr "Time_Wait"
+
+msgid "Deleting"
+msgstr "En cours de suppression"
+
+msgid "Local Device"
+msgstr "Périphérique local"
+
+msgid "Local LAN"
+msgstr "Réseau local (LAN)"
+
+msgid "Local Listener"
+msgstr "Port d'écoute local"
+
+msgid "Private Network"
+msgstr "Réseau privé"
+
+msgid "Network Connections - {app} ({count} PIDs)"
+msgstr "Connexions réseau - {app} ({count} PID)"
+
+msgid "Server Network Hub - {app} ({count} PIDs)"
+msgstr "Centre réseau du serveur - {app} ({count} PID)"
+
+msgid "Connecting to kernel network tables..."
+msgstr "Connexion aux tables réseau du noyau..."
+
+msgid "&User Filter:"
+msgstr "Filtre &utilisateur :"
+
+msgid "All Users ({count})"
+msgstr "Tous les utilisateurs ({count})"
+
+msgid "All Users"
+msgstr "Tous les utilisateurs"
+
+msgid "Internet Connections"
+msgstr "Connexions Internet"
+
+msgid "Local Network (LAN)"
+msgstr "Réseau local (LAN)"
+
+msgid "Localhost / Listeners"
+msgstr "Localhost / En écoute"
+
+msgid "Internet ({cnt})"
+msgstr "Internet ({cnt})"
+
+msgid "Local LAN ({cnt})"
+msgstr "Réseau local ({cnt})"
+
+msgid "Localhost / Listeners ({cnt})"
+msgstr "Localhost / En écoute ({cnt})"
+
+msgid "Remote IP"
+msgstr "IP distante"
+
+msgid "Host / Domain"
+msgstr "Hôte / Domaine"
+
+msgid "Port / Service"
+msgstr "Port / Service"
+
+msgid "Protocol"
+msgstr "Protocole"
+
+msgid "State"
+msgstr "État"
+
+msgid "Local Endpoint"
+msgstr "Point de terminaison local"
+
+msgid "Connections Monitor: {act} Active, {cls} Closed/History | App: {app}"
+msgstr ""
+"Moniteur de connexions : {act} actives, {cls} fermées/historique | "
+"Application : {app}"
+
+msgid "Filtered by {user}"
+msgstr "Filtré par {user}"
+
+msgid "&Test Port & Latency"
+msgstr "&Tester le port et la latence"
+
+msgid "&Drop Connection"
+msgstr "&Couper la connexion"
+
+msgid "Clear &Inactive"
+msgstr "Effacer les connexions &inactives"
+
+msgid "Check &VirusTotal"
+msgstr "Vérifier sur &VirusTotal"
+
+msgid "&Emergency End App"
+msgstr "Arrêt d'&urgence de l'application"
+
+msgid ""
+"Tests port latency. Hold Shift while pressing to copy result to clipboard."
+msgstr ""
+"Teste la latence du port. Maintenez Shift enfoncé pour copier le résultat "
+"dans le presse-papiers."
+
+msgid "Address {addr} copied to clipboard"
+msgstr "Adresse {addr} copiée dans le presse-papiers"
+
+msgid "Cannot test local or listening endpoint"
+msgstr "Impossible de tester un point de terminaison local ou en écoute"
+
+msgid "{ip}:{port} is OPEN (Latency: {ms:.0f} ms)"
+msgstr "{ip}:{port} est OUVERT (Latence : {ms:.0f} ms)"
+
+msgid "{ip}:{port} is UNREACHABLE or Timed Out"
+msgstr "{ip}:{port} est INACCESSIBLE ou délai dépassé"
+
+msgid "Cannot drop this connection"
+msgstr "Impossible de couper cette connexion"
+
+msgid "Connection severed successfully"
+msgstr "Connexion coupée avec succès"
+
+msgid "Failed to sever connection (Admin privileges recommended)"
+msgstr ""
+"Échec de la coupure de la connexion (privilèges administrateur recommandés)"
+
+msgid "Cleared inactive connections"
+msgstr "Connexions inactives effacées"
+
+msgid "Cannot open local or internal address"
+msgstr "Impossible d'ouvrir une adresse locale ou interne"
+
+msgid "Opening {url}"
+msgstr "Ouverture de {url}"
+
+msgid "Threat lookup is available for public internet IPs only"
+msgstr ""
+"La recherche de menaces est disponible uniquement pour les IP publiques "
+"d'Internet"
+
+msgid "Invalid IP for threat lookup"
+msgstr "IP non valide pour la recherche de menaces"
+
+msgid "Checking IP safety on VirusTotal..."
+msgstr "Vérification de la sécurité de l'IP sur VirusTotal..."
+
+msgid "Failed to open threat lookup"
+msgstr "Échec de l'ouverture de la recherche de menaces"
+
+msgid ""
+"Are you sure you want to emergency-terminate {app} across ALL {cnt} PIDs?"
+msgstr ""
+"Êtes-vous sûr de vouloir arrêter d'urgence {app} sur TOUS les {cnt} PID ?"
+
+msgid "Confirm Emergency Termination"
+msgstr "Confirmer l'arrêt d'urgence"
+
+msgid "Terminated {s} of {t} PIDs for {app}"
+msgstr "{s} sur {t} PID de {app} arrêtés"
+
+msgid "&Copy Remote IP Address (Enter)"
+msgstr "&Copier l'adresse IP distante (Entrée)"
+
+msgid "&Test Port & Measure Latency (Alt+T)"
+msgstr "&Tester le port et mesurer la latence (Alt+T)"
+
+msgid "Test Port and &Copy Result"
+msgstr "Tester le port et &copier le résultat"
+
+msgid "&Drop This Connection (Alt+D)"
+msgstr "&Couper cette connexion (Alt+D)"
+
+msgid "&Open in Web Browser (Alt+O)"
+msgstr "&Ouvrir dans le navigateur web (Alt+O)"
+
+msgid "Check &Threat Safety (VirusTotal) (Alt+V)"
+msgstr "Vérifier la sécurité des &menaces (VirusTotal) (Alt+V)"
+
+msgid "&Clear Inactive Connections (Alt+I)"
+msgstr "&Effacer les connexions inactives (Alt+I)"
+
+msgid "&Emergency Terminate Application (Alt+E)"
+msgstr "Arrêt d'&urgence de l'application (Alt+E)"
+
+msgid "No active PIDs to track for {app}"
+msgstr "Aucun PID actif à suivre pour {app}"
+
+# --- File Manager Module Strings ---
+msgid "Desktop"
+msgstr "Bureau"
+
+msgid "Virtual Location"
+msgstr "Emplacement virtuel"
+
+msgid "Item"
+msgstr "Élément"
+
+msgid "Please open File Explorer to copy path"
+msgstr "Veuillez ouvrir l'Explorateur de fichiers pour copier le chemin"
+
+msgid "{item} is a system icon and does not have a physical path"
+msgstr "{item} est une icône système et ne possède pas de chemin physique"
+
+msgid "Cannot copy path in {loc}"
+msgstr "Impossible de copier le chemin dans {loc}"
+
+msgid "WSL Path copied: {p}"
+msgstr "Chemin WSL copié : {p}"
+
+msgid "Path copied: {p}"
+msgstr "Chemin copié : {p}"
+
+msgid "WSL Path: {p}"
+msgstr "Chemin WSL : {p}"
+
+msgid "Path: {p}"
+msgstr "Chemin : {p}"
+
+msgid "Please select an item in File Explorer to calculate size"
+msgstr ""
+"Veuillez sélectionner un élément dans l'Explorateur de fichiers pour "
+"calculer la taille"
+
+msgid "{name} is a system icon and has no physical size"
+msgstr "{name} est une icône système et n'a pas de taille physique"
+
+msgid ""
+"Cannot calculate size in {loc}. Please select a physical file, folder, or "
+"drive"
+msgstr ""
+"Impossible de calculer la taille dans {loc}. Veuillez sélectionner un "
+"fichier, dossier ou lecteur physique"
+
+msgid "Drive {d}: {free} free ({pct:.0f}%), {used} used, Total: {tot}"
+msgstr ""
+"Lecteur {d} : {free} libres ({pct:.0f}%), {used} utilisés, Total : {tot}"
+
+msgid "File {name}: {size}"
+msgstr "Fichier {name} : {size}"
+
+msgid "Error reading file size"
+msgstr "Erreur lors de la lecture de la taille du fichier"
+
+msgid "Calculating size for {name}, please wait..."
+msgstr "Calcul de la taille de {name} en cours, veuillez patienter..."
+
+msgid "Folder size calculation canceled"
+msgstr "Calcul de la taille du dossier annulé"
+
+msgid "Folder {name}: {size} ({files} files, {dirs} folders)"
+msgstr "Dossier {name} : {size} ({files} fichiers, {dirs} dossiers)"
+
+msgid "Failed to query drive space"
+msgstr "Échec de la vérification de l'espace disque"
+
+msgid " [LOW SPACE]"
+msgstr " [ESPACE FAIBLE]"
+
+msgid "{d}: {free} free ({pct:.0f}%), {used} used, Total: {tot}"
+msgstr "{d} : {free} libres ({pct:.0f}%), {used} utilisés, Total : {tot}"
+
+msgid "Locked File - {name}"
+msgstr "Fichier verrouillé - {name}"
+
+msgid ""
+"The following applications are holding this file. Terminate them to unlock:"
+msgstr ""
+"Les applications suivantes retiennent ce fichier. Arrêtez-les pour le "
+"déverrouiller :"
+
+msgid "PID"
+msgstr "PID"
+
+msgid "Session"
+msgstr "Session"
+
+msgid "Service Name"
+msgstr "Nom du service"
+
+msgid "&Terminate Process"
+msgstr "&Terminer le processus"
+
+msgid "Terminate &All"
+msgstr "Terminer &tout"
+
+msgid "Locking process details copied to clipboard"
+msgstr "Détails des processus de verrouillage copiés dans le presse-papiers"
+
+msgid "Please select an item in File Explorer to inspect locks"
+msgstr ""
+"Veuillez sélectionner un élément dans l'Explorateur de fichiers pour "
+"inspecter les verrous"
+
+msgid "{item} is a system icon and cannot be locked by applications"
+msgstr ""
+"{item} est une icône système et ne peut pas être verrouillée par des "
+"applications"
+
+msgid ""
+"Cannot inspect file locks in {loc}. Please select a physical file, folder, "
+"or drive"
+msgstr ""
+"Impossible d'inspecter les verrous dans {loc}. Veuillez sélectionner un "
+"fichier, dossier ou lecteur physique"
+
+msgid "{name} is not locked by any application"
+msgstr "{name} n'est verrouillé par aucune application"
+
+msgid "Please open File Explorer to calculate checksum"
+msgstr ""
+"Veuillez ouvrir l'Explorateur de fichiers pour calculer la somme de contrôle"
+
+msgid "{item} is a system icon and does not have a checksum"
+msgstr "{item} est une icône système et ne possède pas de somme de contrôle"
+
+msgid "Please select a physical file to calculate checksum"
+msgstr ""
+"Veuillez sélectionner un fichier physique pour calculer la somme de contrôle"
+
+msgid "Computing {algo} for {name}, please wait..."
+msgstr "Calcul de {algo} pour {name} en cours, veuillez patienter..."
+
+msgid "Checksum computation canceled"
+msgstr "Calcul de la somme de contrôle annulé"
+
+msgid "Failed to compute checksum"
+msgstr "Échec du calcul de la somme de contrôle"
+
+msgid "HASH MATCH! Authentic {algo}: {h}"
+msgstr "CORRESPONDANCE DU HASH ! {algo} authentique : {h}"
+
+msgid "HASH MISMATCH! Computed: {comp} | Expected: {clip}"
+msgstr "NON-CORRESPONDANCE DU HASH ! Calculé : {comp} | Attendu : {clip}"
+
+msgid "{algo}: {h} (No hash found in clipboard to compare)"
+msgstr "{algo} : {h} (Aucun hash trouvé dans le presse-papiers à comparer)"
+
+msgid "Please open a folder in File Explorer to create a file"
+msgstr ""
+"Veuillez ouvrir un dossier dans l'Explorateur de fichiers pour créer un "
+"fichier"
+
+msgid "Cannot create a file in {loc}. Please open a physical folder"
+msgstr ""
+"Impossible de créer un fichier dans {loc}. Veuillez ouvrir un dossier "
+"physique"
+
+msgid ""
+"Create file in: {dest}\n"
+"Enter file name with extension (e.g. notes.txt, script.py):"
+msgstr ""
+"Créer un fichier dans : {dest}\n"
+"Entrez le nom du fichier avec l'extension (ex. notes.txt, script.py) :"
+
+msgid "Create New File"
+msgstr "Créer un nouveau fichier"
+
+msgid "File already exists: {name}"
+msgstr "Le fichier existe déjà : {name}"
+
+msgid "File {name} created successfully"
+msgstr "Fichier {name} créé avec succès"
+
+# --- Settings GUI Module Strings ---
+msgid "Action feedback mode:"
+msgstr "Mode de retour d'action :"
+
+msgid "No feedback (Silent)"
+msgstr "Aucun retour (Silencieux)"
+
+msgid "Beep only"
+msgstr "Bip uniquement"
+
+msgid "Speak action name"
+msgstr "Énoncer le nom de l'action"
+
+msgid "Beep and speak"
+msgstr "Bip et énonciation"
+
+msgid "Shutdown and restart confirmation style:"
+msgstr "Style de confirmation d'arrêt et de redémarrage :"
+
+msgid "Confirmation dialog (Recommended)"
+msgstr "Boîte de dialogue de confirmation (Recommandé)"
+
+msgid "Press key twice within 2 seconds"
+msgstr "Appuyer deux fois sur la touche en 2 secondes"
+
+msgid "Files and folders size format:"
+msgstr "Format de taille des fichiers et dossiers :"
+
+msgid "Smart Adaptive (Recommended)"
+msgstr "Adaptatif intelligent (Recommandé)"
+
+msgid "Always Megabytes (MB)"
+msgstr "Toujours en mégaoctets (Mo)"
+
+msgid "Always Gigabytes (GB)"
+msgstr "Toujours en gigaoctets (Go)"
+
+msgid "Drives storage space format:"
+msgstr "Format de l'espace de stockage des lecteurs :"
+
+msgid "Always Terabytes (TB)"
+msgstr "Toujours en téraoctets (To)"
+
+msgid "Default file checksum algorithm:"
+msgstr "Algorithme de somme de contrôle par défaut :"
+
+msgid "SHA-256 (Standard & Secure)"
+msgstr "SHA-256 (Standard et sécurisé)"
+
+msgid "MD5 (Fast)"
+msgstr "MD5 (Rapide)"
+
+msgid "Standard & Secure"
+msgstr "Standard et sécurisé"
+
+msgid "Fast"
+msgstr "Rapide"
+
+# --- Help Manager Module Strings ---
+msgid "PowerBox - Global Shortcuts Help"
+msgstr "PowerBox - Aide des raccourcis globaux"
+
+msgid "--- Layer Modifiers (Prefix Keys) ---"
+msgstr "--- Modificateurs de couches (Touches de préfixe) ---"
+
+msgid "Global Help"
+msgstr "Aide globale"
+
+msgid "--- System Audio (Master) ---"
+msgstr "--- Audio système (Principal) ---"
+
+msgid "--- Active Application Audio ---"
+msgstr "--- Audio de l'application active ---"
+
+msgid "App Volume Up"
+msgstr "Augmenter le volume de l'application"
+
+msgid "App Volume Down"
+msgstr "Diminuer le volume de l'application"
+
+msgid "App Volume Mute"
+msgstr "Couper le son de l'application"
+
+msgid "--- Media & Browser Navigation ---"
+msgstr "--- Navigation multimédia et navigateur ---"
+
+msgid "--- Smart Mouse & Context Menus ---"
+msgstr "--- Souris intelligente et menus contextuels ---"
+
+msgid "--- Network Info ---"
+msgstr "--- Informations réseau ---"
+
+msgid "Get Local IP"
+msgstr "Obtenir l'IP locale"
+
+msgid "Get Public IP"
+msgstr "Obtenir l'IP publique"

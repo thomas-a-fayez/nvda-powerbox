@@ -90,7 +90,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
         super(GlobalPlugin, self).__init__(*args, **kwargs)
         gui.settingsDialogs.NVDASettingsDialog.categoryClasses.append(PowerBoxSettingsPanel)
 
-        # Unified single-state layer tracker (None, 'app', 'terminal', 'network', 'system')
+        # Unified single-state layer tracker (None, 'app', 'terminal', 'network', 'system', 'files')
         self.activeLayer = None
         self._double_press_timer = None
         self.keepLayerActive = False
@@ -152,6 +152,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
         self.clearGestureBindings()
         self.bindGestures(self.__gestures)
 
+    @scriptHandler.script(description=_("Provides feedback when an unmapped key is pressed inside an active layer"))
     def script_error(self, gesture):
         """Provides feedback when an unmapped key is pressed inside an active layer."""
         mode = config.conf.get("powerBox", {}).get("feedbackMode", "beep")
@@ -161,7 +162,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
             ui.message(_("Invalid key"))
 
     # --- System Layer Scripts ---
-    @scriptHandler.script(description=_("System Layer: Press t, shift+t, c, d, r, s, b, l, or h next"))
+    @scriptHandler.script(description=_("System Layer: Press t, shift+t, c, d, r, s, b, l, p, shift+p, control+p, control+e, or h next"))
     def script_systemLayer(self, gesture):
         if self.activeLayer:
             self.script_error(gesture)
@@ -185,19 +186,19 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
         self.activeLayer = "system"
         self.trigger_layer_entry_feedback(_("System Layer"), 600, 50)
 
-    @scriptHandler.script(description=_("Opens the shutdown timer setup dialog"))
+    @scriptHandler.script(description=_("Set shutdown timer"))
     def script_layerPowerTimer(self, gesture):
         wx.CallAfter(power_manager.show_timer_dialog)
 
-    @scriptHandler.script(description=_("Announces the remaining time on the shutdown timer"))
+    @scriptHandler.script(description=_("Check shutdown timer remaining time"))
     def script_layerPowerTimerStatus(self, gesture):
         power_manager.get_timer_status()
 
-    @scriptHandler.script(description=_("Cancels any active shutdown timer"))
+    @scriptHandler.script(description=_("Cancel shutdown timer"))
     def script_layerCancelTimer(self, gesture):
         power_manager.cancel_timer()
 
-    @scriptHandler.script(description=_("Shuts down the computer with confirmation"))
+    @scriptHandler.script(description=_("Shut down computer"))
     def script_layerShutdown(self, gesture):
         confirm_style = config.conf.get("powerBox", {}).get("powerConfirmStyle", "dialog")
         if confirm_style == "doublePress":
@@ -209,7 +210,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
                 self._cancel_double_press_timer()
         power_manager.request_confirmed_action("shutdown")
 
-    @scriptHandler.script(description=_("Restarts the computer with confirmation"))
+    @scriptHandler.script(description=_("Restart computer"))
     def script_layerRestart(self, gesture):
         confirm_style = config.conf.get("powerBox", {}).get("powerConfirmStyle", "dialog")
         if confirm_style == "doublePress":
@@ -221,36 +222,36 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
                 self._cancel_double_press_timer()
         power_manager.request_confirmed_action("restart")
 
-    @scriptHandler.script(description=_("Puts the computer into sleep mode"))
+    @scriptHandler.script(description=_("Sleep"))
     def script_layerSleep(self, gesture):
         power_manager.sleep_system()
 
-    @scriptHandler.script(description=_("Hibernates the computer"))
+    @scriptHandler.script(description=_("Hibernate"))
     def script_layerHibernate(self, gesture):
         power_manager.hibernate_system()
 
-    @scriptHandler.script(description=_("Locks the Windows workstation"))
+    @scriptHandler.script(description=_("Lock workstation"))
     def script_layerLock(self, gesture):
         power_manager.lock_workstation()
 
-    @scriptHandler.script(description=_("Inspects CPU and RAM usage of the active application"))
+    @scriptHandler.script(description=_("Inspect active application CPU and RAM usage"))
     def script_layerProcessInspector(self, gesture):
         process_inspector.inspect_active_process(copy_to_clip=False)
 
-    @scriptHandler.script(description=_("Copies and speaks CPU and RAM usage of the active application"))
+    @scriptHandler.script(description=_("Copy and speak active application CPU and RAM usage"))
     def script_layerCopyProcessInspector(self, gesture):
         process_inspector.inspect_active_process(copy_to_clip=True)
 
-    @scriptHandler.script(description=_("Opens Server Process Hub and Session Manager"))
+    @scriptHandler.script(description=_("Open Server Process Hub (Enterprise Manager)"))
     def script_layerServerProcessHub(self, gesture):
         wx.CallAfter(server_process_hub.show_server_process_hub_dialog)
 
-    @scriptHandler.script(description=_("Restarts or starts Windows Explorer"))
+    @scriptHandler.script(description=_("Restart or start Windows Explorer"))
     def script_layerRestartExplorer(self, gesture):
         power_manager.restart_explorer()
 
     # --- Terminal Layer Scripts ---
-    @scriptHandler.script(description=_("Terminal Layer: Press p, shift+p, c, shift+c, or w next"))
+    @scriptHandler.script(description=_("Terminal Layer: Press p, shift+p, c, shift+c, w, or h next"))
     def script_terminalLayer(self, gesture):
         if self.activeLayer:
             self.script_error(gesture)
@@ -267,36 +268,36 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
         self.activeLayer = "terminal"
         self.trigger_layer_entry_feedback(_("Terminal Layer"), 500, 50)
 
-    @scriptHandler.script(description=_("Opens PowerShell in the current Explorer directory"))
+    @scriptHandler.script(description=_("PowerShell"))
     def script_openPowerShell(self, gesture):
         smart_path.open_terminal("powershell", as_admin=False)
 
-    @scriptHandler.script(description=_("Opens PowerShell as Administrator in the current Explorer directory"))
+    @scriptHandler.script(description=_("PowerShell (Admin)"))
     def script_openPowerShellAdmin(self, gesture):
         smart_path.open_terminal("powershell", as_admin=True)
 
-    @scriptHandler.script(description=_("Opens Command Prompt in the current Explorer directory"))
+    @scriptHandler.script(description=_("Command Prompt"))
     def script_openCMD(self, gesture):
         smart_path.open_terminal("cmd", as_admin=False)
 
-    @scriptHandler.script(description=_("Opens Command Prompt as Administrator in the current Explorer directory"))
+    @scriptHandler.script(description=_("Command Prompt (Admin)"))
     def script_openCMDAdmin(self, gesture):
         smart_path.open_terminal("cmd", as_admin=True)
 
-    @scriptHandler.script(description=_("Opens WSL in the current Explorer directory"))
+    @scriptHandler.script(description=_("WSL"))
     def script_openWSL(self, gesture):
         smart_path.open_terminal("wsl", as_admin=False)
 
     # --- Smart Mouse Scripts ---
-    @scriptHandler.script(description=_("Routes mouse pointer to current object center and left clicks"))
+    @scriptHandler.script(description=_("Smart Left Click"))
     def script_smartLeftClick(self, gesture):
         actions.perform_smart_click("left", _("Smart Left Click"))
 
-    @scriptHandler.script(description=_("Routes mouse pointer to current object center and right clicks"))
+    @scriptHandler.script(description=_("Smart Right Click"))
     def script_smartRightClick(self, gesture):
         actions.perform_smart_click("right", _("Smart Right Click"))
 
-    @scriptHandler.script(description=_("Routes mouse pointer to current object center and double clicks"))
+    @scriptHandler.script(description=_("Smart Double Click"))
     def script_smartDoubleClick(self, gesture):
         actions.perform_smart_click("double", _("Smart Double Click"))
 
@@ -320,7 +321,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
         ).start()
 
     # --- Master Audio Scripts ---
-    @scriptHandler.script(description=_("Master Volume Mute Toggle"))
+    @scriptHandler.script(description=_("Master Volume Mute"))
     def script_masterVolumeMute(self, gesture):
         audio_manager.toggle_master_mute()
 
@@ -371,7 +372,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
         actions.perform_action(actions.VK_BROWSER_REFRESH, _("Browser Refresh"), extended=True)
 
     # --- Quick Application Scripts ---
-    @scriptHandler.script(description=_("Quick Apps Layer: Press c, m, b, e, or p next"))
+    @scriptHandler.script(description=_("Quick Apps Layer: Press c, m, b, e, p, or h next"))
     def script_appLayer(self, gesture):
         if self.activeLayer:
             self.script_error(gesture)
@@ -388,28 +389,28 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
         self.activeLayer = "app"
         self.trigger_layer_entry_feedback(_("Quick Apps Layer"), 400, 60)
 
-    @scriptHandler.script(description=_("Launches the default Calculator"))
+    @scriptHandler.script(description=_("Launch Calculator"))
     def script_launchCalculator(self, gesture):
         wx.CallLater(100, actions.perform_action, actions.VK_LAUNCH_APP2, _("Calculator"), extended=True)
 
-    @scriptHandler.script(description=_("Launches the default Mail application"))
+    @scriptHandler.script(description=_("Launch Mail"))
     def script_launchMail(self, gesture):
         wx.CallLater(100, actions.perform_action, actions.VK_LAUNCH_MAIL, _("Mail"), extended=True)
 
-    @scriptHandler.script(description=_("Launches the default Browser homepage"))
+    @scriptHandler.script(description=_("Launch Browser Home"))
     def script_launchBrowserHome(self, gesture):
         wx.CallLater(100, actions.perform_action, actions.VK_BROWSER_HOME, _("Browser Home"), extended=True)
 
-    @scriptHandler.script(description=_("Launches File Explorer / This PC"))
+    @scriptHandler.script(description=_("Launch File Explorer (This PC)"))
     def script_launchExplorer(self, gesture):
         wx.CallLater(100, actions.perform_action, actions.VK_LAUNCH_APP1, _("File Explorer"), extended=True)
 
-    @scriptHandler.script(description=_("Launches the default Media Player"))
+    @scriptHandler.script(description=_("Launch Media Player"))
     def script_launchMediaPlayer(self, gesture):
         wx.CallLater(100, actions.perform_action, actions.VK_LAUNCH_MEDIA_SELECT, _("Media Player"), extended=True)
 
     # --- Network Layer Scripts ---
-    @scriptHandler.script(description=_("Network Layer: Press s, l, shift+l, p, shift+p, g, shift+g, or h next"))
+    @scriptHandler.script(description=_("Network Layer: Press s, c, l, shift+l, p, shift+p, g, shift+g, or h next"))
     def script_networkLayer(self, gesture):
         if self.activeLayer:
             self.script_error(gesture)
@@ -429,35 +430,35 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
         self.activeLayer = "network"
         self.trigger_layer_entry_feedback(_("Network Layer"), 550, 50)
 
-    @scriptHandler.script(description=_("Scans local network for connected devices"))
+    @scriptHandler.script(description=_("Scan local network devices"))
     def script_layerScanNetwork(self, gesture):
         network_scanner.start_async_network_scan()
 
-    @scriptHandler.script(description=_("Tracks real-time network connections of the active application"))
+    @scriptHandler.script(description=_("Track active application network connections"))
     def script_layerTrackConnections(self, gesture):
         process_network_tracker.track_active_app_network()
 
-    @scriptHandler.script(description=_("Speaks the Local IP"))
+    @scriptHandler.script(description=_("Speak Local IP"))
     def script_layerLocalIP(self, gesture):
         network_info.speak_local_ip()
 
-    @scriptHandler.script(description=_("Copies and speaks the Local IP"))
+    @scriptHandler.script(description=_("Copy and speak Local IP"))
     def script_layerCopyLocalIP(self, gesture):
         network_info.copy_local_ip()
 
-    @scriptHandler.script(description=_("Speaks the Public IP"))
+    @scriptHandler.script(description=_("Speak Public IP"))
     def script_layerPublicIP(self, gesture):
         network_info.speak_public_ip()
 
-    @scriptHandler.script(description=_("Copies and speaks the Public IP"))
+    @scriptHandler.script(description=_("Copy and speak Public IP"))
     def script_layerCopyPublicIP(self, gesture):
         network_info.copy_public_ip()
 
-    @scriptHandler.script(description=_("Speaks the Default Gateway (Router IP)"))
+    @scriptHandler.script(description=_("Speak Default Gateway (Router IP)"))
     def script_layerGatewayIP(self, gesture):
         network_info.speak_default_gateway()
 
-    @scriptHandler.script(description=_("Copies and speaks the Default Gateway (Router IP)"))
+    @scriptHandler.script(description=_("Copy and speak Default Gateway"))
     def script_layerCopyGatewayIP(self, gesture):
         network_info.copy_default_gateway()
 
@@ -500,47 +501,47 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
         self.activeLayer = "files"
         self.trigger_layer_entry_feedback(_("Files Layer"), 520, 50)
 
-    @scriptHandler.script(description=_("Speaks size of focused file, folder, or drive"))
+    @scriptHandler.script(description=_("Calculate size of focused file, folder, or drive"))
     def script_layerItemSize(self, gesture):
         file_manager.calculate_size(copy_to_clip=False)
 
-    @scriptHandler.script(description=_("Copies and speaks size of focused file, folder, or drive"))
+    @scriptHandler.script(description=_("Copy size of focused file, folder, or drive"))
     def script_layerCopyItemSize(self, gesture):
         file_manager.calculate_size(copy_to_clip=True)
 
-    @scriptHandler.script(description=_("Announces free space across all system drives"))
+    @scriptHandler.script(description=_("Check free space across all drives"))
     def script_layerDrivesPulse(self, gesture):
         file_manager.check_drives_pulse(copy_to_clip=False)
 
-    @scriptHandler.script(description=_("Copies and speaks free space across all system drives"))
+    @scriptHandler.script(description=_("Copy drives free space report"))
     def script_layerCopyDrivesPulse(self, gesture):
         file_manager.check_drives_pulse(copy_to_clip=True)
 
-    @scriptHandler.script(description=_("Inspects applications locking the focused file or folder"))
+    @scriptHandler.script(description=_("Inspect and unlock file locking processes"))
     def script_layerFileLock(self, gesture):
         file_manager.inspect_file_lock(copy_to_clip=False)
 
-    @scriptHandler.script(description=_("Copies locking application details to clipboard"))
+    @scriptHandler.script(description=_("Copy locking process details"))
     def script_layerCopyFileLock(self, gesture):
         file_manager.inspect_file_lock(copy_to_clip=True)
 
-    @scriptHandler.script(description=_("Computes file checksum and matches against clipboard"))
+    @scriptHandler.script(description=_("Compute checksum and match with clipboard"))
     def script_layerFileChecksum(self, gesture):
         file_manager.calculate_file_checksum(copy_to_clip=False)
 
-    @scriptHandler.script(description=_("Copies file checksum directly to clipboard"))
+    @scriptHandler.script(description=_("Copy file checksum to clipboard"))
     def script_layerCopyFileChecksum(self, gesture):
         file_manager.calculate_file_checksum(copy_to_clip=True)
 
-    @scriptHandler.script(description=_("Instantly creates a new file in current directory"))
+    @scriptHandler.script(description=_("Create new file in current folder"))
     def script_layerCreateNewFile(self, gesture):
         file_manager.create_new_file()
 
-    @scriptHandler.script(description=_("Copies Windows path of focused item or current folder"))
+    @scriptHandler.script(description=_("Copy Windows path"))
     def script_layerCopyPathWindows(self, gesture):
         file_manager.copy_path(wsl=False)
 
-    @scriptHandler.script(description=_("Copies WSL Linux path of focused item or current folder"))
+    @scriptHandler.script(description=_("Copy WSL Linux path"))
     def script_layerCopyPathWSL(self, gesture):
         file_manager.copy_path(wsl=True)
 

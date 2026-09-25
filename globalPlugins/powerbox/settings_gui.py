@@ -116,8 +116,8 @@ class PowerBoxSettingsPanel(SettingsPanel):
 
         # 5. Configurable Default Hash Algorithm
         self.hashChoices = [
-            ("sha256", "SHA-256 (" + _("Standard & Secure") + ")"),
-            ("md5", "MD5 (" + _("Fast") + ")"),
+            ("sha256", _("SHA-256 (Standard & Secure)")),
+            ("md5", _("MD5 (Fast)")),
             ("sha1", "SHA-1"),
         ]
         self.hashChoice = helper.addLabeledControl(

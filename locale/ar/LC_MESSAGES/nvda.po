@@ -1,0 +1,1438 @@
+# Arabic translation for PowerBox add-on for NVDA.
+# Copyright (C) 2026 Thomas A. Fayez
+# This file is distributed under the same license as the PowerBox package.
+# Thomas A. Fayez <thomas.a.fayez@gmail.com>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PowerBox 2.0.0\n"
+"Report-Msgid-Bugs-To: thomas.a.fayez@gmail.com\n"
+"POT-Creation-Date: 2026-09-25 10:00+0300\n"
+"PO-Revision-Date: 2026-09-25 10:18+0300\n"
+"Last-Translator: Thomas A. Fayez <thomas.a.fayez@gmail.com>\n"
+"Language-Team: Arabic <ar@li.org>\n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5);\n"
+"X-Generator: Poedit 3.9\n"
+
+# --- Core & Layer Activation Names ---
+msgid "PowerBox"
+msgstr "PowerBox"
+
+msgid "Invalid key"
+msgstr "مفتاح غير صالح"
+
+msgid "Provides feedback when an unmapped key is pressed inside an active layer"
+msgstr "إصدار تنبيه عند الضغط على مفتاح غير مخصص داخل الطبقة النشطة"
+
+msgid "(Copied)"
+msgstr "(تم النسخ)"
+
+#, fuzzy
+msgid "Application"
+msgstr ""
+"#-#-#-#-#  catalog.po (PowerBox 2.0.0)  #-#-#-#-#\n"
+"تطبيق\n"
+"#-#-#-#-#  catalog.po (PowerBox 2.0.0)  #-#-#-#-#\n"
+"التطبيق"
+
+msgid "Current App"
+msgstr "التطبيق الحالي"
+
+msgid "Unknown User"
+msgstr "مستخدم غير معروف"
+
+msgid "User"
+msgstr "مستخدم"
+
+msgid "Unknown"
+msgstr "غير معروف"
+
+msgid "System Layer"
+msgstr "طبقة النظام"
+
+msgid "Terminal Layer"
+msgstr "طبقة الطرفيات"
+
+msgid "Quick Apps Layer"
+msgstr "طبقة التطبيقات السريعة"
+
+msgid "Network Layer"
+msgstr "طبقة الشبكات"
+
+msgid "Files Layer"
+msgstr "طبقة الملفات"
+
+# --- Layer Script Descriptions in Input Gestures ---
+msgid "Quick Apps Layer: Press c, m, b, e, p, or h next"
+msgstr "طبقة التطبيقات السريعة: اضغط c أو m أو b أو e أو p أو h بعد ذلك"
+
+msgid "Terminal Layer: Press p, shift+p, c, shift+c, w, or h next"
+msgstr "طبقة الطرفيات: اضغط p أو shift+p أو c أو shift+c أو w أو h بعد ذلك"
+
+msgid "Network Layer: Press s, c, l, shift+l, p, shift+p, g, shift+g, or h next"
+msgstr ""
+"طبقة الشبكات: اضغط s أو c أو l أو shift+l أو p أو shift+p أو g أو shift+g أو "
+"h بعد ذلك"
+
+msgid ""
+"System Layer: Press t, shift+t, c, d, r, s, b, l, p, shift+p, control+p, "
+"control+e, or h next"
+msgstr ""
+"طبقة النظام: اضغط t أو shift+t أو c أو d أو r أو s أو b أو l أو p أو shift+p "
+"أو control+p أو control+e أو h بعد ذلك"
+
+msgid ""
+"Files Layer: Press s, shift+s, d, shift+d, l, shift+l, c, shift+c, n, p, "
+"shift+p, or h next"
+msgstr ""
+"طبقة الملفات: اضغط s أو shift+s أو d أو shift+d أو l أو shift+l أو c أو "
+"shift+c أو n أو p أو shift+p أو h بعد ذلك"
+
+# --- Script Actions & Help Names ---
+msgid "Set shutdown timer"
+msgstr "تعيين مؤقت إيقاف التشغيل"
+
+msgid "Check shutdown timer remaining time"
+msgstr "معرفة الوقت المتبقي في مؤقت إيقاف التشغيل"
+
+msgid "Cancel shutdown timer"
+msgstr "إلغاء مؤقت إيقاف التشغيل"
+
+msgid "Shut down computer"
+msgstr "إيقاف تشغيل الكمبيوتر"
+
+msgid "Restart computer"
+msgstr "إعادة تشغيل الكمبيوتر"
+
+msgid "Sleep"
+msgstr "سكون"
+
+msgid "Hibernate"
+msgstr "إسبات"
+
+msgid "Lock workstation"
+msgstr "قفل محطة العمل"
+
+msgid "Inspect active application CPU and RAM usage"
+msgstr "فحص استهلاك المعالج والذاكرة للتطبيق النشط"
+
+msgid "Copy and speak active application CPU and RAM usage"
+msgstr "نسخ ونطق استهلاك المعالج والذاكرة للتطبيق النشط"
+
+msgid "Open Server Process Hub (Enterprise Manager)"
+msgstr "فتح منصة إدارة عمليات وجلسات الخادم"
+
+msgid "Restart or start Windows Explorer"
+msgstr "إعادة تشغيل أو بدء تشغيل مستكشف Windows"
+
+msgid "PowerShell"
+msgstr "PowerShell"
+
+msgid "PowerShell (Admin)"
+msgstr "PowerShell (مسؤول)"
+
+msgid "Command Prompt"
+msgstr "موجه الأوامر"
+
+msgid "Command Prompt (Admin)"
+msgstr "موجه الأوامر (مسؤول)"
+
+msgid "WSL"
+msgstr "WSL"
+
+msgid "Smart Left Click"
+msgstr "نقر أيسر ذكي"
+
+msgid "Smart Right Click"
+msgstr "نقر أيمن ذكي"
+
+msgid "Smart Double Click"
+msgstr "نقر مزدوج ذكي"
+
+msgid "Applications menu (Modern Context Menu)"
+msgstr "قائمة التطبيقات (قائمة السياق الحديثة)"
+
+msgid "Applications menu"
+msgstr "قائمة التطبيقات"
+
+msgid "Applications Menu"
+msgstr "قائمة التطبيقات"
+
+msgid "Opens the classic context menu (Shift+F10)"
+msgstr "فتح قائمة السياق الكلاسيكية (Shift+F10)"
+
+msgid "Classic context menu"
+msgstr "قائمة السياق الكلاسيكية"
+
+msgid "Classic Context Menu"
+msgstr "قائمة السياق الكلاسيكية"
+
+msgid "Master Volume Mute"
+msgstr "كتم الصوت الرئيسي"
+
+msgid "Master Volume Down"
+msgstr "خفض مستوى الصوت الرئيسي"
+
+msgid "Master Volume Up"
+msgstr "رفع مستوى الصوت الرئيسي"
+
+msgid "Mutes or unmutes the active application"
+msgstr "كتم أو إلغاء كتم صوت التطبيق النشط"
+
+msgid "Decreases the volume of the active application"
+msgstr "خفض مستوى صوت التطبيق النشط"
+
+msgid "Increases the volume of the active application"
+msgstr "رفع مستوى صوت التطبيق النشط"
+
+msgid "Play/Pause"
+msgstr "تشغيل/إيقاف مؤقت"
+
+msgid "Play Pause"
+msgstr "تشغيل إيقاف مؤقت"
+
+msgid "Next Track"
+msgstr "المقطع التالي"
+
+msgid "Previous Track"
+msgstr "المقطع السابق"
+
+msgid "Browser Back"
+msgstr "رجوع في المتصفح"
+
+msgid "Browser Forward"
+msgstr "تقدم في المتصفح"
+
+msgid "Browser Refresh"
+msgstr "تحديث المتصفح"
+
+msgid "Launch Calculator"
+msgstr "تشغيل الآلة الحاسبة"
+
+msgid "Calculator"
+msgstr "الآلة الحاسبة"
+
+msgid "Launch Mail"
+msgstr "تشغيل تطبيق البريد"
+
+msgid "Mail"
+msgstr "البريد"
+
+msgid "Launch Browser Home"
+msgstr "فتح الصفحة الرئيسية للمتصفح"
+
+msgid "Browser Home"
+msgstr "الصفحة الرئيسية للمتصفح"
+
+msgid "Launch File Explorer (This PC)"
+msgstr "تشغيل مستكشف الملفات (هذا الكمبيوتر)"
+
+msgid "File Explorer"
+msgstr "مستكشف الملفات"
+
+msgid "Launch Media Player"
+msgstr "تشغيل مشغل الوسائط"
+
+msgid "Media Player"
+msgstr "مشغل الوسائط"
+
+msgid "Scan local network devices"
+msgstr "فحص أجهزة الشبكة المحلية"
+
+msgid "Track active application network connections"
+msgstr "تتبع اتصالات شبكة التطبيق النشط"
+
+msgid "Speak Local IP"
+msgstr "نطق عنوان IP المحلي"
+
+msgid "Copy and speak Local IP"
+msgstr "نسخ ونطق عنوان IP المحلي"
+
+msgid "Speak Public IP"
+msgstr "نطق عنوان IP العام"
+
+msgid "Copy and speak Public IP"
+msgstr "نسخ ونطق عنوان IP العام"
+
+msgid "Speak Default Gateway (Router IP)"
+msgstr "نطق البوابة الافتراضية (عنوان الراوتر)"
+
+msgid "Copy and speak Default Gateway"
+msgstr "نسخ ونطق البوابة الافتراضية"
+
+msgid "Speaks the Local IP. Press twice quickly to copy to clipboard."
+msgstr "نطق عنوان IP المحلي. اضغط مرتين سريعاً لنسخه إلى الحافظة."
+
+msgid "Speaks the Public IP. Press twice quickly to copy to clipboard."
+msgstr "نطق عنوان IP العام. اضغط مرتين سريعاً لنسخه إلى الحافظة."
+
+msgid "Shows PowerBox Global Help"
+msgstr "عرض المساعدة العامة لـ PowerBox"
+
+msgid "Shows help for the currently active layer"
+msgstr "عرض مساعدة الطبقة النشطة حالياً"
+
+msgid "Show this help message"
+msgstr "عرض رسالة المساعدة هذه"
+
+msgid "Calculate size of focused file, folder, or drive"
+msgstr "حساب حجم الملف أو المجلد أو القرص المحدد"
+
+msgid "Copy size of focused file, folder, or drive"
+msgstr "نسخ حجم الملف أو المجلد أو القرص المحدد"
+
+msgid "Check free space across all drives"
+msgstr "فحص المساحة الحرة عبر جميع الأقراص"
+
+msgid "Copy drives free space report"
+msgstr "نسخ تقرير مساحة الأقراص الحرة"
+
+msgid "Inspect and unlock file locking processes"
+msgstr "فحص وتحرير العمليات المحتكرة للملف"
+
+msgid "Copy locking process details"
+msgstr "نسخ تفاصيل العمليات المحتكرة"
+
+msgid "Compute checksum and match with clipboard"
+msgstr "حساب البصمة ومطابقتها مع الحافظة"
+
+msgid "Copy file checksum to clipboard"
+msgstr "نسخ بصمة الملف إلى الحافظة"
+
+msgid "Create new file in current folder"
+msgstr "إنشاء ملف جديد في المجلد الحالي"
+
+msgid "Copy Windows path"
+msgstr "نسخ مسار Windows"
+
+msgid "Copy WSL Linux path"
+msgstr "نسخ مسار WSL Linux"
+
+msgid "PowerBox - {name} Help"
+msgstr "مساعدة PowerBox - {name}"
+
+msgid "{name} Help"
+msgstr "مساعدة {name}"
+
+msgid "Press the layer shortcut, followed by one of these keys:\n"
+msgstr "اضغط اختصار الطبقة، متبوعاً بأحد هذه المفاتيح:\n"
+
+# --- Audio Manager Strings ---
+msgid "Muted ({vol}%)"
+msgstr "مكتوم ({vol}%)"
+
+msgid "Volume: {vol}%"
+msgstr "مستوى الصوت: {vol}%"
+
+msgid "Volume Up"
+msgstr "رفع الصوت"
+
+msgid "Volume Down"
+msgstr "خفض الصوت"
+
+msgid "Muted"
+msgstr "تم الكتم"
+
+msgid "Unmuted: {vol}%"
+msgstr "تم إلغاء الكتم: {vol}%"
+
+msgid "Unmuted"
+msgstr "تم إلغاء الكتم"
+
+msgid "{app} muted ({vol}%)"
+msgstr "تم كتم {app} ({vol}%)"
+
+msgid "{app}: {vol}%"
+msgstr "{app}: {vol}%"
+
+msgid "No audio session for {app}"
+msgstr "لا توجد جلسة صوت لتطبيق {app}"
+
+msgid "{app} muted"
+msgstr "تم كتم {app}"
+
+msgid "{app} unmuted: {vol}%"
+msgstr "تم إلغاء كتم {app}: {vol}%"
+
+# --- Actions Module Strings ---
+msgid "Object has no location"
+msgstr "العنصر لا يمتلك موقعاً على الشاشة"
+
+msgid "Failed to route mouse to object"
+msgstr "فشل توجيه الفأرة إلى العنصر"
+
+# --- Smart Path Module Strings ---
+msgid "Unsupported terminal type"
+msgstr "نوع الطرفية غير مدعوم"
+
+msgid "Elevation was canceled or operation failed"
+msgstr "تم إلغاء منح صلاحيات المسؤول أو فشلت العملية"
+
+msgid "Terminal executable was not found on this system"
+msgstr "الملف التنفيذي للطرفية غير موجود على هذا النظام"
+
+msgid "{terminal} opened in {folder}"
+msgstr "تم فتح {terminal} في {folder}"
+
+msgid "Failed to open terminal"
+msgstr "فشل فتح الطرفية"
+
+# --- Network Info Module Strings ---
+msgid "127.0.0.1 (Offline)"
+msgstr "127.0.0.1 (غير متصل)"
+
+msgid "No internet connection"
+msgstr "لا يوجد اتصال بالإنترنت"
+
+msgid "Error retrieving public IP"
+msgstr "خطأ أثناء جلب عنوان IP العام"
+
+msgid "Local IP: {ip}"
+msgstr "عنوان IP المحلي: {ip}"
+
+msgid "Local IP {ip} copied to clipboard"
+msgstr "تم نسخ عنوان IP المحلي {ip} إلى الحافظة"
+
+msgid "Default Gateway: {gw}"
+msgstr "البوابة الافتراضية: {gw}"
+
+msgid "Default Gateway unavailable"
+msgstr "البوابة الافتراضية غير متوفرة"
+
+msgid "Default Gateway {gw} copied to clipboard"
+msgstr "تم نسخ البوابة الافتراضية {gw} إلى الحافظة"
+
+msgid "Public IP: {ip}"
+msgstr "عنوان IP العام: {ip}"
+
+msgid "Public IP {ip} copied to clipboard"
+msgstr "تم نسخ عنوان IP العام {ip} إلى الحافظة"
+
+# --- Network Scanner Module Strings ---
+msgid "Randomized MAC (Phone / Mobile)"
+msgstr "عنوان MAC عشوائي (هاتف / جهاز محمول)"
+
+msgid "Hardware Device"
+msgstr "جهاز عتادي"
+
+msgid "This PC"
+msgstr "هذا الكمبيوتر"
+
+msgid "Router / Default Gateway"
+msgstr "الراوتر / البوابة الافتراضية"
+
+msgid "Mobile Device"
+msgstr "جهاز محمول"
+
+msgid "Network Scanner - Discovered Devices ({count})"
+msgstr "فاحص الشبكة - الأجهزة المكتشفة ({count})"
+
+msgid ""
+"Active devices on your local network. Press Enter on any item to copy its IP:"
+msgstr ""
+"الأجهزة النشطة على شبكتك المحلية. اضغط Enter على أي عنصر لنسخ عنوان IP الخاص "
+"به:"
+
+msgid "IP Address"
+msgstr "عنوان IP"
+
+msgid "Device Name"
+msgstr "اسم الجهاز"
+
+msgid "Manufacturer"
+msgstr "الشركة المصنعة"
+
+msgid "MAC Address"
+msgstr "عنوان MAC"
+
+msgid "Copy &IP"
+msgstr "نسخ &IP"
+
+msgid "Copy &MAC"
+msgstr "نسخ &MAC"
+
+msgid "&Open in Browser"
+msgstr "&فتح في المتصفح"
+
+msgid "&Rescan"
+msgstr "إعادة ال&فحص"
+
+msgid "Copy &All Details"
+msgstr "نسخ &كافة التفاصيل"
+
+msgid "&Close"
+msgstr "إ&غلاق"
+
+msgid "IP {ip} copied to clipboard"
+msgstr "تم نسخ عنوان IP {ip} إلى الحافظة"
+
+msgid "MAC {mac} copied to clipboard"
+msgstr "تم نسخ عنوان MAC {mac} إلى الحافظة"
+
+msgid "Opening {url} in web browser"
+msgstr "جاري فتح {url} في متصفح الويب"
+
+msgid "No standard web port detected. Opening default address..."
+msgstr "لم يتم العثور على منفذ ويب قياسي. جاري فتح العنوان الافتراضي..."
+
+msgid "Failed to open web browser"
+msgstr "فشل فتح متصفح الويب"
+
+msgid "IP"
+msgstr "IP"
+
+msgid "Name"
+msgstr "الاسم"
+
+msgid "Vendor"
+msgstr "المصنع"
+
+msgid "MAC"
+msgstr "MAC"
+
+msgid "Device details copied to clipboard"
+msgstr "تم نسخ تفاصيل الجهاز إلى الحافظة"
+
+msgid "Copy IP Address"
+msgstr "نسخ عنوان IP"
+
+msgid "Copy MAC Address"
+msgstr "نسخ عنوان MAC"
+
+msgid "Copy All Details"
+msgstr "نسخ كافة التفاصيل"
+
+msgid "Open in Web Browser"
+msgstr "فتح في متصفح الويب"
+
+msgid "Not connected to a local network"
+msgstr "غير متصل بشبكة محلية"
+
+msgid "No active devices found on the local network"
+msgstr "لم يتم العثور على أجهزة نشطة على الشبكة المحلية"
+
+msgid "Scan canceled"
+msgstr "تم إلغاء الفحص"
+
+msgid "Scanning local network, please wait..."
+msgstr "جاري فحص الشبكة المحلية، يرجى الانتظار..."
+
+# --- Power Manager Strings ---
+msgid "Locking workstation"
+msgstr "جاري قفل محطة العمل"
+
+msgid "Failed to lock workstation"
+msgstr "فشل قفل محطة العمل"
+
+msgid "Entering sleep mode"
+msgstr "جاري الدخول في وضع السكون"
+
+msgid "Failed to enter sleep mode"
+msgstr "فشل الدخول في وضع السكون"
+
+msgid "Entering hibernation"
+msgstr "جاري الدخول في وضع الإسبات"
+
+msgid "Failed to hibernate system"
+msgstr "فشل إسبات النظام"
+
+msgid "Shutting down computer"
+msgstr "جاري إيقاف تشغيل الكمبيوتر"
+
+msgid "Failed to shut down computer"
+msgstr "فشل إيقاف تشغيل الكمبيوتر"
+
+msgid "Restarting computer"
+msgstr "جاري إعادة تشغيل الكمبيوتر"
+
+msgid "Failed to restart computer"
+msgstr "فشل إعادة تشغيل الكمبيوتر"
+
+msgid "shut down"
+msgstr "إيقاف التشغيل"
+
+msgid "restart"
+msgstr "إعادة التشغيل"
+
+msgid "Press again within 2 seconds to confirm {action}"
+msgstr "اضغط مجدداً خلال ثانيتين لتأكيد {action}"
+
+msgid "Confirm Shutdown"
+msgstr "تأكيد إيقاف التشغيل"
+
+msgid "Confirm Restart"
+msgstr "تأكيد إعادة التشغيل"
+
+msgid "Are you sure you want to shut down your computer?"
+msgstr "هل أنت متأكد من رغبتك في إيقاف تشغيل الكمبيوتر؟"
+
+msgid "Are you sure you want to restart your computer?"
+msgstr "هل أنت متأكد من رغبتك في إعادة تشغيل الكمبيوتر؟"
+
+msgid "Warning: Computer will shut down in 1 minute."
+msgstr "تحذير: سيتم إيقاف تشغيل الكمبيوتر خلال دقيقة واحدة."
+
+msgid "Shutdown timer set for {mins} minutes"
+msgstr "تم تعيين مؤقت إيقاف التشغيل لمدة {mins} دقيقة"
+
+msgid "No active shutdown timer"
+msgstr "لا يوجد مؤقت إيقاف تشغيل نشط"
+
+msgid "Shutdown timer canceled"
+msgstr "تم إلغاء مؤقت إيقاف التشغيل"
+
+msgid "Shutdown scheduled in {m} minutes, {s} seconds"
+msgstr "من المقرر إيقاف التشغيل خلال {m} دقيقة و {s} ثانية"
+
+msgid "Shutdown scheduled in {s} seconds"
+msgstr "من المقرر إيقاف التشغيل خلال {s} ثانية"
+
+msgid "Set Shutdown Timer"
+msgstr "تعيين مؤقت إيقاف التشغيل"
+
+msgid "&Duration (minutes):"
+msgstr "ال&مدة (بالدقائق):"
+
+msgid "Quick Presets"
+msgstr "إعدادات مسبقة سريعة"
+
+msgid "{m}m"
+msgstr "{m} د"
+
+msgid "&Start Timer"
+msgstr "&بدء المؤقت"
+
+msgid "&Cancel"
+msgstr "إ&لغاء"
+
+msgid "Windows Explorer restarted"
+msgstr "تمت إعادة تشغيل مستكشف Windows بنجاح"
+
+msgid "Windows Explorer started"
+msgstr "تم بدء تشغيل مستكشف Windows بنجاح"
+
+msgid "Failed to start Windows Explorer"
+msgstr "فشل بدء تشغيل مستكشف Windows"
+
+msgid "Restarting Windows Explorer..."
+msgstr "جاري إعادة تشغيل مستكشف Windows..."
+
+msgid "Starting Windows Explorer..."
+msgstr "جاري بدء تشغيل مستكشف Windows..."
+
+# --- Process Inspector Strings ---
+msgid "Could not identify the active process"
+msgstr "تعذر تحديد العملية النشطة"
+
+msgid "Access denied for {app}"
+msgstr "تم رفض الوصول للتطبيق {app}"
+
+msgid "Could not read resources for {app}"
+msgstr "تعذر قراءة موارد التطبيق {app}"
+
+msgid "{size:.1f} GB"
+msgstr "{size:.1f} جيجابايت"
+
+msgid "{size:.0f} MB"
+msgstr "{size:.0f} ميجابايت"
+
+msgid "{app}: {ram}, CPU {cpu:.1f}%"
+msgstr "{app}: {ram}، المعالج {cpu:.1f}%"
+
+msgid "Error inspecting process"
+msgstr "خطأ أثناء فحص العملية"
+
+msgid "No active window found"
+msgstr "لم يتم العثور على نافذة نشطة"
+
+msgid "Failed to start process inspector"
+msgstr "فشل بدء فاحص العمليات"
+
+# --- Server Process Hub Strings ---
+msgid "Active"
+msgstr "نشط"
+
+msgid "Connected"
+msgstr "متصل"
+
+msgid "ConnectQuery"
+msgstr "استعلام اتصال"
+
+msgid "Shadow"
+msgstr "مراقبة"
+
+msgid "Disconnected"
+msgstr "منقطع"
+
+msgid "Idle"
+msgstr "خامل"
+
+msgid "Listen"
+msgstr "استماع"
+
+msgid "Reset"
+msgstr "إعادة ضبط"
+
+msgid "Down"
+msgstr "متوقف"
+
+msgid "Init"
+msgstr "تهيئة"
+
+msgid "SYSTEM / Service"
+msgstr "خدمة نظام / SYSTEM"
+
+msgid "Console / Local"
+msgstr "وحدة التحكم / محلي"
+
+msgid "Access Denied / Protected"
+msgstr "تم رفض الوصول / عملية محمية"
+
+msgid "Not available"
+msgstr "غير متوفر"
+
+msgid "64-bit"
+msgstr "64 بت"
+
+msgid "32-bit (WoW64)"
+msgstr "32 بت (WoW64)"
+
+msgid "{s} seconds"
+msgstr "{s} ثانية"
+
+msgid "{d}d {h}h"
+msgstr "{d} يوم و {h} ساعة"
+
+msgid "{h}h {m}m"
+msgstr "{h} ساعة و {m} دقيقة"
+
+msgid "{m} minutes"
+msgstr "{m} دقيقة"
+
+msgid "Application Details - {app}"
+msgstr "تفاصيل التطبيق - {app}"
+
+msgid "Copy &Details"
+msgstr "نسخ ال&تفاصيل"
+
+msgid "Recalculating live CPU usage, uptime, and window titles, please wait..."
+msgstr ""
+"جاري إعادة حساب استهلاك المعالج المباشر، ووقت التشغيل، وعناوين النوافذ، يرجى "
+"الانتظار..."
+
+msgid "=== Application Details Report ==="
+msgstr "=== تقرير تفاصيل التطبيق ==="
+
+msgid "Application: {app}"
+msgstr "التطبيق: {app}"
+
+msgid "Binary Path: {path}"
+msgstr "المسار التنفيذي: {path}"
+
+msgid "Architecture: {arch}"
+msgstr "المعمارية: {arch}"
+
+msgid "Process Uptime: {uptime}"
+msgstr "وقت تشغيل العملية: {uptime}"
+
+msgid "Active Users Count: {cnt}"
+msgstr "عدد المستخدمين النشطين: {cnt}"
+
+msgid "Running Processes (PIDs): {cnt}"
+msgstr "العمليات المشغلة (PIDs): {cnt}"
+
+msgid "Live CPU Usage: {cpu:.1f}%"
+msgstr "استهلاك المعالج المباشر: {cpu:.1f}%"
+
+msgid "Total Working Set RAM: {ram}"
+msgstr "إجمالي الذاكرة الفعلية (RAM): {ram}"
+
+msgid "Peak Working Set RAM: {ram}"
+msgstr "ذروة الذاكرة الفعلية (Peak RAM): {ram}"
+
+msgid "--- Open Windows & Tabs Titles ({count}) ---"
+msgstr "--- عناوين النوافذ والألسنة المفتوحة ({count}) ---"
+
+msgid "  (No interactive windows found)"
+msgstr "  (لم يتم العثور على نوافذ تفاعلية)"
+
+msgid "--- User Accounts Breakdown ---"
+msgstr "--- توزيع حسابات المستخدمين ---"
+
+msgid "Process IDs (PIDs): "
+msgstr "معرفات العمليات (PIDs): "
+
+msgid "Application details copied to clipboard"
+msgstr "تم نسخ تفاصيل التطبيق إلى الحافظة"
+
+msgid "Server Process Hub - Enterprise Manager"
+msgstr "منصة إدارة عمليات وجلسات الخادم"
+
+msgid "Scanning server sessions and processes..."
+msgstr "جاري فحص جلسات وعمليات الخادم..."
+
+msgid "&Filter Application:"
+msgstr "ت&صفية التطبيقات:"
+
+msgid "Total RAM"
+msgstr "إجمالي الذاكرة"
+
+msgid "Total CPU"
+msgstr "إجمالي المعالج"
+
+msgid "Active Users"
+msgstr "المستخدمون النشطون"
+
+msgid "Top Consumer"
+msgstr "المستهلك الأكبر"
+
+msgid "&View Users (Enter)"
+msgstr "&عرض المستخدمين (Enter)"
+
+msgid "&Details..."
+msgstr "&تفاصيل..."
+
+msgid "&All Sessions (F6)"
+msgstr "&جميع الجلسات (F6)"
+
+msgid "&View Apps (F6)"
+msgstr "&عرض التطبيقات (F6)"
+
+msgid "&End App Across Server"
+msgstr "إ&نهاء التطبيق عبر الخادم"
+
+msgid "Copy &Report"
+msgstr "&نسخ التقرير"
+
+msgid "Re&fresh (F5)"
+msgstr "ت&حديث (F5)"
+
+msgid "&Close (Esc)"
+msgstr "إ&غلاق (Esc)"
+
+msgid "Refreshing server metrics (RAM, CPU, and Sessions), please wait..."
+msgstr "جاري تحديث بيانات الخادم (الذاكرة والمعالج والجلسات)، يرجى الانتظار..."
+
+msgid "Failed to query Terminal Services. Administrator privileges recommended."
+msgstr ""
+"فشل الاستعلام عن خدمات Terminal Services. يوصى بتشغيل الإضافة بصلاحيات "
+"المسؤول."
+
+msgid ""
+"Server Pulse: {act} Active, {disc} Disconnected Sessions | {apps} User Apps "
+"({ram})"
+msgstr ""
+"نبض الخادم: {act} جلسة نشطة، {disc} جلسة منقطعة | {apps} تطبيق مستخدم ({ram})"
+
+msgid "&End Process for User"
+msgstr "إ&نهاء العملية للمستخدم"
+
+msgid "&Back to Apps (Backspace)"
+msgstr "ال&رجوع للتطبيقات (Backspace)"
+
+msgid ""
+"Application: {app} | Total RAM: {ram} | CPU: {cpu:.1f}% | Active across "
+"{count} users"
+msgstr ""
+"التطبيق: {app} | إجمالي الذاكرة: {ram} | المعالج: {cpu:.1f}% | نشط لدى "
+"{count} مستخدم"
+
+msgid "User Account"
+msgstr "حساب المستخدم"
+
+msgid "Session ID"
+msgstr "معرف الجلسة"
+
+msgid "Session State"
+msgstr "حالة الجلسة"
+
+msgid "User RAM"
+msgstr "ذاكرة المستخدم"
+
+msgid "&Logoff Session"
+msgstr "تسجيل &خروج الجلسة"
+
+msgid "&Disconnect Session"
+msgstr "&قطع الجلسة"
+
+msgid ""
+"All Server Sessions: {total} Sessions ({act} Active, {disc} Disconnected) | "
+"RAM: {ram}"
+msgstr ""
+"جميع جلسات الخادم: {total} جلسة ({act} نشطة، {disc} منقطعة) | الذاكرة: {ram}"
+
+msgid "Client IP / Machine"
+msgstr "IP العميل / اسم الجهاز"
+
+msgid "Total Session RAM"
+msgstr "إجمالي ذاكرة الجلسة"
+
+msgid "Are you sure you want to end {app} for user {user} ({count} instances)?"
+msgstr "هل أنت متأكد من رغبتك في إنهاء {app} للمستخدم {user} ({count} عملية)؟"
+
+msgid "Confirm Terminate Application"
+msgstr "تأكيد إنهاء التطبيق"
+
+msgid "Terminated {s} of {t} instances for {user}"
+msgstr "تم إنهاء {s} من أصل {t} عملية للمستخدم {user}"
+
+msgid ""
+"Are you sure you want to terminate ALL {count} instances of {app} across ALL "
+"users?"
+msgstr ""
+"هل أنت متأكد من رغبتك في إنهاء جميع العمليات البالغ عددها {count} لتطبيق "
+"{app} لدى كافة المستخدمين؟"
+
+msgid "Confirm Server-Wide Termination"
+msgstr "تأكيد الإنهاء عبر كامل الخادم"
+
+msgid "Terminated {s} of {t} instances of {app}"
+msgstr "تم إنهاء {s} من أصل {t} عملية لتطبيق {app}"
+
+msgid "Session {id} ({user}) disconnected"
+msgstr "تم قطع اتصال الجلسة {id} ({user})"
+
+msgid "Failed to disconnect session"
+msgstr "فشل قطع اتصال الجلسة"
+
+msgid ""
+"Are you sure you want to log off session {id} ({user})? Any unsaved work will "
+"be lost."
+msgstr ""
+"هل أنت متأكد من تسجيل خروج الجلسة {id} ({user})؟ سيتم فقدان أي عمل غير محفوظ."
+
+msgid "Confirm Logoff Session"
+msgstr "تأكيد تسجيل خروج الجلسة"
+
+msgid "Session {id} ({user}) logged off"
+msgstr "تم تسجيل خروج الجلسة {id} ({user}) بنجاح"
+
+msgid "Failed to log off session"
+msgstr "فشل تسجيل خروج الجلسة"
+
+msgid "PowerBox - Server Applications Report"
+msgstr "PowerBox - تقرير تطبيقات الخادم"
+
+msgid "======================================\n"
+msgstr "======================================\n"
+
+msgid "Server applications report copied to clipboard"
+msgstr "تم نسخ تقرير تطبيقات الخادم إلى الحافظة"
+
+msgid "User application details copied to clipboard"
+msgstr "تم نسخ تفاصيل تطبيق المستخدم إلى الحافظة"
+
+msgid "Session details copied to clipboard"
+msgstr "تم نسخ تفاصيل الجلسة إلى الحافظة"
+
+msgid "&View Users Running this App"
+msgstr "&عرض المستخدمين المشغلين لهذا التطبيق"
+
+msgid "View &Detailed Information..."
+msgstr "عرض ال&معلومات التفصيلية..."
+
+msgid "&Track Network Connections..."
+msgstr "&تتبع اتصالات الشبكة..."
+
+msgid "&Copy App Summary"
+msgstr "&نسخ ملخص التطبيق"
+
+msgid "&Suspend Application (Freeze)"
+msgstr "&تجميد التطبيق (إيقاف مؤقت)"
+
+msgid "&Resume Application"
+msgstr "ا&ستئناف التطبيق"
+
+msgid "&End Application for ALL Users"
+msgstr "إ&نهاء التطبيق لكافة المستخدمين"
+
+msgid "&Track Network Connections for this User..."
+msgstr "تتبع اتصالات ال&شبكة لهذا المستخدم..."
+
+msgid "&Suspend Process for this User"
+msgstr "&تجميد العملية لهذا المستخدم"
+
+msgid "&Resume Process for this User"
+msgstr "ا&ستئناف العملية لهذا المستخدم"
+
+msgid "&End Process for this User"
+msgstr "إ&نهاء العملية لهذا المستخدم"
+
+msgid "&Copy User Details"
+msgstr "نسخ &تفاصيل المستخدم"
+
+msgid "&Copy Session Details"
+msgstr "نسخ تفاصيل ال&جلسة"
+
+# --- Process Network Tracker & Server Network Hub Strings ---
+msgid "Closed"
+msgstr "مغلق"
+
+msgid "Listening"
+msgstr "استماع"
+
+msgid "Syn_Sent"
+msgstr "إرسال مزامنة (Syn_Sent)"
+
+msgid "Syn_Received"
+msgstr "استلام مزامنة (Syn_Received)"
+
+msgid "Established"
+msgstr "متصل (Established)"
+
+msgid "Fin_Wait1"
+msgstr "انتظار إنهاء 1"
+
+msgid "Fin_Wait2"
+msgstr "انتظار إنهاء 2"
+
+msgid "Close_Wait"
+msgstr "انتظار إغلاق"
+
+msgid "Closing"
+msgstr "جاري الإغلاق"
+
+msgid "Last_Ack"
+msgstr "إقرار أخير"
+
+msgid "Time_Wait"
+msgstr "مهلة انتظار"
+
+msgid "Deleting"
+msgstr "جاري الحذف"
+
+msgid "Local Device"
+msgstr "الجهاز المحلي"
+
+msgid "Local LAN"
+msgstr "الشبكة المحلية (LAN)"
+
+msgid "Local Listener"
+msgstr "منفذ استماع محلي"
+
+msgid "Private Network"
+msgstr "شبكة داخلية خاصة"
+
+msgid "Network Connections - {app} ({count} PIDs)"
+msgstr "اتصالات الشبكة - {app} ({count} PIDs)"
+
+msgid "Server Network Hub - {app} ({count} PIDs)"
+msgstr "منصة شبكات الخادم - {app} ({count} PIDs)"
+
+msgid "Connecting to kernel network tables..."
+msgstr "جاري الاتصال بجداول مقابس الشبكة في النواة..."
+
+msgid "&User Filter:"
+msgstr "ت&صفية المستخدمين:"
+
+msgid "All Users ({count})"
+msgstr "كافة المستخدمين ({count})"
+
+msgid "All Users"
+msgstr "كافة المستخدمين"
+
+msgid "Internet Connections"
+msgstr "اتصالات الإنترنت"
+
+msgid "Local Network (LAN)"
+msgstr "الشبكة المحلية (LAN)"
+
+msgid "Localhost / Listeners"
+msgstr "المنافذ المحلية / الاستماع"
+
+msgid "Internet ({cnt})"
+msgstr "الإنترنت ({cnt})"
+
+msgid "Local LAN ({cnt})"
+msgstr "الشبكة المحلية ({cnt})"
+
+msgid "Localhost / Listeners ({cnt})"
+msgstr "المنافذ المحلية / الاستماع ({cnt})"
+
+msgid "Remote IP"
+msgstr "IP البعيد"
+
+msgid "Host / Domain"
+msgstr "المضيف / النطاق"
+
+msgid "Port / Service"
+msgstr "المنفذ / الخدمة"
+
+msgid "Protocol"
+msgstr "البروتوكول"
+
+msgid "State"
+msgstr "الحالة"
+
+msgid "Local Endpoint"
+msgstr "المنفذ المحلي"
+
+msgid "Connections Monitor: {act} Active, {cls} Closed/History | App: {app}"
+msgstr "مراقب الاتصالات: {act} نشط، {cls} مغلق/تاريخي | التطبيق: {app}"
+
+msgid "Filtered by {user}"
+msgstr "تمت التصفية بحسب {user}"
+
+msgid "&Test Port & Latency"
+msgstr "ف&حص المنفذ وزمن الاستجابة"
+
+msgid "&Drop Connection"
+msgstr "&قطع هذا الاتصال"
+
+msgid "Clear &Inactive"
+msgstr "مسح غير ال&نشط"
+
+msgid "Check &VirusTotal"
+msgstr "فحص الأمان عبر &VirusTotal"
+
+msgid "&Emergency End App"
+msgstr "إنهاء التطبيق لل&طوارئ"
+
+msgid ""
+"Tests port latency. Hold Shift while pressing to copy result to clipboard."
+msgstr ""
+"فحص زمن استجابة المنفذ. استمر بالضغط على Shift أثناء الضغط لنسخ النتيجة إلى "
+"الحافظة."
+
+msgid "Address {addr} copied to clipboard"
+msgstr "تم نسخ العنوان {addr} إلى الحافظة"
+
+msgid "Cannot test local or listening endpoint"
+msgstr "لا يمكن فحص نقطة اتصال محلية أو في وضع الاستماع"
+
+msgid "{ip}:{port} is OPEN (Latency: {ms:.0f} ms)"
+msgstr "المنفذ {ip}:{port} مفتوح (زمن الاستجابة: {ms:.0f} مللي ثانية)"
+
+msgid "{ip}:{port} is UNREACHABLE or Timed Out"
+msgstr "المنفذ {ip}:{port} غير متاح أو انتهت مهلة الاتصال"
+
+msgid "Cannot drop this connection"
+msgstr "لا يمكن قطع هذا الاتصال"
+
+msgid "Connection severed successfully"
+msgstr "تم قطع الاتصال بنجاح"
+
+msgid "Failed to sever connection (Admin privileges recommended)"
+msgstr "فشل قطع الاتصال (يوصى بتشغيل الإضافة كمسؤول)"
+
+msgid "Cleared inactive connections"
+msgstr "تم مسح سجل الاتصالات غير النشطة"
+
+msgid "Cannot open local or internal address"
+msgstr "لا يمكن فتح عنوان محلي أو داخلي في المتصفح"
+
+msgid "Opening {url}"
+msgstr "جاري فتح {url}"
+
+msgid "Threat lookup is available for public internet IPs only"
+msgstr "فحص التهديدات متاح فقط لعناوين IP العامة على الإنترنت"
+
+msgid "Invalid IP for threat lookup"
+msgstr "عنوان IP غير صالح لفحص التهديدات"
+
+msgid "Checking IP safety on VirusTotal..."
+msgstr "جاري فحص أمان العنوان على VirusTotal..."
+
+msgid "Failed to open threat lookup"
+msgstr "فشل فتح فحص التهديدات"
+
+msgid ""
+"Are you sure you want to emergency-terminate {app} across ALL {cnt} PIDs?"
+msgstr ""
+"هل أنت متأكد من إنهاء {app} فوراً كإجراء طوارئ عبر كافة العمليات البالغ عددها "
+"{cnt}؟"
+
+msgid "Confirm Emergency Termination"
+msgstr "تأكيد الإنهاء الطارئ"
+
+msgid "Terminated {s} of {t} PIDs for {app}"
+msgstr "تم إنهاء {s} من أصل {t} عملية لتطبيق {app}"
+
+msgid "&Copy Remote IP Address (Enter)"
+msgstr "نسخ عنوان IP ال&بعيد (Enter)"
+
+msgid "&Test Port & Measure Latency (Alt+T)"
+msgstr "ف&حص المنفذ وقياس زمن الاستجابة (Alt+T)"
+
+msgid "Test Port and &Copy Result"
+msgstr "فحص المنفذ و&نسخ النتيجة"
+
+msgid "&Drop This Connection (Alt+D)"
+msgstr "&قطع هذا الاتصال (Alt+D)"
+
+msgid "&Open in Web Browser (Alt+O)"
+msgstr "&فتح في متصفح الويب (Alt+O)"
+
+msgid "Check &Threat Safety (VirusTotal) (Alt+V)"
+msgstr "فحص الأمان عبر &VirusTotal (Alt+V)"
+
+msgid "&Clear Inactive Connections (Alt+I)"
+msgstr "مسح الاتصالات &غير النشطة (Alt+I)"
+
+msgid "&Emergency Terminate Application (Alt+E)"
+msgstr "إنهاء التطبيق لل&طوارئ (Alt+E)"
+
+msgid "No active PIDs to track for {app}"
+msgstr "لا توجد عمليات نشطة لتتبعها لتطبيق {app}"
+
+# --- File Manager Module Strings ---
+msgid "Desktop"
+msgstr "سطح المكتب"
+
+msgid "Virtual Location"
+msgstr "موقع افتراضي"
+
+msgid "Item"
+msgstr "عنصر"
+
+msgid "Please open File Explorer to copy path"
+msgstr "يرجى فتح مستكشف الملفات لنسخ المسار"
+
+msgid "{item} is a system icon and does not have a physical path"
+msgstr "{item} أيقونة نظام ولا تمتلك مساراً فيزيائياً"
+
+msgid "Cannot copy path in {loc}"
+msgstr "لا يمكن نسخ المسار في {loc}"
+
+msgid "WSL Path copied: {p}"
+msgstr "تم نسخ مسار WSL: {p}"
+
+msgid "Path copied: {p}"
+msgstr "تم نسخ المسار: {p}"
+
+msgid "WSL Path: {p}"
+msgstr "مسار WSL: {p}"
+
+msgid "Path: {p}"
+msgstr "المسار: {p}"
+
+msgid "Please select an item in File Explorer to calculate size"
+msgstr "يرجى تحديد عنصر في مستكشف الملفات لحساب حجمه"
+
+msgid "{name} is a system icon and has no physical size"
+msgstr "{name} أيقونة نظام وليس لها حجم فيزيائي"
+
+msgid ""
+"Cannot calculate size in {loc}. Please select a physical file, folder, or "
+"drive"
+msgstr "لا يمكن حساب الحجم في {loc}. يرجى تحديد ملف أو مجلد أو قرص فيزيائي"
+
+msgid "Drive {d}: {free} free ({pct:.0f}%), {used} used, Total: {tot}"
+msgstr ""
+"القرص {d}: المتبقي {free} ({pct:.0f}%)، المستخدم {used}، الإجمالي: {tot}"
+
+msgid "File {name}: {size}"
+msgstr "الملف {name}: {size}"
+
+msgid "Error reading file size"
+msgstr "خطأ أثناء قراءة حجم الملف"
+
+msgid "Calculating size for {name}, please wait..."
+msgstr "جاري حساب الحجم لـ {name}، يرجى الانتظار..."
+
+msgid "Folder size calculation canceled"
+msgstr "تم إلغاء حساب حجم المجلد"
+
+msgid "Folder {name}: {size} ({files} files, {dirs} folders)"
+msgstr "المجلد {name}: {size} ({files} ملف، {dirs} مجلد)"
+
+msgid "Failed to query drive space"
+msgstr "فشل الاستعلام عن مساحة الأقراص"
+
+msgid " [LOW SPACE]"
+msgstr " [مساحة منخفضة]"
+
+msgid "{d}: {free} free ({pct:.0f}%), {used} used, Total: {tot}"
+msgstr "{d}: المتبقي {free} ({pct:.0f}%)، المستخدم {used}، الإجمالي: {tot}"
+
+msgid "Locked File - {name}"
+msgstr "ملف مقفول - {name}"
+
+msgid ""
+"The following applications are holding this file. Terminate them to unlock:"
+msgstr "التطبيقات التالية تحتكر هذا الملف وتمنع استخدامه. قم بإنهائها لتحريره:"
+
+msgid "PID"
+msgstr "PID"
+
+msgid "Session"
+msgstr "الجلسة"
+
+msgid "Service Name"
+msgstr "اسم الخدمة"
+
+msgid "&Terminate Process"
+msgstr "إ&نهاء العملية"
+
+msgid "Terminate &All"
+msgstr "إنهاء ال&كل"
+
+msgid "Locking process details copied to clipboard"
+msgstr "تم نسخ تفاصيل العمليات المحتكرة إلى الحافظة"
+
+msgid "Please select an item in File Explorer to inspect locks"
+msgstr "يرجى تحديد عنصر في مستكشف الملفات لفحص الأقفال"
+
+msgid "{item} is a system icon and cannot be locked by applications"
+msgstr "{item} أيقونة نظام ولا يمكن احتكارها من قبل التطبيقات"
+
+msgid ""
+"Cannot inspect file locks in {loc}. Please select a physical file, folder, or "
+"drive"
+msgstr ""
+"لا يمكن فحص أقفال الملفات في {loc}. يرجى تحديد ملف أو مجلد أو قرص فيزيائي"
+
+msgid "{name} is not locked by any application"
+msgstr "{name} غير مقفول بأي تطبيق حالياً"
+
+msgid "Please open File Explorer to calculate checksum"
+msgstr "يرجى فتح مستكشف الملفات لحساب البصمة"
+
+msgid "{item} is a system icon and does not have a checksum"
+msgstr "{item} أيقونة نظام ولا تمتلك بصمة تجزئة"
+
+msgid "Please select a physical file to calculate checksum"
+msgstr "يرجى تحديد ملف فيزيائي لحساب البصمة"
+
+msgid "Computing {algo} for {name}, please wait..."
+msgstr "جاري حساب {algo} لـ {name}، يرجى الانتظار..."
+
+msgid "Checksum computation canceled"
+msgstr "تم إلغاء حساب البصمة"
+
+msgid "Failed to compute checksum"
+msgstr "فشل حساب البصمة"
+
+msgid "HASH MATCH! Authentic {algo}: {h}"
+msgstr "تطابق تام للبصمة! البصمة الأصلية {algo}: {h}"
+
+msgid "HASH MISMATCH! Computed: {comp} | Expected: {clip}"
+msgstr "البصمة غير متطابقة! المحسوبة: {comp} | المتوقعة: {clip}"
+
+msgid "{algo}: {h} (No hash found in clipboard to compare)"
+msgstr "{algo}: {h} (لم يتم العثور على بصمة في الحافظة لمقارنتها)"
+
+msgid "Please open a folder in File Explorer to create a file"
+msgstr "يرجى فتح مجلد في مستكشف الملفات لإنشاء ملف"
+
+msgid "Cannot create a file in {loc}. Please open a physical folder"
+msgstr "لا يمكن إنشاء ملف في {loc}. يرجى فتح مجلد حقيقي"
+
+msgid ""
+"Create file in: {dest}\n"
+"Enter file name with extension (e.g. notes.txt, script.py):"
+msgstr ""
+"إنشاء ملف في: {dest}\n"
+"اكتب اسم الملف مع الامتداد (مثال: notes.txt أو script.py):"
+
+msgid "Create New File"
+msgstr "إنشاء ملف جديد"
+
+msgid "File already exists: {name}"
+msgstr "الملف موجود بالفعل: {name}"
+
+msgid "File {name} created successfully"
+msgstr "تم إنشاء الملف {name} بنجاح"
+
+# --- Settings GUI Module Strings ---
+msgid "Action feedback mode:"
+msgstr "نمط التغذية الراجعة للأوامر:"
+
+msgid "No feedback (Silent)"
+msgstr "بدون تنبيهات (صامت)"
+
+msgid "Beep only"
+msgstr "نغمات بيب فقط"
+
+msgid "Speak action name"
+msgstr "نطق اسم الإجراء فقط"
+
+msgid "Beep and speak"
+msgstr "نغمات ونطق معاً"
+
+msgid "Shutdown and restart confirmation style:"
+msgstr "أسلوب تأكيد إيقاف التشغيل وإعادة التشغيل:"
+
+msgid "Confirmation dialog (Recommended)"
+msgstr "حوار تأكيد (موصى به)"
+
+msgid "Press key twice within 2 seconds"
+msgstr "الضغط على المفتاح مرتين خلال ثانيتين"
+
+msgid "Files and folders size format:"
+msgstr "صيغة عرض حجم الملفات والمجلدات:"
+
+msgid "Smart Adaptive (Recommended)"
+msgstr "تلقائي ذكي (موصى به)"
+
+msgid "Always Megabytes (MB)"
+msgstr "بالميجابايت دائماً (MB)"
+
+msgid "Always Gigabytes (GB)"
+msgstr "بالجيجابايت دائماً (GB)"
+
+msgid "Drives storage space format:"
+msgstr "صيغة عرض سعة ومساحة الأقراص:"
+
+msgid "Always Terabytes (TB)"
+msgstr "بالتيرابايت دائماً (TB)"
+
+msgid "Default file checksum algorithm:"
+msgstr "خوارزمية بصمة الملفات الافتراضية:"
+
+msgid "SHA-256 (Standard & Secure)"
+msgstr "SHA-256 (قياسي وآمن)"
+
+msgid "MD5 (Fast)"
+msgstr "MD5 (سريع)"
+
+msgid "Standard & Secure"
+msgstr "قياسي وآمن"
+
+msgid "Fast"
+msgstr "سريع"
+
+# --- Help Manager Module Strings ---
+msgid "PowerBox - Global Shortcuts Help"
+msgstr "PowerBox - مساعدة الاختصارات العامة"
+
+msgid "--- Layer Modifiers (Prefix Keys) ---"
+msgstr "--- بادئات الطبقات (المفاتيح البادئة) ---"
+
+msgid "Global Help"
+msgstr "المساعدة العامة"
+
+msgid "--- System Audio (Master) ---"
+msgstr "--- صوت النظام (الرئيسي) ---"
+
+msgid "--- Active Application Audio ---"
+msgstr "--- صوت التطبيق النشط ---"
+
+msgid "App Volume Up"
+msgstr "رفع صوت التطبيق"
+
+msgid "App Volume Down"
+msgstr "خفض صوت التطبيق"
+
+msgid "App Volume Mute"
+msgstr "كتم صوت التطبيق"
+
+msgid "--- Media & Browser Navigation ---"
+msgstr "--- الوسائط والتنقل في المتصفح ---"
+
+msgid "--- Smart Mouse & Context Menus ---"
+msgstr "--- الفأرة الذكية وقوائم السياق ---"
+
+msgid "--- Network Info ---"
+msgstr "--- معلومات الشبكة ---"
+
+msgid "Get Local IP"
+msgstr "معرفة IP المحلي"
+
+msgid "Get Public IP"
+msgstr "معرفة IP العام"
