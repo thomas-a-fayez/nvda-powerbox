@@ -8,7 +8,7 @@
 <body>
     <h1>PowerBox for NVDA</h1>
     <p><strong>Author:</strong> Thomas A. Fayez<br>
-    <strong>Version:</strong> 2.0.1</p>
+    <strong>Version:</strong> 2.0.2</p>
     <p>PowerBox is an enterprise-grade, high-performance productivity and administration add-on designed for speed, comfort, and deep system control. It maps ergonomic NVDA gestures to master and per-application volume controls, simulates smart mouse clicks with automatic cursor routing, provides instant terminal launches in the current folder, and introduces clean <strong>Gesture Layers</strong> for quick applications, advanced LAN network scanning, real-time socket and security analysis, file and storage management with locked-file inspection, native process freezing, and comprehensive system power management with an intelligent sleep timer.</p>
     
     <h2>✨ The Concept of "Layers"</h2>
@@ -304,7 +304,7 @@
         <li><strong>Microsoft Windows API &amp; Terminal Services:</strong>
             <ul>
                 <li><strong>Audio &amp; Input:</strong> Native low-level input simulation (<code>SendInput</code>), master volume querying &amp; direct kernel muting (<code>IAudioEndpointVolume</code>), and per-application audio session mixer controls (<code>IAudioSessionManager2</code>, <code>ISimpleAudioVolume</code> via ctypes).</li>
-                <li><strong>System Power &amp; Shell:</strong> Power management (<code>user32.dll</code>: <code>LockWorkStation</code>, <code>powrprof.dll</code>: <code>SetSuspendState</code>), and intelligent Explorer shell restart and revival via process monitoring and subprocess creation.</li>
+                <li><strong>System Power &amp; Shell:</strong> Power management (<code>user32.dll</code>: <code>LockWorkStation</code>, <code>powrprof.dll</code>: <code>SetSuspendState</code>), shell change notification (<code>shell32.dll</code>: <code>SHChangeNotify</code>) with Explorer Shell COM item selection (<code>SelectItem</code>) for instant focus on created files, and intelligent Explorer shell restart and revival via process monitoring and subprocess creation.</li>
                 <li><strong>Process Inspection, Freezing &amp; Memory:</strong> Native performance counters (<code>time.perf_counter</code>), process time delta calculations (<code>GetProcessTimes</code>), working set memory metrics (<code>K32GetProcessMemoryInfo</code>), image path querying (<code>QueryFullProcessImageNameW</code>), architecture detection (<code>IsWow64Process</code>), Unicode window enumeration (<code>EnumWindows</code>, <code>GetWindowTextW</code>), and native NT kernel process freezing/resuming (<code>ntdll.dll</code>: <code>NtSuspendProcess</code>, <code>NtResumeProcess</code>).</li>
                 <li><strong>File Diagnostics &amp; Restart Manager:</strong> Microsoft Restart Manager API (<code>rstrtmgr.dll</code>: <code>RmStartSession</code>, <code>RmRegisterResources</code>, <code>RmGetList</code>, <code>RmEndSession</code>) for active file lock detection, and <code>WScript.Shell</code> COM automation for resolving shortcut (<code>.lnk</code>) targets.</li>
                 <li><strong>Storage &amp; Drives:</strong> Physical partition storage metrics via Win32 <code>GetDiskFreeSpaceExW</code> and <code>GetLogicalDriveStringsW</code>.</li>

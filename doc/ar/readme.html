@@ -8,7 +8,7 @@
 <body>
     <h1>إضافة PowerBox لقارئ الشاشة NVDA</h1>
     <p><strong>المطور:</strong> توماس أ. فايز (Thomas A. Fayez)<br>
-    <strong>الإصدار:</strong> 2.0.1</p>
+    <strong>الإصدار:</strong> 2.0.2</p>
     
     <p>تُعد <strong>PowerBox</strong> إضافة إنتاجية وإدارية مؤسسية فائقة الأداء مصممة لتوفير السرعة والراحة والتحكم العميق في النظام. توفر الإضافة اختصارات مريحة لـ NVDA للتحكم في صوت النظام الرئيسي وصوت التطبيقات المستقلة، ومحاكاة النقر الذكي للماوس مع التوجيه التلقائي للمؤشر، وتشغيل فوري للطرفيات في المجلد المفتوح حالياً، وتقدم <strong>طبقات الاختصارات (Gesture Layers)</strong> النظيفة لتشغيل التطبيقات السريعة، وفحص الشبكة المحلية المتقدم مع فاحص أجهزة LAN الميسر، والتحليل اللحظي لمقابس واتصالات الشبكة والأمان، وإدارة الملفات والتخزين مع فحص الملفات المقفولة، وتجميد البرامج بالنواة، وإدارة متكاملة لطاقة النظام مع مؤقت نوم ذكي.</p>
     
@@ -307,7 +307,7 @@
         <li><strong>Microsoft Windows API &amp; Terminal Services:</strong>
             <ul>
                 <li><strong>الصوت والمدخلات:</strong> محاكاة المفاتيح العتادية المنخفضة (<code>SendInput</code>)، واستعلام الصوت العام والكتم العتادي المباشر في النواة (<code>IAudioEndpointVolume</code>)، والتحكم في صوت التطبيقات المستقلة (<code>IAudioSessionManager2</code>, <code>ISimpleAudioVolume</code> عبر ctypes).</li>
-                <li><strong>النظام والصدفة (Shell):</strong> إدارة الطاقة (<code>user32.dll</code>: <code>LockWorkStation</code>, <code>powrprof.dll</code>: <code>SetSuspendState</code>)، والإنعاش والبدء الذكي لمستكشف Windows عبر مراقبة العمليات واستدعاء العمليات الفرعية.</li>
+                <li><strong>النظام والصدفة (Shell):</strong> إدارة الطاقة (<code>user32.dll</code>: <code>LockWorkStation</code>, <code>powrprof.dll</code>: <code>SetSuspendState</code>)، وإشعار تغييرات الصدفة (<code>shell32.dll</code>: <code>SHChangeNotify</code>) مع تحديد عناصر Shell COM بالمستكشف (<code>SelectItem</code>) للتركيز الفوري على الملفات المنشأة، والإنعاش والبدء الذكي لمستكشف Windows عبر مراقبة العمليات واستدعاء العمليات الفرعية.</li>
                 <li><strong>فحص العمليات، التجميد، والذاكرة:</strong> عدادات الأداء المباشرة في النواة (<code>time.perf_counter</code>)، وحسابات فارق وقت المعالج (<code>GetProcessTimes</code>)، ومقاييس الذاكرة الفعلية (<code>K32GetProcessMemoryInfo</code>)، واستعلام مسار الملف التنفيذي (<code>QueryFullProcessImageNameW</code>)، واكتشاف معمارية العمليات (<code>IsWow64Process</code>)، وتعداد النوافذ بالـ Unicode (<code>EnumWindows</code>, <code>GetWindowTextW</code>)، وتجميد واستئناف العمليات بالنواة (<code>ntdll.dll</code>: <code>NtSuspendProcess</code>, <code>NtResumeProcess</code>).</li>
                 <li><strong>تشخيص الملفات والتخزين:</strong> واجهة مايكروسوفت الرسمية (<code>rstrtmgr.dll</code>: <code>RmStartSession</code>, <code>RmRegisterResources</code>, <code>RmGetList</code>, <code>RmEndSession</code>) لاكتشاف أقفال الملفات، وأتمتة <code>WScript.Shell</code> لحل المسار الحقيقي للاختصارات (<code>.lnk</code>).</li>
                 <li><strong>سعة الأقراص والتخزين:</strong> قياس مساحات الأقراص الفيزيائية والمنطقية عبر Win32 (<code>GetDiskFreeSpaceExW</code>, <code>GetLogicalDriveStringsW</code>).</li>

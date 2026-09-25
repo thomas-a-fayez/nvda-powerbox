@@ -9,6 +9,7 @@
 # - Language-independent shell inspection captures dynamic localized tab/window titles without punctuation noise.
 # - Safe clipboard reading on the main UI thread prevents OLE STA cross-thread exceptions.
 # - Uses isolated WinDLL instances to ensure zero ctypes prototype collisions.
+# - Instant shell notification (shell32.SHChangeNotify) and Shell COM view selection for automatic focus on created files.
 
 import ctypes
 from ctypes import wintypes
@@ -36,6 +37,9 @@ addonHandler.initTranslation()
 rstrtmgr = ctypes.WinDLL("rstrtmgr", use_last_error=True)
 kernel32 = ctypes.WinDLL("kernel32", use_last_error=True)
 user32 = ctypes.WinDLL("user32", use_last_error=True)
+shell32 = ctypes.WinDLL("shell32", use_last_error=True)
+shell32.SHChangeNotify.argtypes = [ctypes.c_long, wintypes.UINT, wintypes.LPCWSTR, wintypes.LPCWSTR]
+shell32.SHChangeNotify.restype = None
 
 # Win32 Constants & Access Rights
 PROCESS_TERMINATE = 0x0001
@@ -940,9 +944,9 @@ def calculate_file_checksum(copy_to_clip=False):
     threading.Thread(target=hash_worker, daemon=True).start()
 
 
-# --- 6. Instant File Creator / Touch (n) ---
+# --- 6. Instant File Creator with Auto-Selection & Focus (n) ---
 def create_new_file():
-    """Presents a clean accessible input dialog to instantly create a file in current folder."""
+    """Presents a clean accessible input dialog to instantly create, select, and focus a file."""
     is_exp, sel_path, folder_path, is_virt, is_sys_icon, loc_title = get_explorer_context()
     if not is_exp:
         _trigger_file_feedback(_("Please open a folder in File Explorer to create a file"), is_success=False)
@@ -974,8 +978,34 @@ def create_new_file():
                     else:
                         with open(full_path, "w", encoding="utf-8") as f:
                             pass
+
+                        # Notify Windows Shell immediately of file creation
+                        # SHCNE_CREATE = 0x00000002, SHCNF_PATHW = 0x0005
+                        shell32.SHChangeNotify(0x00000002, 0x0005, full_path, None)
+
                         msg = _("File {name} created successfully").format(name=file_name)
                         _trigger_file_feedback(msg, is_success=True)
+
+                        # Automatically select and focus the newly created file after a short delay
+                        def select_and_focus_new_file():
+                            try:
+                                fg_hwnd = user32.GetForegroundWindow()
+                                root_hwnd = user32.GetAncestor(fg_hwnd, 2) or fg_hwnd
+                                shell = comtypes.client.CreateObject("Shell.Application", dynamic=True)
+                                for w in shell.Windows():
+                                    if getattr(w, "HWND", None) == root_hwnd:
+                                        doc = getattr(w, "Document", None)
+                                        folder = getattr(doc, "Folder", None)
+                                        if folder:
+                                            item = folder.ParseName(file_name)
+                                            if item:
+                                                # SVSI_SELECT (1) | SVSI_DESELECTOTHERS (4) | SVSI_ENSUREVISIBLE (8) | SVSI_FOCUSEDIT (16) = 29
+                                                doc.SelectItem(item, 29)
+                                        break
+                            except Exception:
+                                pass
+
+                        wx.CallLater(350, select_and_focus_new_file)
             dlg.Destroy()
         finally:
             if gui_parent:
