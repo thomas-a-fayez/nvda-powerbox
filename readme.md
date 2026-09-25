@@ -1,6 +1,6 @@
 # PowerBox for NVDA
 
-[English](README.md) | [العربية](doc/ar/readme.md)
+[English](readme.md) | [العربية](doc/ar/readme.md)
 
 **Author:** Thomas A. Fayez  
 **Version:** 2.0.0  
