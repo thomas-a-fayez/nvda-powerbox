@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: PowerBox 2.0.0\n"
 "Report-Msgid-Bugs-To: thomas.a.fayez@gmail.com\n"
 "POT-Creation-Date: 2026-09-25 10:00+0300\n"
-"PO-Revision-Date: 2026-09-25 10:20+0300\n"
-"Last-Translator: Hoàng Bolero <nguyenninhhoang2005@gmail.com>\n"
+"PO-Revision-Date: 2026-09-25 17:36+0700\n"
+"Last-Translator: nguyenninhhoang <nguyenninhhoang2005@gmail.com>\n"
 "Language-Team: Vietnamese <vi@li.org>\n"
 "Language: vi\n"
 "MIME-Version: 1.0\n"
@@ -106,10 +106,10 @@ msgid "Restart computer"
 msgstr "Khởi động lại máy tính"
 
 msgid "Sleep"
-msgstr "Ngủ (Sleep)"
+msgstr "Ngủ"
 
 msgid "Hibernate"
-msgstr "Ngủ đông (Hibernate)"
+msgstr "Ngủ đông"
 
 msgid "Lock workstation"
 msgstr "Khóa máy tính"
@@ -262,12 +262,11 @@ msgid "Copy and speak Default Gateway"
 msgstr "Sao chép và đọc Gateway mặc định"
 
 msgid "Speaks the Local IP. Press twice quickly to copy to clipboard."
-msgstr ""
-"Đọc địa chỉ IP cục bộ. Nhấn hai lần nhanh để sao chép vào khay nhớ tạm."
+msgstr "Đọc địa chỉ IP cục bộ. Nhấn hai lần nhanh để sao chép vào bộ nhớ tạm."
 
 msgid "Speaks the Public IP. Press twice quickly to copy to clipboard."
 msgstr ""
-"Đọc địa chỉ IP công cộng. Nhấn hai lần nhanh để sao chép vào khay nhớ tạm."
+"Đọc địa chỉ IP công cộng. Nhấn hai lần nhanh để sao chép vào bộ nhớ tạm."
 
 msgid "Shows PowerBox Global Help"
 msgstr "Hiển thị trợ giúp chung của PowerBox"
@@ -297,10 +296,10 @@ msgid "Copy locking process details"
 msgstr "Sao chép chi tiết tiến trình đang khóa"
 
 msgid "Compute checksum and match with clipboard"
-msgstr "Tính mã băm và so sánh với khay nhớ tạm"
+msgstr "Tính mã sum và so sánh với bộ nhớ tạm"
 
 msgid "Copy file checksum to clipboard"
-msgstr "Sao chép mã băm tệp vào khay nhớ tạm"
+msgstr "Sao chép mã sum tệp vào bộ nhớ tạm"
 
 msgid "Create new file in current folder"
 msgstr "Tạo tệp mới trong thư mục hiện tại"
@@ -394,22 +393,22 @@ msgid "Local IP: {ip}"
 msgstr "IP cục bộ: {ip}"
 
 msgid "Local IP {ip} copied to clipboard"
-msgstr "Đã sao chép IP cục bộ {ip} vào khay nhớ tạm"
+msgstr "Đã sao chép IP cục bộ {ip} vào bộ nhớ tạm"
 
 msgid "Default Gateway: {gw}"
 msgstr "Gateway mặc định: {gw}"
 
 msgid "Default Gateway unavailable"
-msgstr "Gateway mặc định không khả dụng"
+msgstr "Gateway mặc định không có sẵn"
 
 msgid "Default Gateway {gw} copied to clipboard"
-msgstr "Đã sao chép Gateway mặc định {gw} vào khay nhớ tạm"
+msgstr "Đã sao chép Gateway mặc định {gw} vào bộ nhớ tạm"
 
 msgid "Public IP: {ip}"
 msgstr "IP công cộng: {ip}"
 
 msgid "Public IP {ip} copied to clipboard"
-msgstr "Đã sao chép IP công cộng {ip} vào khay nhớ tạm"
+msgstr "Đã sao chép IP công cộng {ip} vào bộ nhớ tạm"
 
 # --- Network Scanner Module Strings ---
 msgid "Randomized MAC (Phone / Mobile)"
@@ -467,10 +466,10 @@ msgid "&Close"
 msgstr "Đón&g"
 
 msgid "IP {ip} copied to clipboard"
-msgstr "Đã sao chép IP {ip} vào khay nhớ tạm"
+msgstr "Đã sao chép IP {ip} vào bộ nhớ tạm"
 
 msgid "MAC {mac} copied to clipboard"
-msgstr "Đã sao chép MAC {mac} vào khay nhớ tạm"
+msgstr "Đã sao chép MAC {mac} vào bộ nhớ tạm"
 
 msgid "Opening {url} in web browser"
 msgstr "Đang mở {url} trong trình duyệt web"
@@ -494,7 +493,7 @@ msgid "MAC"
 msgstr "MAC"
 
 msgid "Device details copied to clipboard"
-msgstr "Đã sao chép chi tiết thiết bị vào khay nhớ tạm"
+msgstr "Đã sao chép chi tiết thiết bị vào bộ nhớ tạm"
 
 msgid "Copy IP Address"
 msgstr "Sao chép địa chỉ IP"
@@ -518,7 +517,7 @@ msgid "Scan canceled"
 msgstr "Đã hủy quét"
 
 msgid "Scanning local network, please wait..."
-msgstr "Đang quét mạng cục bộ, vui lòng đợi..."
+msgstr "Đang quét mạng cục bộ, vui lòng chờ..."
 
 # --- Power Manager Strings ---
 msgid "Locking workstation"
@@ -600,13 +599,13 @@ msgid "Quick Presets"
 msgstr "Cài đặt nhanh"
 
 msgid "{m}m"
-msgstr "{m}ph"
+msgstr "{m}m"
 
 msgid "&Start Timer"
 msgstr "&Bắt đầu hẹn giờ"
 
 msgid "&Cancel"
-msgstr "&Hủy"
+msgstr "&Hủy bỏ"
 
 msgid "Windows Explorer restarted"
 msgstr "Đã khởi động lại Windows Explorer thành công"
@@ -692,7 +691,7 @@ msgid "Access Denied / Protected"
 msgstr "Bị từ chối truy cập / Tiến trình được bảo vệ"
 
 msgid "Not available"
-msgstr "Không khả dụng"
+msgstr "Không có sẵn"
 
 msgid "64-bit"
 msgstr "64-bit"
@@ -704,10 +703,10 @@ msgid "{s} seconds"
 msgstr "{s} giây"
 
 msgid "{d}d {h}h"
-msgstr "{d}ng {h}g"
+msgstr "{d}d {h}h"
 
 msgid "{h}h {m}m"
-msgstr "{h}g {m}ph"
+msgstr "{h}h {m}m"
 
 msgid "{m} minutes"
 msgstr "{m} phút"
@@ -721,7 +720,7 @@ msgstr "Sao chép &chi tiết"
 msgid "Recalculating live CPU usage, uptime, and window titles, please wait..."
 msgstr ""
 "Đang tính toán lại mức sử dụng CPU trực tiếp, thời gian hoạt động và tiêu đề "
-"cửa sổ, vui lòng đợi..."
+"cửa sổ, vui lòng chờ..."
 
 msgid "=== Application Details Report ==="
 msgstr "=== Báo cáo chi tiết ứng dụng ==="
@@ -766,7 +765,7 @@ msgid "Process IDs (PIDs): "
 msgstr "Mã tiến trình (PIDs): "
 
 msgid "Application details copied to clipboard"
-msgstr "Đã sao chép chi tiết ứng dụng vào khay nhớ tạm"
+msgstr "Đã sao chép chi tiết ứng dụng vào bộ nhớ tạm"
 
 msgid "Server Process Hub - Enterprise Manager"
 msgstr "Trung tâm tiến trình máy chủ - Quản lý doanh nghiệp"
@@ -814,7 +813,7 @@ msgid "&Close (Esc)"
 msgstr "Đón&g (Esc)"
 
 msgid "Refreshing server metrics (RAM, CPU, and Sessions), please wait..."
-msgstr "Đang làm mới các số liệu máy chủ (RAM, CPU và Phiên), vui lòng đợi..."
+msgstr "Đang làm mới các số liệu máy chủ (RAM, CPU và Phiên), vui lòng chờ..."
 
 msgid ""
 "Failed to query Terminal Services. Administrator privileges recommended."
@@ -924,13 +923,13 @@ msgid "======================================\n"
 msgstr "======================================\n"
 
 msgid "Server applications report copied to clipboard"
-msgstr "Đã sao chép báo cáo ứng dụng máy chủ vào khay nhớ tạm"
+msgstr "Đã sao chép báo cáo ứng dụng máy chủ vào bộ nhớ tạm"
 
 msgid "User application details copied to clipboard"
-msgstr "Đã sao chép chi tiết ứng dụng của người dùng vào khay nhớ tạm"
+msgstr "Đã sao chép chi tiết ứng dụng của người dùng vào bộ nhớ tạm"
 
 msgid "Session details copied to clipboard"
-msgstr "Đã sao chép chi tiết phiên vào khay nhớ tạm"
+msgstr "Đã sao chép chi tiết phiên vào bộ nhớ tạm"
 
 msgid "&View Users Running this App"
 msgstr "&Xem người dùng đang chạy ứng dụng này"
@@ -1099,11 +1098,10 @@ msgstr "&Kết thúc ứng dụng khẩn cấp"
 msgid ""
 "Tests port latency. Hold Shift while pressing to copy result to clipboard."
 msgstr ""
-"Kiểm tra độ trễ cổng. Giữ Shift khi nhấn để sao chép kết quả vào khay nhớ "
-"tạm."
+"Kiểm tra độ trễ cổng. Giữ Shift khi nhấn để sao chép kết quả vào bộ nhớ tạm."
 
 msgid "Address {addr} copied to clipboard"
-msgstr "Đã sao chép địa chỉ {addr} vào khay nhớ tạm"
+msgstr "Đã sao chép địa chỉ {addr} vào bộ nhớ tạm"
 
 msgid "Cannot test local or listening endpoint"
 msgstr "Không thể kiểm tra điểm cuối cục bộ hoặc đang lắng nghe"
@@ -1133,7 +1131,7 @@ msgid "Opening {url}"
 msgstr "Đang mở {url}"
 
 msgid "Threat lookup is available for public internet IPs only"
-msgstr "Tra cứu mối đe dọa chỉ khả dụng cho địa chỉ IP công cộng"
+msgstr "Tra cứu mối đe dọa chỉ có sẵn cho địa chỉ IP công cộng"
 
 msgid "Invalid IP for threat lookup"
 msgstr "Địa chỉ IP không hợp lệ để tra cứu mối đe dọa"
@@ -1237,7 +1235,7 @@ msgid "Error reading file size"
 msgstr "Lỗi khi đọc kích thước tệp"
 
 msgid "Calculating size for {name}, please wait..."
-msgstr "Đang tính kích thước cho {name}, vui lòng đợi..."
+msgstr "Đang tính kích thước cho {name}, vui lòng chờ..."
 
 msgid "Folder size calculation canceled"
 msgstr "Đã hủy tính kích thước thư mục"
@@ -1277,7 +1275,7 @@ msgid "Terminate &All"
 msgstr "Kết thúc &tất cả"
 
 msgid "Locking process details copied to clipboard"
-msgstr "Đã sao chép chi tiết tiến trình đang khóa vào khay nhớ tạm"
+msgstr "Đã sao chép chi tiết tiến trình đang khóa vào bộ nhớ tạm"
 
 msgid "Please select an item in File Explorer to inspect locks"
 msgstr "Vui lòng chọn một mục trong File Explorer để kiểm tra khóa"
@@ -1296,31 +1294,31 @@ msgid "{name} is not locked by any application"
 msgstr "{name} không bị khóa bởi bất kỳ ứng dụng nào"
 
 msgid "Please open File Explorer to calculate checksum"
-msgstr "Vui lòng mở File Explorer để tính mã băm"
+msgstr "Vui lòng mở File Explorer để tính mã sum"
 
 msgid "{item} is a system icon and does not have a checksum"
-msgstr "{item} là biểu tượng hệ thống và không có mã băm"
+msgstr "{item} là biểu tượng hệ thống và không có mã sum"
 
 msgid "Please select a physical file to calculate checksum"
-msgstr "Vui lòng chọn một tệp vật lý để tính mã băm"
+msgstr "Vui lòng chọn một tệp vật lý để tính mã sum"
 
 msgid "Computing {algo} for {name}, please wait..."
-msgstr "Đang tính {algo} cho {name}, vui lòng đợi..."
+msgstr "Đang tính {algo} cho {name}, vui lòng chờ..."
 
 msgid "Checksum computation canceled"
-msgstr "Đã hủy tính toán mã băm"
+msgstr "Đã hủy tính toán mã sum"
 
 msgid "Failed to compute checksum"
-msgstr "Không thể tính mã băm"
+msgstr "Không thể tính mã sum"
 
 msgid "HASH MATCH! Authentic {algo}: {h}"
-msgstr "MÃ BĂM TRÙNG KHỚP! {algo} gốc: {h}"
+msgstr "MÃ HASH TRÙNG KHỚP! {algo} gốc: {h}"
 
 msgid "HASH MISMATCH! Computed: {comp} | Expected: {clip}"
-msgstr "MÃ BĂM KHÔNG TRÙNG KHỚP! Tính được: {comp} | Dự kiến: {clip}"
+msgstr "MÃ HASH KHÔNG TRÙNG KHỚP! Tính được: {comp} | Dự kiến: {clip}"
 
 msgid "{algo}: {h} (No hash found in clipboard to compare)"
-msgstr "{algo}: {h} (Không tìm thấy mã băm nào trong khay nhớ tạm để so sánh)"
+msgstr "{algo}: {h} (Không tìm thấy mã hash nào trong bộ nhớ tạm để so sánh)"
 
 msgid "Please open a folder in File Explorer to create a file"
 msgstr "Vui lòng mở một thư mục trong File Explorer để tạo tệp"
@@ -1376,19 +1374,19 @@ msgid "Smart Adaptive (Recommended)"
 msgstr "Tự động điều chỉnh (Khuyên dùng)"
 
 msgid "Always Megabytes (MB)"
-msgstr "Luôn hiển thị Megabyte (MB)"
+msgstr "Luôn hiển thị Megabytes (MB)"
 
 msgid "Always Gigabytes (GB)"
-msgstr "Luôn hiển thị Gigabyte (GB)"
+msgstr "Luôn hiển thị Gigabytes (GB)"
 
 msgid "Drives storage space format:"
 msgstr "Định dạng dung lượng ổ đĩa:"
 
 msgid "Always Terabytes (TB)"
-msgstr "Luôn hiển thị Terabyte (TB)"
+msgstr "Luôn hiển thị Terabytes (TB)"
 
 msgid "Default file checksum algorithm:"
-msgstr "Thuật toán mã băm tệp mặc định:"
+msgstr "Thuật toán mã sum tệp mặc định:"
 
 msgid "SHA-256 (Standard & Secure)"
 msgstr "SHA-256 (Tiêu chuẩn & An toàn)"
@@ -1425,10 +1423,10 @@ msgid "App Volume Down"
 msgstr "Giảm âm lượng ứng dụng"
 
 msgid "App Volume Mute"
-msgstr "Tắt tiếng ứng dụng"
+msgstr "Tắt tiếng âm lượng ứng dụng"
 
 msgid "--- Media & Browser Navigation ---"
-msgstr "--- Điều khiển đa phương tiện & Trình duyệt ---"
+msgstr "--- Đa phương tiện & Trình duyệt ---"
 
 msgid "--- Smart Mouse & Context Menus ---"
 msgstr "--- Chuột thông minh & Trình đơn ngữ cảnh ---"

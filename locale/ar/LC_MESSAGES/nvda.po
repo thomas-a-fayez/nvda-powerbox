@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PowerBox 2.0.0\n"
 "Report-Msgid-Bugs-To: thomas.a.fayez@gmail.com\n"
 "POT-Creation-Date: 2026-09-25 10:00+0300\n"
-"PO-Revision-Date: 2026-09-25 10:18+0300\n"
+"PO-Revision-Date: 2026-09-25 14:35+0300\n"
 "Last-Translator: Thomas A. Fayez <thomas.a.fayez@gmail.com>\n"
 "Language-Team: Arabic <ar@li.org>\n"
 "Language: ar\n"
@@ -32,13 +32,8 @@ msgstr "إصدار تنبيه عند الضغط على مفتاح غير مخص�
 msgid "(Copied)"
 msgstr "(تم النسخ)"
 
-#, fuzzy
 msgid "Application"
-msgstr ""
-"#-#-#-#-#  catalog.po (PowerBox 2.0.0)  #-#-#-#-#\n"
-"تطبيق\n"
-"#-#-#-#-#  catalog.po (PowerBox 2.0.0)  #-#-#-#-#\n"
-"التطبيق"
+msgstr "التطبيق"
 
 msgid "Current App"
 msgstr "التطبيق الحالي"
@@ -475,10 +470,10 @@ msgid "MAC {mac} copied to clipboard"
 msgstr "تم نسخ عنوان MAC {mac} إلى الحافظة"
 
 msgid "Opening {url} in web browser"
-msgstr "جاري فتح {url} في متصفح الويب"
+msgstr "جارٍ فتح {url} في متصفح الويب"
 
 msgid "No standard web port detected. Opening default address..."
-msgstr "لم يتم العثور على منفذ ويب قياسي. جاري فتح العنوان الافتراضي..."
+msgstr "لم يتم العثور على منفذ ويب قياسي. جارٍ فتح العنوان الافتراضي..."
 
 msgid "Failed to open web browser"
 msgstr "فشل فتح متصفح الويب"
@@ -520,35 +515,35 @@ msgid "Scan canceled"
 msgstr "تم إلغاء الفحص"
 
 msgid "Scanning local network, please wait..."
-msgstr "جاري فحص الشبكة المحلية، يرجى الانتظار..."
+msgstr "جارٍ فحص الشبكة المحلية، يرجى الانتظار..."
 
 # --- Power Manager Strings ---
 msgid "Locking workstation"
-msgstr "جاري قفل محطة العمل"
+msgstr "جارٍ قفل محطة العمل"
 
 msgid "Failed to lock workstation"
 msgstr "فشل قفل محطة العمل"
 
 msgid "Entering sleep mode"
-msgstr "جاري الدخول في وضع السكون"
+msgstr "جارٍ الدخول في وضع السكون"
 
 msgid "Failed to enter sleep mode"
 msgstr "فشل الدخول في وضع السكون"
 
 msgid "Entering hibernation"
-msgstr "جاري الدخول في وضع الإسبات"
+msgstr "جارٍ الدخول في وضع الإسبات"
 
 msgid "Failed to hibernate system"
 msgstr "فشل إسبات النظام"
 
 msgid "Shutting down computer"
-msgstr "جاري إيقاف تشغيل الكمبيوتر"
+msgstr "جارٍ إيقاف تشغيل الكمبيوتر"
 
 msgid "Failed to shut down computer"
 msgstr "فشل إيقاف تشغيل الكمبيوتر"
 
 msgid "Restarting computer"
-msgstr "جاري إعادة تشغيل الكمبيوتر"
+msgstr "جارٍ إعادة تشغيل الكمبيوتر"
 
 msgid "Failed to restart computer"
 msgstr "فشل إعادة تشغيل الكمبيوتر"
@@ -620,10 +615,10 @@ msgid "Failed to start Windows Explorer"
 msgstr "فشل بدء تشغيل مستكشف Windows"
 
 msgid "Restarting Windows Explorer..."
-msgstr "جاري إعادة تشغيل مستكشف Windows..."
+msgstr "جارٍ إعادة تشغيل مستكشف Windows..."
 
 msgid "Starting Windows Explorer..."
-msgstr "جاري بدء تشغيل مستكشف Windows..."
+msgstr "جارٍ بدء تشغيل مستكشف Windows..."
 
 # --- Process Inspector Strings ---
 msgid "Could not identify the active process"
@@ -722,7 +717,7 @@ msgstr "نسخ ال&تفاصيل"
 
 msgid "Recalculating live CPU usage, uptime, and window titles, please wait..."
 msgstr ""
-"جاري إعادة حساب استهلاك المعالج المباشر، ووقت التشغيل، وعناوين النوافذ، يرجى "
+"جارٍ إعادة حساب استهلاك المعالج المباشر، ووقت التشغيل، وعناوين النوافذ، يرجى "
 "الانتظار..."
 
 msgid "=== Application Details Report ==="
@@ -774,7 +769,7 @@ msgid "Server Process Hub - Enterprise Manager"
 msgstr "منصة إدارة عمليات وجلسات الخادم"
 
 msgid "Scanning server sessions and processes..."
-msgstr "جاري فحص جلسات وعمليات الخادم..."
+msgstr "جارٍ فحص جلسات وعمليات الخادم..."
 
 msgid "&Filter Application:"
 msgstr "ت&صفية التطبيقات:"
@@ -804,7 +799,7 @@ msgid "&View Apps (F6)"
 msgstr "&عرض التطبيقات (F6)"
 
 msgid "&End App Across Server"
-msgstr "إ&نهاء التطبيق عبر الخادم"
+msgstr "إنهاء التطبيق عبر ال&خادم"
 
 msgid "Copy &Report"
 msgstr "&نسخ التقرير"
@@ -816,7 +811,7 @@ msgid "&Close (Esc)"
 msgstr "إ&غلاق (Esc)"
 
 msgid "Refreshing server metrics (RAM, CPU, and Sessions), please wait..."
-msgstr "جاري تحديث بيانات الخادم (الذاكرة والمعالج والجلسات)، يرجى الانتظار..."
+msgstr "جارٍ تحديث بيانات الخادم (الذاكرة والمعالج والجلسات)، يرجى الانتظار..."
 
 msgid "Failed to query Terminal Services. Administrator privileges recommended."
 msgstr ""
@@ -937,7 +932,7 @@ msgid "View &Detailed Information..."
 msgstr "عرض ال&معلومات التفصيلية..."
 
 msgid "&Track Network Connections..."
-msgstr "&تتبع اتصالات الشبكة..."
+msgstr "تتبع اتصالات ال&شبكة..."
 
 msgid "&Copy App Summary"
 msgstr "&نسخ ملخص التطبيق"
@@ -995,7 +990,7 @@ msgid "Close_Wait"
 msgstr "انتظار إغلاق"
 
 msgid "Closing"
-msgstr "جاري الإغلاق"
+msgstr "جارٍ الإغلاق"
 
 msgid "Last_Ack"
 msgstr "إقرار أخير"
@@ -1004,7 +999,7 @@ msgid "Time_Wait"
 msgstr "مهلة انتظار"
 
 msgid "Deleting"
-msgstr "جاري الحذف"
+msgstr "جارٍ الحذف"
 
 msgid "Local Device"
 msgstr "الجهاز المحلي"
@@ -1025,7 +1020,7 @@ msgid "Server Network Hub - {app} ({count} PIDs)"
 msgstr "منصة شبكات الخادم - {app} ({count} PIDs)"
 
 msgid "Connecting to kernel network tables..."
-msgstr "جاري الاتصال بجداول مقابس الشبكة في النواة..."
+msgstr "جارٍ الاتصال بجداول مقابس الشبكة في النواة..."
 
 msgid "&User Filter:"
 msgstr "ت&صفية المستخدمين:"
@@ -1127,7 +1122,7 @@ msgid "Cannot open local or internal address"
 msgstr "لا يمكن فتح عنوان محلي أو داخلي في المتصفح"
 
 msgid "Opening {url}"
-msgstr "جاري فتح {url}"
+msgstr "جارٍ فتح {url}"
 
 msgid "Threat lookup is available for public internet IPs only"
 msgstr "فحص التهديدات متاح فقط لعناوين IP العامة على الإنترنت"
@@ -1136,7 +1131,7 @@ msgid "Invalid IP for threat lookup"
 msgstr "عنوان IP غير صالح لفحص التهديدات"
 
 msgid "Checking IP safety on VirusTotal..."
-msgstr "جاري فحص أمان العنوان على VirusTotal..."
+msgstr "جارٍ فحص أمان العنوان على VirusTotal..."
 
 msgid "Failed to open threat lookup"
 msgstr "فشل فتح فحص التهديدات"
@@ -1233,7 +1228,7 @@ msgid "Error reading file size"
 msgstr "خطأ أثناء قراءة حجم الملف"
 
 msgid "Calculating size for {name}, please wait..."
-msgstr "جاري حساب الحجم لـ {name}، يرجى الانتظار..."
+msgstr "جارٍ حساب الحجم لـ {name}، يرجى الانتظار..."
 
 msgid "Folder size calculation canceled"
 msgstr "تم إلغاء حساب حجم المجلد"
@@ -1300,7 +1295,7 @@ msgid "Please select a physical file to calculate checksum"
 msgstr "يرجى تحديد ملف فيزيائي لحساب البصمة"
 
 msgid "Computing {algo} for {name}, please wait..."
-msgstr "جاري حساب {algo} لـ {name}، يرجى الانتظار..."
+msgstr "جارٍ حساب {algo} لـ {name}، يرجى الانتظار..."
 
 msgid "Checksum computation canceled"
 msgstr "تم إلغاء حساب البصمة"

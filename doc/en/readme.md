@@ -1,9 +1,9 @@
 # PowerBox for NVDA
 
-[English](README.md) | [العربية](doc/ar/readme.md)
+[English](readme.md) | [العربية](../ar/readme.md)
 
 **Author:** Thomas A. Fayez  
-**Version:** 2.0.0  
+**Version:** 2.0.1  
 
 PowerBox is an enterprise-grade, high-performance productivity and administration add-on designed for speed, comfort, and deep system control. It maps ergonomic NVDA gestures to master and per-application volume controls, simulates smart mouse clicks with automatic cursor routing, provides instant terminal launches in the current folder, and introduces clean **Gesture Layers** for quick applications, advanced LAN network scanning, real-time socket and security analysis, file and storage management with locked-file inspection, native process freezing, and comprehensive system power management with an intelligent sleep timer.
 
@@ -261,3 +261,6 @@ Configure PowerBox preferences from **NVDA Menu -> Preferences -> Settings -> Po
 * **IEEE Standards Association:** For the IEEE 802 Locally Administered Address (LAA) specifications used in mathematical detection of randomized mobile MAC addresses.
 * **Python Open Source Community:** For the UDP routable socket technique (credited to Christian Kauhaus) used for offline-safe local IP detection.
 * **ipify.org & maclookup.app:** For providing open API services used to resolve public IP addresses and hardware vendor prefixes.
+
+* **Translators:**
+  * **[nguyenninhhoang](https://github.com/ninhhoang205/):** Vietnamese translation and localization improvements.

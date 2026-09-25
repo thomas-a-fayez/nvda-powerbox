@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PowerBox 2.0.0\n"
 "Report-Msgid-Bugs-To: thomas.a.fayez@gmail.com\n"
 "POT-Creation-Date: 2026-09-25 10:00+0300\n"
-"PO-Revision-Date: 2026-09-25 10:23+0300\n"
+"PO-Revision-Date: 2026-09-25 14:32+0300\n"
 "Last-Translator: Thomas A. Fayez <thomas.a.fayez@gmail.com>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "Language: es\n"
@@ -28,7 +28,7 @@ msgstr "Tecla no válida"
 msgid ""
 "Provides feedback when an unmapped key is pressed inside an active layer"
 msgstr ""
-"Proporciona comentarios cuando se pulsa una tecla no asignada dentro de una "
+"Proporciona un aviso cuando se pulsa una tecla no asignada dentro de una "
 "capa activa"
 
 msgid "(Copied)"
@@ -114,7 +114,7 @@ msgid "Hibernate"
 msgstr "Hibernar"
 
 msgid "Lock workstation"
-msgstr "Bloquear estación de trabajo"
+msgstr "Bloquear el equipo"
 
 msgid "Inspect active application CPU and RAM usage"
 msgstr "Inspeccionar uso de CPU y RAM de la aplicación activa"
@@ -171,7 +171,7 @@ msgid "Classic Context Menu"
 msgstr "Menú contextual clásico"
 
 msgid "Master Volume Mute"
-msgstr "Silenciar volumen principal"
+msgstr "Silenciar/activar volumen principal"
 
 msgid "Master Volume Down"
 msgstr "Bajar volumen principal"
@@ -180,7 +180,7 @@ msgid "Master Volume Up"
 msgstr "Subir volumen principal"
 
 msgid "Mutes or unmutes the active application"
-msgstr "Silencia o desactiva el silencio de la aplicación activa"
+msgstr "Silencia o activa el sonido de la aplicación activa"
 
 msgid "Decreases the volume of the active application"
 msgstr "Baja el volumen de la aplicación activa"
@@ -341,10 +341,10 @@ msgid "Muted"
 msgstr "Silenciado"
 
 msgid "Unmuted: {vol}%"
-msgstr "No silenciado: {vol}%"
+msgstr "Sonido activado: {vol}%"
 
 msgid "Unmuted"
-msgstr "No silenciado"
+msgstr "Sonido activado"
 
 msgid "{app} muted ({vol}%)"
 msgstr "{app} silenciado ({vol}%)"
@@ -359,7 +359,7 @@ msgid "{app} muted"
 msgstr "{app} silenciado"
 
 msgid "{app} unmuted: {vol}%"
-msgstr "{app} no silenciado: {vol}%"
+msgstr "{app} sonido activado: {vol}%"
 
 # --- Actions Module Strings ---
 msgid "Object has no location"
@@ -494,7 +494,7 @@ msgid "Name"
 msgstr "Nombre"
 
 msgid "Vendor"
-msgstr "Proveedor"
+msgstr "Fabricante"
 
 msgid "MAC"
 msgstr "MAC"
@@ -524,14 +524,14 @@ msgid "Scan canceled"
 msgstr "Escaneo cancelado"
 
 msgid "Scanning local network, please wait..."
-msgstr "Escaneando red local, por favor espera..."
+msgstr "Escaneando red local, por favor, espera..."
 
 # --- Power Manager Strings ---
 msgid "Locking workstation"
-msgstr "Bloqueando estación de trabajo"
+msgstr "Bloqueando el equipo"
 
 msgid "Failed to lock workstation"
-msgstr "Error al bloquear la estación de trabajo"
+msgstr "Error al bloquear el equipo"
 
 msgid "Entering sleep mode"
 msgstr "Entrando en modo de suspensión"
@@ -727,7 +727,7 @@ msgstr "Copiar &detalles"
 msgid "Recalculating live CPU usage, uptime, and window titles, please wait..."
 msgstr ""
 "Recalculando uso de CPU en vivo, tiempo de actividad y títulos de ventanas, "
-"espera..."
+"por favor, espera..."
 
 msgid "=== Application Details Report ==="
 msgstr "=== Informe de detalles de la aplicación ==="
@@ -808,7 +808,7 @@ msgid "&View Apps (F6)"
 msgstr "&Ver aplicaciones (F6)"
 
 msgid "&End App Across Server"
-msgstr "&Finalizar aplicación en todo el servidor"
+msgstr "Finalizar &aplicación en todo el servidor"
 
 msgid "Copy &Report"
 msgstr "Copiar &informe"
@@ -820,7 +820,9 @@ msgid "&Close (Esc)"
 msgstr "&Cerrar (Escape)"
 
 msgid "Refreshing server metrics (RAM, CPU, and Sessions), please wait..."
-msgstr "Actualizando métricas del servidor (RAM, CPU y sesiones), espera..."
+msgstr ""
+"Actualizando métricas del servidor (RAM, CPU y sesiones), por favor, "
+"espera..."
 
 msgid ""
 "Failed to query Terminal Services. Administrator privileges recommended."
@@ -947,7 +949,7 @@ msgid "View &Detailed Information..."
 msgstr "Ver información &detallada..."
 
 msgid "&Track Network Connections..."
-msgstr "&Rastrear conexiones de red..."
+msgstr "Rastrear cone&xiones de red..."
 
 msgid "&Copy App Summary"
 msgstr "&Copiar resumen de la aplicación"
@@ -962,7 +964,7 @@ msgid "&End Application for ALL Users"
 msgstr "&Finalizar aplicación para TODOS los usuarios"
 
 msgid "&Track Network Connections for this User..."
-msgstr "&Rastrear conexiones de red para este usuario..."
+msgstr "Rastrear cone&xiones de red para este usuario..."
 
 msgid "&Suspend Process for this User"
 msgstr "&Suspender proceso para este usuario"
@@ -1121,7 +1123,7 @@ msgid "{ip}:{port} is OPEN (Latency: {ms:.0f} ms)"
 msgstr "{ip}:{port} está ABIERTO (Latencia: {ms:.0f} ms)"
 
 msgid "{ip}:{port} is UNREACHABLE or Timed Out"
-msgstr "{ip}:{port} es INACCESIBLE o se agotó el tiempo"
+msgstr "{ip}:{port} es INACCESSIBLE o se agotó el tiempo"
 
 msgid "Cannot drop this connection"
 msgstr "No se puede cortar esta conexión"
@@ -1144,8 +1146,7 @@ msgstr "Abriendo {url}"
 
 msgid "Threat lookup is available for public internet IPs only"
 msgstr ""
-"La búsqueda de amenazas solo está disponible para direcciones IP públicas de "
-"Internet"
+"La búsqueda de amenazas solo está disponible para direcciones IP públicas"
 
 msgid "Invalid IP for threat lookup"
 msgstr "IP no válida para la búsqueda de amenazas"
@@ -1240,7 +1241,7 @@ msgstr ""
 "unidad física"
 
 msgid "Drive {d}: {free} free ({pct:.0f}%), {used} used, Total: {tot}"
-msgstr "Unidad {d}: {free} libres ({pct:.0f}%), {used} usados, Total: {tot}"
+msgstr "Unidad {d}: {free} libre ({pct:.0f}%), {used} usado, Total: {tot}"
 
 msgid "File {name}: {size}"
 msgstr "Archivo {name}: {size}"
@@ -1249,7 +1250,7 @@ msgid "Error reading file size"
 msgstr "Error al leer el tamaño del archivo"
 
 msgid "Calculating size for {name}, please wait..."
-msgstr "Calculando tamaño para {name}, espera..."
+msgstr "Calculando tamaño para {name}, por favor, espera..."
 
 msgid "Folder size calculation canceled"
 msgstr "Cálculo de tamaño de carpeta cancelado"
@@ -1264,7 +1265,7 @@ msgid " [LOW SPACE]"
 msgstr " [POCO ESPACIO]"
 
 msgid "{d}: {free} free ({pct:.0f}%), {used} used, Total: {tot}"
-msgstr "{d}: {free} libres ({pct:.0f}%), {used} usados, Total: {tot}"
+msgstr "{d}: {free} libre ({pct:.0f}%), {used} usado, Total: {tot}"
 
 msgid "Locked File - {name}"
 msgstr "Archivo bloqueado - {name}"
@@ -1321,7 +1322,7 @@ msgid "Please select a physical file to calculate checksum"
 msgstr "Selecciona un archivo físico para calcular la suma de comprobación"
 
 msgid "Computing {algo} for {name}, please wait..."
-msgstr "Calculando {algo} para {name}, espera..."
+msgstr "Calculando {algo} para {name}, por favor, espera..."
 
 msgid "Checksum computation canceled"
 msgstr "Cálculo de suma de comprobación cancelado"
@@ -1363,10 +1364,10 @@ msgstr "Archivo {name} creado correctamente"
 
 # --- Settings GUI Module Strings ---
 msgid "Action feedback mode:"
-msgstr "Modo de comentarios de acción:"
+msgstr "Modo de aviso de las acciones:"
 
 msgid "No feedback (Silent)"
-msgstr "Sin comentarios (Silencioso)"
+msgstr "Sin aviso (Silencioso)"
 
 msgid "Beep only"
 msgstr "Solo pitido"

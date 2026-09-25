@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PowerBox 2.0.0\n"
 "Report-Msgid-Bugs-To: thomas.a.fayez@gmail.com\n"
 "POT-Creation-Date: 2026-09-25 10:00+0300\n"
-"PO-Revision-Date: 2026-09-25 10:26+0300\n"
+"PO-Revision-Date: 2026-09-25 14:30+0300\n"
 "Last-Translator: Thomas A. Fayez <thomas.a.fayez@gmail.com>\n"
 "Language-Team: French <fr@li.org>\n"
 "Language: fr\n"
@@ -175,7 +175,7 @@ msgid "Classic Context Menu"
 msgstr "Menu contextuel classique"
 
 msgid "Master Volume Mute"
-msgstr "Couper le volume principal"
+msgstr "Couper/Rétablir le volume principal"
 
 msgid "Master Volume Down"
 msgstr "Baisser le volume principal"
@@ -337,10 +337,10 @@ msgid "Volume: {vol}%"
 msgstr "Volume : {vol}%"
 
 msgid "Volume Up"
-msgstr "Volume plus haut"
+msgstr "Augmenter le volume"
 
 msgid "Volume Down"
-msgstr "Volume plus bas"
+msgstr "Diminuer le volume"
 
 msgid "Muted"
 msgstr "Muet"
@@ -361,7 +361,7 @@ msgid "No audio session for {app}"
 msgstr "Aucune session audio pour {app}"
 
 msgid "{app} muted"
-msgstr "{app} son coupé"
+msgstr "{app} muet"
 
 msgid "{app} unmuted: {vol}%"
 msgstr "{app} son rétabli : {vol}%"
@@ -497,7 +497,7 @@ msgid "Name"
 msgstr "Nom"
 
 msgid "Vendor"
-msgstr "Vendeur"
+msgstr "Constructeur"
 
 msgid "MAC"
 msgstr "MAC"
@@ -612,7 +612,7 @@ msgid "{m}m"
 msgstr "{m}m"
 
 msgid "&Start Timer"
-msgstr "&Démarrer le minuteur"
+msgstr "&Lancer le minuteur"
 
 msgid "&Cancel"
 msgstr "&Annuler"
@@ -796,7 +796,7 @@ msgid "Active Users"
 msgstr "Utilisateurs actifs"
 
 msgid "Top Consumer"
-msgstr "Plus grand consommateur"
+msgstr "Plus gros consommateur"
 
 msgid "&View Users (Enter)"
 msgstr "&Voir les utilisateurs (Entrée)"
@@ -824,7 +824,8 @@ msgstr "&Fermer (Échap)"
 
 msgid "Refreshing server metrics (RAM, CPU, and Sessions), please wait..."
 msgstr ""
-"Actualisation des métriques du serveur (RAM, processeur et sessions)..."
+"Actualisation des métriques du serveur (RAM, processeur et sessions), "
+"veuillez patienter..."
 
 msgid ""
 "Failed to query Terminal Services. Administrator privileges recommended."
@@ -1148,8 +1149,8 @@ msgstr "Ouverture de {url}"
 
 msgid "Threat lookup is available for public internet IPs only"
 msgstr ""
-"La recherche de menaces est disponible uniquement pour les IP publiques "
-"d'Internet"
+"La recherche de menaces est disponible uniquement pour les adresses IP "
+"publiques"
 
 msgid "Invalid IP for threat lookup"
 msgstr "IP non valide pour la recherche de menaces"
