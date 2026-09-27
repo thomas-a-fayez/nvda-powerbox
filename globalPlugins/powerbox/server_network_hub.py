@@ -188,10 +188,11 @@ def _trigger_hub_feedback(msg, is_success=True, is_copy=False):
         else:
             tones.beep(850, 40)
 
-    if is_copy and mode in ("speech", "both"):
-        ui.message(f"{msg} {_('(Copied)')}")
-    else:
-        ui.message(msg)
+    if mode in ("speech", "both"):
+        if is_copy:
+            ui.message(f"{msg} {_('(Copied)')}")
+        else:
+            ui.message(msg)
 
 
 def _format_ip_address(dwAddr):
@@ -437,7 +438,7 @@ class ServerNetworkHubDialog(wx.Dialog):
 
         # 4. Clean Action Buttons Sizer
         self.btn_sizer = wx.BoxSizer(wx.HORIZONTAL)
-        self.test_btn = wx.Button(self, label=_("&Test Port & Latency"))
+        self.test_btn = wx.Button(self, label=_("&Test Port and Latency"))
         self.drop_btn = wx.Button(self, label=_("&Drop Connection"))
         self.clear_btn = wx.Button(self, label=_("Clear &Inactive"))
         self.browser_btn = wx.Button(self, label=_("&Open in Browser"))
@@ -584,6 +585,8 @@ class ServerNetworkHubDialog(wx.Dialog):
                         "remote_ip": r_ip,
                         "remote_port": r_port,
                         "local_endpoint": f"{l_ip}:{l_port}",
+                        "local_ip": l_ip,
+                        "local_port": l_port,
                         "state": state_str,
                         "raw_state": r.dwState,
                         "raw_l_addr": r.dwLocalAddr,
@@ -614,6 +617,8 @@ class ServerNetworkHubDialog(wx.Dialog):
                         "remote_ip": "*",
                         "remote_port": 0,
                         "local_endpoint": f"{l_ip}:{l_port}",
+                        "local_ip": l_ip,
+                        "local_port": l_port,
                         "state": _("Listening"),
                         "raw_state": MIB_TCP_STATE_LISTEN,
                         "raw_l_addr": r.dwLocalAddr,
@@ -783,30 +788,55 @@ class ServerNetworkHubDialog(wx.Dialog):
 
     def on_test_port_action(self, event=None, force_copy=False):
         """
-        Executes ultra-fast socket probe measuring latency in 0.2s.
+        Executes ultra-fast socket probe measuring latency.
+        Smartly handles both outbound remote targets and local listening service ports.
         Normal press speaks; holding Shift (or force_copy) copies to clipboard and speaks.
         """
         conn = self.get_selected_connection()
-        if not conn or conn["remote_ip"] in ("*", "0.0.0.0"):
-            _trigger_hub_feedback(_("Cannot test local or listening endpoint"), is_success=False)
+        if not conn:
+            _trigger_hub_feedback(_("No connection selected"), is_success=False)
             return
 
         should_copy = force_copy or wx.GetKeyState(wx.WXK_SHIFT)
-        remote_ip = conn["remote_ip"]
-        port = conn["remote_port"]
+
+        # Smart target resolution: test remote endpoint for outbound, or local listener for services
+        if conn.get("remote_ip") in ("*", "0.0.0.0", ""):
+            # Listening Service Port: probe locally on loopback
+            target_ip = "127.0.0.1"
+            target_port = conn.get("local_port", 0)
+            is_listener = True
+        else:
+            target_ip = conn["remote_ip"]
+            target_port = conn.get("remote_port", 0)
+            is_listener = False
+
+        if target_port <= 0:
+            _trigger_hub_feedback(_("Invalid or unspecified port number"), is_success=False)
+            return
 
         def test_worker():
-            is_open, latency = _probe_socket_latency(remote_ip, port)
-            if is_open:
-                res_msg = _("{ip}:{port} is OPEN (Latency: {ms:.0f} ms)").format(ip=remote_ip, port=port, ms=latency)
+            is_open, latency = _probe_socket_latency(target_ip, target_port)
+            if is_listener:
+                if is_open:
+                    res_msg = _("Service Port {port} is LISTENING and RESPONDING (Latency: {ms:.0f} ms)").format(
+                        port=target_port, ms=latency
+                    )
+                else:
+                    res_msg = _("Service Port {port} is NOT RESPONDING or closed").format(port=target_port)
             else:
-                res_msg = _("{ip}:{port} is UNREACHABLE or Timed Out").format(ip=remote_ip, port=port)
+                if is_open:
+                    res_msg = _("{ip}:{port} is OPEN (Latency: {ms:.0f} ms)").format(
+                        ip=target_ip, port=target_port, ms=latency
+                    )
+                else:
+                    res_msg = _("{ip}:{port} is UNREACHABLE or Timed Out").format(
+                        ip=target_ip, port=target_port
+                    )
 
             if should_copy:
                 api.copyToClip(res_msg)
-                res_msg = f"{res_msg} {_('(Copied)')}"
 
-            wx.CallAfter(_trigger_hub_feedback, res_msg, is_open)
+            wx.CallAfter(_trigger_hub_feedback, res_msg, is_success=is_open, is_copy=should_copy)
 
         threading.Thread(target=test_worker, daemon=True).start()
 
@@ -893,7 +923,7 @@ class ServerNetworkHubDialog(wx.Dialog):
 
         menu = wx.Menu()
         m_copy_ip = menu.Append(wx.ID_ANY, _("&Copy Remote IP Address (Enter)"))
-        m_test = menu.Append(wx.ID_ANY, _("&Test Port & Measure Latency (Alt+T)"))
+        m_test = menu.Append(wx.ID_ANY, _("&Test Port and Measure Latency (Alt+T)"))
         m_test_copy = menu.Append(wx.ID_ANY, _("Test Port and &Copy Result"))
         m_drop = menu.Append(wx.ID_ANY, _("&Drop This Connection (Alt+D)"))
         menu.AppendSeparator()

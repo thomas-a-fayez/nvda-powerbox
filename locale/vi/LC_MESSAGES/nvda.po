@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PowerBox 2.0.0\n"
 "Report-Msgid-Bugs-To: thomas.a.fayez@gmail.com\n"
 "POT-Creation-Date: 2026-09-25 10:00+0300\n"
-"PO-Revision-Date: 2026-09-27 11:50+0300\n"
+"PO-Revision-Date: 2026-09-27 16:46+0300\n"
 "Last-Translator: nguyenninhhoang <nguyenninhhoang2005@gmail.com>\n"
 "Language-Team: Vietnamese <vi@li.org>\n"
 "Language: vi\n"
@@ -1095,7 +1095,7 @@ msgstr ""
 msgid "Filtered by {user}"
 msgstr "Đã lọc theo {user}"
 
-msgid "&Test Port & Latency"
+msgid "&Test Port and Latency"
 msgstr "&Kiểm tra cổng và độ trễ"
 
 msgid "&Drop Connection"
@@ -1171,7 +1171,7 @@ msgstr "Đã kết thúc {s} trên {t} PIDs cho {app}"
 msgid "&Copy Remote IP Address (Enter)"
 msgstr "&Sao chép địa chỉ IP từ xa (Enter)"
 
-msgid "&Test Port & Measure Latency (Alt+T)"
+msgid "&Test Port and Measure Latency (Alt+T)"
 msgstr "&Kiểm tra cổng & đo độ trễ (Alt+T)"
 
 msgid "Test Port and &Copy Result"
@@ -1194,6 +1194,18 @@ msgstr "&Kết thúc ứng dụng khẩn cấp (Alt+E)"
 
 msgid "No active PIDs to track for {app}"
 msgstr "Không có PID nào đang hoạt động để theo dõi cho {app}"
+
+msgid "No connection selected"
+msgstr "Chưa chọn kết nối nào"
+
+msgid "Invalid or unspecified port number"
+msgstr "Số cổng không hợp lệ hoặc chưa được chỉ định"
+
+msgid "Service Port {port} is LISTENING and RESPONDING (Latency: {ms:.0f} ms)"
+msgstr "Cổng dịch vụ {port} đang LẮNG NGHE và PHẢN HỒI (Độ trễ: {ms:.0f} ms)"
+
+msgid "Service Port {port} is NOT RESPONDING or closed"
+msgstr "Cổng dịch vụ {port} KHÔNG PHẢN HỒI hoặc đã đóng"
 
 # --- File Manager Module Strings ---
 msgid "Desktop"

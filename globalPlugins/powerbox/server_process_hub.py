@@ -4,8 +4,10 @@
 
 # Acknowledgment:
 # Utilizes native Windows Terminal Services APIs (wtsapi32.dll), Security Account APIs (advapi32.dll),
-# Window Management APIs (user32.dll), and Kernel Process APIs (kernel32.dll) to dynamically aggregate
-# user applications, multi-session footprints, live CPU usage, client IPs, uptime, and Unicode window titles.
+# Window Management APIs (user32.dll), Process Status APIs (psapi.dll), and Kernel Process APIs (kernel32.dll)
+# to dynamically aggregate user applications, multi-session footprints, live CPU usage, client IPs, uptime,
+# and Unicode window titles.
+# Utilizes isolated WinDLL instances to completely eliminate ctypes prototype collisions.
 # Also utilizes native NT Kernel APIs (ntdll.dll: NtSuspendProcess, NtResumeProcess) for non-destructive process freezing.
 
 import ctypes
@@ -129,10 +131,11 @@ class PROCESS_MEMORY_COUNTERS_EX(ctypes.Structure):
 
 
 # Win32 API Function Bindings
-wtsapi32 = ctypes.windll.wtsapi32
-advapi32 = ctypes.windll.advapi32
+# Isolated Win32 DLL instances preventing cross-module ctypes collisions
+wtsapi32 = ctypes.WinDLL("wtsapi32", use_last_error=True)
+advapi32 = ctypes.WinDLL("advapi32", use_last_error=True)
 kernel32 = ctypes.WinDLL("kernel32", use_last_error=True)
-user32 = ctypes.windll.user32
+user32 = ctypes.WinDLL("user32", use_last_error=True)
 
 # Isolated ntdll instance for native kernel process suspension
 ntdll = ctypes.WinDLL("ntdll", use_last_error=True)
@@ -223,7 +226,8 @@ except AttributeError:
 try:
     GetProcessMemoryInfo = kernel32.K32GetProcessMemoryInfo
 except AttributeError:
-    GetProcessMemoryInfo = ctypes.windll.psapi.GetProcessMemoryInfo
+    psapi = ctypes.WinDLL("psapi", use_last_error=True)
+    GetProcessMemoryInfo = psapi.GetProcessMemoryInfo
 
 GetProcessMemoryInfo.argtypes = [
     wintypes.HANDLE,

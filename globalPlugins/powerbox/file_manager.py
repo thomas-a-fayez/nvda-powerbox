@@ -742,15 +742,17 @@ class FileLockDialog(wx.Dialog):
             return
         l = self.lockers[idx]
         if _kill_process_pid(l["pid"]):
-            ui.message(_("Terminated {app} (PID: {pid})").format(app=l["app_name"], pid=l["pid"]))
+            msg = _("Terminated {app} (PID: {pid})").format(app=l["app_name"], pid=l["pid"])
             self.EndModal(wx.ID_OK)
+            wx.CallLater(350, ui.message, msg)
         else:
             ui.message(_("Failed to terminate process (Admin privileges recommended)"))
 
     def on_term_all(self, event):
         success = sum(1 for l in self.lockers if _kill_process_pid(l["pid"]))
-        ui.message(_("Terminated {s} of {t} locking processes").format(s=success, t=len(self.lockers)))
+        msg = _("Terminated {s} of {t} locking processes").format(s=success, t=len(self.lockers))
         self.EndModal(wx.ID_OK)
+        wx.CallLater(350, ui.message, msg)
 
     def on_copy_details(self, event):
         lines = [f"{l['app_name']} (PID: {l['pid']}) - Session: {l['session_id']}" for l in self.lockers]

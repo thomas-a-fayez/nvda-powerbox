@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PowerBox 2.0.0\n"
 "Report-Msgid-Bugs-To: thomas.a.fayez@gmail.com\n"
 "POT-Creation-Date: 2026-09-25 10:00+0300\n"
-"PO-Revision-Date: 2026-09-27 11:46+0300\n"
+"PO-Revision-Date: 2026-09-27 16:45+0300\n"
 "Last-Translator: Thomas A. Fayez <thomas.a.fayez@gmail.com>\n"
 "Language-Team: Arabic <ar@li.org>\n"
 "Language: ar\n"
@@ -1088,7 +1088,7 @@ msgstr "مراقب الاتصالات: {act} نشط، {cls} مغلق/تاريخ�
 msgid "Filtered by {user}"
 msgstr "تمت التصفية بحسب {user}"
 
-msgid "&Test Port & Latency"
+msgid "&Test Port and Latency"
 msgstr "ف&حص المنفذ وزمن الاستجابة"
 
 msgid "&Drop Connection"
@@ -1166,7 +1166,7 @@ msgstr "تم إنهاء {s} من أصل {t} عملية لتطبيق {app}"
 msgid "&Copy Remote IP Address (Enter)"
 msgstr "نسخ عنوان IP ال&بعيد (Enter)"
 
-msgid "&Test Port & Measure Latency (Alt+T)"
+msgid "&Test Port and Measure Latency (Alt+T)"
 msgstr "ف&حص المنفذ وقياس زمن الاستجابة (Alt+T)"
 
 msgid "Test Port and &Copy Result"
@@ -1189,6 +1189,18 @@ msgstr "إنهاء التطبيق لل&طوارئ (Alt+E)"
 
 msgid "No active PIDs to track for {app}"
 msgstr "لا توجد عمليات نشطة لتتبعها لتطبيق {app}"
+
+msgid "No connection selected"
+msgstr "لم يتم تحديد أي اتصال"
+
+msgid "Invalid or unspecified port number"
+msgstr "رقم المنفذ غير صالح أو غير محدد"
+
+msgid "Service Port {port} is LISTENING and RESPONDING (Latency: {ms:.0f} ms)"
+msgstr "منفذ الخدمة {port} يستمع ويستجيب (زمن الاستجابة: {ms:.0f} مللي ثانية)"
+
+msgid "Service Port {port} is NOT RESPONDING or closed"
+msgstr "منفذ الخدمة {port} لا يستجيب أو مغلق"
 
 # --- File Manager Module Strings ---
 msgid "Desktop"
