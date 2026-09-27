@@ -6,6 +6,7 @@
 # Utilizes native Windows Terminal Services APIs (wtsapi32.dll), Security Account APIs (advapi32.dll),
 # Window Management APIs (user32.dll), and Kernel Process APIs (kernel32.dll) to dynamically aggregate
 # user applications, multi-session footprints, live CPU usage, client IPs, uptime, and Unicode window titles.
+# Also utilizes native NT Kernel APIs (ntdll.dll: NtSuspendProcess, NtResumeProcess) for non-destructive process freezing.
 
 import ctypes
 from ctypes import wintypes
@@ -811,8 +812,8 @@ class AppDetailsDialog(wx.Dialog):
 # --- Enterprise Server Process & Session Management Console ---
 class ServerProcessHubDialog(wx.Dialog):
     """
-    Enterprise management console supporting Applications Overview,
-    User Drill-Down, and Global Sessions Management with full RemoteApp compatibility.
+    Accessible Two-Tier Enterprise Process & Session Management Interface
+    with Non-Blocking Live Polling and In-Place Update Diffing.
     """
 
     VIEW_APPS = 0
@@ -831,6 +832,7 @@ class ServerProcessHubDialog(wx.Dialog):
         self.sessions_list = []
         self.selected_app = None
         self.filtered_apps = []
+        self.current_user_list = []  # Tracks dynamic users list for in-place diffing
 
         # Responsive Dialog Sizing (78% of active monitor work area)
         display_rect = wx.Display().GetClientArea()
@@ -902,10 +904,24 @@ class ServerProcessHubDialog(wx.Dialog):
         self.action_btn2.Bind(wx.EVT_BUTTON, self.on_secondary_action)
         self.copy_btn.Bind(wx.EVT_BUTTON, self.on_copy_action)
         self.refresh_btn.Bind(wx.EVT_BUTTON, self.on_refresh)
-        self.close_btn.Bind(wx.EVT_BUTTON, lambda evt: self.EndModal(wx.ID_CANCEL))
+
+        # Proper cleanup and shutdown of the polling timer
+        def close_dialog(evt):
+            self.poll_timer.Stop()
+            self.EndModal(wx.ID_CANCEL)
+
+        self.close_btn.Bind(wx.EVT_BUTTON, close_dialog)
+        self.Bind(wx.EVT_CLOSE, close_dialog)
 
         self.CenterOnScreen()
-        self.start_async_data_load()
+
+        # Non-blocking Live Polling Timer (every 2.5 seconds)
+        self.poll_timer = wx.Timer(self)
+        self.Bind(wx.EVT_TIMER, self.on_poll_tick, self.poll_timer)
+        self.poll_timer.Start(2500)
+
+        # Trigger initial data load
+        self.start_async_data_load(is_live_update=False)
 
     def on_search_key_down(self, event):
         """Allows user to press Down Arrow inside search box to move focus to the list."""
@@ -960,10 +976,12 @@ class ServerProcessHubDialog(wx.Dialog):
                 return
 
         elif key == wx.WXK_ESCAPE:
+            self.poll_timer.Stop()
             self.EndModal(wx.ID_CANCEL)
             return
         elif key == wx.WXK_F5:
-            self.on_refresh()
+            # F5 forces a full structural fetch and re-sort
+            self.start_async_data_load(is_live_update=False)
             return
         elif key == wx.WXK_F6:
             self.on_toggle_sessions_mode(None)
@@ -971,17 +989,25 @@ class ServerProcessHubDialog(wx.Dialog):
 
         event.Skip()
 
-    def start_async_data_load(self):
+    def on_poll_tick(self, event):
+        """Periodic background tick executing non-blocking kernel inspection."""
+        self.start_async_data_load(is_live_update=True)
+
+    def start_async_data_load(self, is_live_update=False):
         """Asynchronously queries the system so UI never freezes."""
-        self.status_label.SetLabel(_("Refreshing server metrics (RAM, CPU, and Sessions), please wait..."))
+        if not is_live_update:
+            self.status_label.SetLabel(_("Refreshing server metrics (RAM, CPU, and Sessions), please wait..."))
 
         def worker():
             apps, sessions = collect_server_process_data()
-            wx.CallAfter(self._on_data_loaded, apps, sessions)
+            if is_live_update:
+                wx.CallAfter(self._apply_live_update, apps, sessions)
+            else:
+                wx.CallAfter(self._on_full_data_loaded, apps, sessions)
 
         threading.Thread(target=worker, daemon=True).start()
 
-    def _on_data_loaded(self, apps, sessions):
+    def _on_full_data_loaded(self, apps, sessions):
         if apps is None:
             self.status_label.SetLabel(_("Failed to query Terminal Services. Administrator privileges recommended."))
             return
@@ -992,7 +1018,157 @@ class ServerProcessHubDialog(wx.Dialog):
         if self.current_view == self.VIEW_SESSIONS:
             self.show_sessions_view(set_focus=True)
         else:
-            self.show_apps_view(set_focus=True)
+            if self.current_view == self.VIEW_USERS and self.selected_app:
+                # Re-select the active app to update its users view
+                updated_app = next((a for a in apps if a["app_name"] == self.selected_app["app_name"]), None)
+                if updated_app:
+                    self.show_users_view(updated_app)
+                else:
+                    self.show_apps_view(set_focus=True)
+            else:
+                self.show_apps_view(set_focus=True)
+
+    def _apply_live_update(self, new_apps, new_sessions):
+        """Smart In-Place Live Diffing without resetting Focus or Re-sorting."""
+        if new_apps is None:
+            return
+
+        self.apps_data = new_apps
+        self.sessions_list = new_sessions
+
+        active_s = sum(1 for s in self.sessions_list if s["state"] == _("Active"))
+        disc_s = sum(1 for s in self.sessions_list if s["state"] == _("Disconnected"))
+        total_ram = sum(a["total_ram"] for a in self.apps_data)
+
+        if self.current_view in (self.VIEW_APPS, self.VIEW_SESSIONS):
+            self.status_label.SetLabel(
+                _("Server Pulse: {act} Active, {disc} Disconnected Sessions | {apps} User Apps ({ram})").format(
+                    act=active_s, disc=disc_s, apps=len(self.apps_data), ram=_format_ram(total_ram)
+                )
+            )
+
+        self.list_ctrl.Freeze()
+        try:
+            if self.current_view == self.VIEW_APPS:
+                sel_idx = self.list_ctrl.GetFirstSelected()
+                sel_name = self.filtered_apps[sel_idx]["app_name"] if sel_idx != wx.NOT_FOUND else None
+
+                filter_text = self.search_ctrl.GetValue().strip().lower()
+                new_filtered = [a for a in self.apps_data if filter_text in a["app_name"].lower()] if filter_text else self.apps_data
+                new_dict = {a["app_name"]: a for a in new_filtered}
+
+                # 1. Update existing and remove closed without changing order
+                i = 0
+                while i < len(self.filtered_apps):
+                    old_name = self.filtered_apps[i]["app_name"]
+                    if old_name not in new_dict:
+                        self.filtered_apps.pop(i)
+                        self.list_ctrl.DeleteItem(i)
+                    else:
+                        u_app = new_dict[old_name]
+                        self.filtered_apps[i] = u_app
+                        self.list_ctrl.SetItem(i, 1, _format_ram(u_app["total_ram"]))
+                        self.list_ctrl.SetItem(i, 2, f"{u_app['total_cpu']:.1f}%")
+                        self.list_ctrl.SetItem(i, 3, str(u_app["users_count"]))
+                        self.list_ctrl.SetItem(i, 4, f"{u_app['top_user_name']} ({_format_ram(u_app['top_user_ram'])})")
+                        i += 1
+
+                # 2. Append brand new apps at the bottom
+                old_names = {a["app_name"] for a in self.filtered_apps}
+                for a in new_filtered:
+                    if a["app_name"] not in old_names:
+                        idx = len(self.filtered_apps)
+                        self.filtered_apps.append(a)
+                        self.list_ctrl.InsertItem(idx, a["app_name"])
+                        self.list_ctrl.SetItem(idx, 1, _format_ram(a["total_ram"]))
+                        self.list_ctrl.SetItem(idx, 2, f"{a['total_cpu']:.1f}%")
+                        self.list_ctrl.SetItem(idx, 3, str(a["users_count"]))
+                        self.list_ctrl.SetItem(idx, 4, f"{a['top_user_name']} ({_format_ram(a['top_user_ram'])})")
+
+                # Restore previous focus seamlessly
+                if sel_name:
+                    found = False
+                    for idx, app in enumerate(self.filtered_apps):
+                        if app["app_name"] == sel_name:
+                            if self.list_ctrl.GetFirstSelected() != idx:
+                                self.list_ctrl.Select(idx)
+                                self.list_ctrl.Focus(idx)
+                            found = True
+                            break
+                    if not found and self.list_ctrl.GetItemCount() > 0:
+                        new_idx = min(max(0, sel_idx), self.list_ctrl.GetItemCount() - 1)
+                        self.list_ctrl.Select(new_idx)
+                        self.list_ctrl.Focus(new_idx)
+
+            elif self.current_view == self.VIEW_USERS:
+                updated_app = next((a for a in self.apps_data if a["app_name"] == self.selected_app["app_name"]), None)
+                if not updated_app:
+                    self.poll_timer.Stop()
+                    msg = _("Application {app} has been closed completely.").format(app=self.selected_app["app_name"])
+                    _trigger_hub_feedback(msg, is_success=True)
+                    self.show_apps_view(set_focus=True)
+                    self.poll_timer.Start(2500)
+                    return
+
+                self.selected_app = updated_app
+                self.status_label.SetLabel(
+                    _("Application: {app} | Total RAM: {ram} | CPU: {cpu:.1f}% | Active across {count} users").format(
+                        app=updated_app["app_name"], ram=_format_ram(updated_app["total_ram"]), cpu=updated_app["total_cpu"], count=len(updated_app["users"])
+                    )
+                )
+
+                sel_idx = self.list_ctrl.GetFirstSelected()
+                sel_key = None
+                if sel_idx != wx.NOT_FOUND and sel_idx < len(self.current_user_list):
+                    sel_key = str(self.current_user_list[sel_idx]["user_name"]) + str(self.current_user_list[sel_idx]["session_id"])
+
+                new_users_dict = {str(u["user_name"]) + str(u["session_id"]): u for u in updated_app["users"]}
+
+                i = 0
+                while i < len(self.current_user_list):
+                    old_key = str(self.current_user_list[i]["user_name"]) + str(self.current_user_list[i]["session_id"])
+                    if old_key not in new_users_dict:
+                        self.current_user_list.pop(i)
+                        self.list_ctrl.DeleteItem(i)
+                    else:
+                        nu = new_users_dict[old_key]
+                        self.current_user_list[i] = nu
+                        self.list_ctrl.SetItem(i, 2, nu["session_state"])
+                        self.list_ctrl.SetItem(i, 3, _format_ram(nu["ram_mb"]))
+                        i += 1
+
+                old_keys = {str(u["user_name"]) + str(u["session_id"]) for u in self.current_user_list}
+                for u in updated_app["users"]:
+                    key = str(u["user_name"]) + str(u["session_id"])
+                    if key not in old_keys:
+                        idx = len(self.current_user_list)
+                        self.current_user_list.append(u)
+                        self.list_ctrl.InsertItem(idx, u["user_name"])
+                        self.list_ctrl.SetItem(idx, 1, str(u["session_id"]))
+                        self.list_ctrl.SetItem(idx, 2, u["session_state"])
+                        self.list_ctrl.SetItem(idx, 3, _format_ram(u["ram_mb"]))
+
+                if sel_key:
+                    found = False
+                    for idx, u in enumerate(self.current_user_list):
+                        key = str(u["user_name"]) + str(u["session_id"])
+                        if key == sel_key:
+                            if self.list_ctrl.GetFirstSelected() != idx:
+                                self.list_ctrl.Select(idx)
+                                self.list_ctrl.Focus(idx)
+                            found = True
+                            break
+                    if not found and self.list_ctrl.GetItemCount() > 0:
+                        new_idx = min(max(0, sel_idx), self.list_ctrl.GetItemCount() - 1)
+                        self.list_ctrl.Select(new_idx)
+                        self.list_ctrl.Focus(new_idx)
+            
+            elif self.current_view == self.VIEW_SESSIONS:
+                # Sessions live diffing logic (optional, for now F5 full refresh handles it best)
+                pass
+
+        finally:
+            self.list_ctrl.Thaw()
 
     def show_apps_view(self, set_focus=True):
         """Builds and displays the clean 5-column Applications view."""
@@ -1016,34 +1192,38 @@ class ServerProcessHubDialog(wx.Dialog):
             )
         )
 
-        self.list_ctrl.ClearAll()
-        self.list_ctrl.InsertColumn(0, _("Application"))
-        self.list_ctrl.InsertColumn(1, _("Total RAM"))
-        self.list_ctrl.InsertColumn(2, _("Total CPU"))
-        self.list_ctrl.InsertColumn(3, _("Active Users"))
-        self.list_ctrl.InsertColumn(4, _("Top Consumer"))
+        self.list_ctrl.Freeze()
+        try:
+            self.list_ctrl.ClearAll()
+            self.list_ctrl.InsertColumn(0, _("Application"))
+            self.list_ctrl.InsertColumn(1, _("Total RAM"))
+            self.list_ctrl.InsertColumn(2, _("Total CPU"))
+            self.list_ctrl.InsertColumn(3, _("Active Users"))
+            self.list_ctrl.InsertColumn(4, _("Top Consumer"))
 
-        filter_text = self.search_ctrl.GetValue().strip().lower()
-        if filter_text:
-            self.filtered_apps = [a for a in self.apps_data if filter_text in a["app_name"].lower()]
-        else:
-            self.filtered_apps = self.apps_data
+            filter_text = self.search_ctrl.GetValue().strip().lower()
+            if filter_text:
+                self.filtered_apps = [a for a in self.apps_data if filter_text in a["app_name"].lower()]
+            else:
+                self.filtered_apps = list(self.apps_data)
 
-        for idx, app in enumerate(self.filtered_apps):
-            self.list_ctrl.InsertItem(idx, app["app_name"])
-            self.list_ctrl.SetItem(idx, 1, _format_ram(app["total_ram"]))
-            self.list_ctrl.SetItem(idx, 2, f"{app['total_cpu']:.1f}%")
-            self.list_ctrl.SetItem(idx, 3, str(app["users_count"]))
-            top_desc = f"{app['top_user_name']} ({_format_ram(app['top_user_ram'])})"
-            self.list_ctrl.SetItem(idx, 4, top_desc)
+            for idx, app in enumerate(self.filtered_apps):
+                self.list_ctrl.InsertItem(idx, app["app_name"])
+                self.list_ctrl.SetItem(idx, 1, _format_ram(app["total_ram"]))
+                self.list_ctrl.SetItem(idx, 2, f"{app['total_cpu']:.1f}%")
+                self.list_ctrl.SetItem(idx, 3, str(app["users_count"]))
+                top_desc = f"{app['top_user_name']} ({_format_ram(app['top_user_ram'])})"
+                self.list_ctrl.SetItem(idx, 4, top_desc)
 
-        self._adjust_column_widths()
+            self._adjust_column_widths()
 
-        if set_focus:
-            if self.filtered_apps:
-                self.list_ctrl.Select(0)
-                self.list_ctrl.Focus(0)
-            self.list_ctrl.SetFocus()
+            if set_focus:
+                if self.filtered_apps:
+                    self.list_ctrl.Select(0)
+                    self.list_ctrl.Focus(0)
+                self.list_ctrl.SetFocus()
+        finally:
+            self.list_ctrl.Thaw()
 
     def show_users_view(self, app):
         """Builds and displays the User Drill-Down level for a specific application."""
@@ -1064,24 +1244,30 @@ class ServerProcessHubDialog(wx.Dialog):
             )
         )
 
-        self.list_ctrl.ClearAll()
-        self.list_ctrl.InsertColumn(0, _("User Account"))
-        self.list_ctrl.InsertColumn(1, _("Session ID"))
-        self.list_ctrl.InsertColumn(2, _("Session State"))
-        self.list_ctrl.InsertColumn(3, _("User RAM"))
+        self.list_ctrl.Freeze()
+        try:
+            self.list_ctrl.ClearAll()
+            self.list_ctrl.InsertColumn(0, _("User Account"))
+            self.list_ctrl.InsertColumn(1, _("Session ID"))
+            self.list_ctrl.InsertColumn(2, _("Session State"))
+            self.list_ctrl.InsertColumn(3, _("User RAM"))
 
-        for idx, u in enumerate(app["users"]):
-            self.list_ctrl.InsertItem(idx, u["user_name"])
-            self.list_ctrl.SetItem(idx, 1, str(u["session_id"]))
-            self.list_ctrl.SetItem(idx, 2, u["session_state"])
-            self.list_ctrl.SetItem(idx, 3, _format_ram(u["ram_mb"]))
+            self.current_user_list = list(app["users"])
 
-        self._adjust_column_widths()
+            for idx, u in enumerate(self.current_user_list):
+                self.list_ctrl.InsertItem(idx, u["user_name"])
+                self.list_ctrl.SetItem(idx, 1, str(u["session_id"]))
+                self.list_ctrl.SetItem(idx, 2, u["session_state"])
+                self.list_ctrl.SetItem(idx, 3, _format_ram(u["ram_mb"]))
 
-        if app["users"]:
-            self.list_ctrl.Select(0)
-            self.list_ctrl.Focus(0)
-        self.list_ctrl.SetFocus()
+            self._adjust_column_widths()
+
+            if self.current_user_list:
+                self.list_ctrl.Select(0)
+                self.list_ctrl.Focus(0)
+            self.list_ctrl.SetFocus()
+        finally:
+            self.list_ctrl.Thaw()
 
     def show_sessions_view(self, set_focus=True):
         """Builds and displays the Global Sessions Management Dashboard."""
@@ -1105,27 +1291,31 @@ class ServerProcessHubDialog(wx.Dialog):
             )
         )
 
-        self.list_ctrl.ClearAll()
-        self.list_ctrl.InsertColumn(0, _("User Account"))
-        self.list_ctrl.InsertColumn(1, _("Session ID"))
-        self.list_ctrl.InsertColumn(2, _("Session State"))
-        self.list_ctrl.InsertColumn(3, _("Client IP / Machine"))
-        self.list_ctrl.InsertColumn(4, _("Total Session RAM"))
+        self.list_ctrl.Freeze()
+        try:
+            self.list_ctrl.ClearAll()
+            self.list_ctrl.InsertColumn(0, _("User Account"))
+            self.list_ctrl.InsertColumn(1, _("Session ID"))
+            self.list_ctrl.InsertColumn(2, _("Session State"))
+            self.list_ctrl.InsertColumn(3, _("Client IP / Machine"))
+            self.list_ctrl.InsertColumn(4, _("Total Session RAM"))
 
-        for idx, s in enumerate(self.sessions_list):
-            self.list_ctrl.InsertItem(idx, s["user"])
-            self.list_ctrl.SetItem(idx, 1, str(s["session_id"]))
-            self.list_ctrl.SetItem(idx, 2, s["state"])
-            self.list_ctrl.SetItem(idx, 3, s["client"])
-            self.list_ctrl.SetItem(idx, 4, _format_ram(s["ram_mb"]))
+            for idx, s in enumerate(self.sessions_list):
+                self.list_ctrl.InsertItem(idx, s["user"])
+                self.list_ctrl.SetItem(idx, 1, str(s["session_id"]))
+                self.list_ctrl.SetItem(idx, 2, s["state"])
+                self.list_ctrl.SetItem(idx, 3, s["client"])
+                self.list_ctrl.SetItem(idx, 4, _format_ram(s["ram_mb"]))
 
-        self._adjust_column_widths()
+            self._adjust_column_widths()
 
-        if set_focus:
-            if self.sessions_list:
-                self.list_ctrl.Select(0)
-                self.list_ctrl.Focus(0)
-            self.list_ctrl.SetFocus()
+            if set_focus:
+                if self.sessions_list:
+                    self.list_ctrl.Select(0)
+                    self.list_ctrl.Focus(0)
+                self.list_ctrl.SetFocus()
+        finally:
+            self.list_ctrl.Thaw()
 
     def on_toggle_sessions_mode(self, event):
         """Toggles between Applications View and Global Sessions View (F6)."""
@@ -1135,13 +1325,14 @@ class ServerProcessHubDialog(wx.Dialog):
             self.show_sessions_view(set_focus=True)
 
     def get_selected_item_data(self):
+        """Retrieves selected list item underlying dictionary data."""
         idx = self.list_ctrl.GetFirstSelected()
         if idx == wx.NOT_FOUND:
             return None
         if self.current_view == self.VIEW_APPS:
             return self.filtered_apps[idx] if idx < len(self.filtered_apps) else None
         elif self.current_view == self.VIEW_USERS:
-            return self.selected_app["users"][idx] if (self.selected_app and idx < len(self.selected_app["users"])) else None
+            return self.current_user_list[idx] if idx < len(self.current_user_list) else None
         else:
             return self.sessions_list[idx] if idx < len(self.sessions_list) else None
 
@@ -1174,6 +1365,9 @@ class ServerProcessHubDialog(wx.Dialog):
         app = self.get_selected_item_data()
         if not app or self.current_view != self.VIEW_APPS:
             return
+        
+        # Pause background updates to avoid conflicting with sub-dialog threads
+        self.poll_timer.Stop()
         gui_parent = getattr(gui, "mainFrame", None)
         if gui_parent:
             gui_parent.prePopup()
@@ -1184,6 +1378,7 @@ class ServerProcessHubDialog(wx.Dialog):
         finally:
             if gui_parent:
                 gui_parent.postPopup()
+            self.poll_timer.Start(2500)
 
     def on_track_network_connections(self):
         """Launches the Enterprise Server Network Hub with multi-user attribution."""
@@ -1191,9 +1386,9 @@ class ServerProcessHubDialog(wx.Dialog):
         if not item:
             return
 
+        self.poll_timer.Stop()
         from . import server_network_hub
 
-        # Build mapping: PID -> "DOMAIN\\User (Session X)"
         pid_to_user = {}
         if self.current_view == self.VIEW_USERS:
             app_name = f"{self.selected_app['app_name']}"
@@ -1210,11 +1405,13 @@ class ServerProcessHubDialog(wx.Dialog):
                 for p in u.get("pids", []):
                     pid_to_user[p] = label
         else:
+            self.poll_timer.Start(2500)
             return
 
         server_network_hub.show_server_network_hub_dialog(
             app_name, pids, pid_to_user_map=pid_to_user, default_user_filter=default_filter
         )
+        self.poll_timer.Start(2500)
 
     def on_secondary_action(self, event):
         if self.current_view == self.VIEW_APPS:
@@ -1225,7 +1422,7 @@ class ServerProcessHubDialog(wx.Dialog):
             self.on_disconnect_session()
 
     def on_refresh(self, event=None):
-        self.start_async_data_load()
+        self.start_async_data_load(is_live_update=False)
 
     def on_kill_user_process(self):
         user_data = self.get_selected_item_data()
@@ -1239,16 +1436,18 @@ class ServerProcessHubDialog(wx.Dialog):
         msg = _("Are you sure you want to end {app} for user {user} ({count} instances)?").format(
             app=app_name, user=user_name, count=len(pids)
         )
+        self.poll_timer.Stop()
         if gui.messageBox(msg, _("Confirm Terminate Application"), wx.YES_NO | wx.NO_DEFAULT | wx.ICON_WARNING, self) != wx.YES:
+            self.poll_timer.Start(2500)
             return
 
         success_count = sum(1 for pid in pids if _kill_process_pid(pid))
         res_msg = _("Terminated {s} of {t} instances for {user}").format(s=success_count, t=len(pids), user=user_name)
 
-        # Allow focus to settle after modal dialog dismisses before announcing feedback
         def notify_and_refresh():
             _trigger_hub_feedback(res_msg, is_success=(success_count > 0))
-            self.on_refresh()
+            self.poll_timer.Start(2500)
+            self.start_async_data_load(is_live_update=False)
 
         wx.CallLater(350, notify_and_refresh)
 
@@ -1263,7 +1462,9 @@ class ServerProcessHubDialog(wx.Dialog):
         msg = _("Are you sure you want to terminate ALL {count} instances of {app} across ALL users?").format(
             count=len(total_pids), app=app_name
         )
+        self.poll_timer.Stop()
         if gui.messageBox(msg, _("Confirm Server-Wide Termination"), wx.YES_NO | wx.NO_DEFAULT | wx.ICON_EXCLAMATION, self) != wx.YES:
+            self.poll_timer.Start(2500)
             return
 
         success_count = sum(1 for pid in total_pids if _kill_process_pid(pid))
@@ -1271,7 +1472,8 @@ class ServerProcessHubDialog(wx.Dialog):
 
         def notify_and_refresh():
             _trigger_hub_feedback(res_msg, is_success=(success_count > 0))
-            self.on_refresh()
+            self.poll_timer.Start(2500)
+            self.start_async_data_load(is_live_update=False)
 
         wx.CallLater(350, notify_and_refresh)
 
@@ -1289,9 +1491,11 @@ class ServerProcessHubDialog(wx.Dialog):
             s=success_count, t=len(pids), app=app_name, user=user_name
         )
 
+        self.poll_timer.Stop()
         def notify_and_refresh():
             _trigger_hub_feedback(res_msg, is_success=(success_count > 0))
-            self.on_refresh()
+            self.poll_timer.Start(2500)
+            self.start_async_data_load(is_live_update=True)
 
         wx.CallLater(350, notify_and_refresh)
 
@@ -1309,9 +1513,11 @@ class ServerProcessHubDialog(wx.Dialog):
             s=success_count, t=len(pids), app=app_name, user=user_name
         )
 
+        self.poll_timer.Stop()
         def notify_and_refresh():
             _trigger_hub_feedback(res_msg, is_success=(success_count > 0))
-            self.on_refresh()
+            self.poll_timer.Start(2500)
+            self.start_async_data_load(is_live_update=True)
 
         wx.CallLater(350, notify_and_refresh)
 
@@ -1328,9 +1534,11 @@ class ServerProcessHubDialog(wx.Dialog):
             s=success_count, t=len(total_pids), app=app_name
         )
 
+        self.poll_timer.Stop()
         def notify_and_refresh():
             _trigger_hub_feedback(res_msg, is_success=(success_count > 0))
-            self.on_refresh()
+            self.poll_timer.Start(2500)
+            self.start_async_data_load(is_live_update=True)
 
         wx.CallLater(350, notify_and_refresh)
 
@@ -1347,9 +1555,11 @@ class ServerProcessHubDialog(wx.Dialog):
             s=success_count, t=len(total_pids), app=app_name
         )
 
+        self.poll_timer.Stop()
         def notify_and_refresh():
             _trigger_hub_feedback(res_msg, is_success=(success_count > 0))
-            self.on_refresh()
+            self.poll_timer.Start(2500)
+            self.start_async_data_load(is_live_update=True)
 
         wx.CallLater(350, notify_and_refresh)
 
@@ -1359,12 +1569,15 @@ class ServerProcessHubDialog(wx.Dialog):
             return
         sid = item_data["session_id"]
         user = item_data.get("user", item_data.get("user_name", _("User")))
+        
+        self.poll_timer.Stop()
         success = WTSDisconnectSession(WTS_CURRENT_SERVER_HANDLE, sid, False)
         res_msg = _("Session {id} ({user}) disconnected").format(id=sid, user=user) if success else _("Failed to disconnect session")
 
         def notify_and_refresh():
             _trigger_hub_feedback(res_msg, is_success=success)
-            self.on_refresh()
+            self.poll_timer.Start(2500)
+            self.start_async_data_load(is_live_update=False)
 
         wx.CallLater(350, notify_and_refresh)
 
@@ -1378,7 +1591,9 @@ class ServerProcessHubDialog(wx.Dialog):
         msg = _("Are you sure you want to log off session {id} ({user})? Any unsaved work will be lost.").format(
             id=sid, user=user
         )
+        self.poll_timer.Stop()
         if gui.messageBox(msg, _("Confirm Logoff Session"), wx.YES_NO | wx.NO_DEFAULT | wx.ICON_WARNING, self) != wx.YES:
+            self.poll_timer.Start(2500)
             return
 
         success = WTSLogoffSession(WTS_CURRENT_SERVER_HANDLE, sid, False)
@@ -1386,7 +1601,8 @@ class ServerProcessHubDialog(wx.Dialog):
 
         def notify_and_refresh():
             _trigger_hub_feedback(res_msg, is_success=success)
-            self.on_refresh()
+            self.poll_timer.Start(2500)
+            self.start_async_data_load(is_live_update=False)
 
         wx.CallLater(350, notify_and_refresh)
 
@@ -1433,7 +1649,7 @@ class ServerProcessHubDialog(wx.Dialog):
             m_kill_all = menu.Append(wx.ID_ANY, _("&End Application for ALL Users"))
 
             self.Bind(wx.EVT_MENU, lambda evt: self.show_users_view(item), m_view)
-            self.Bind(wx.EVT_MENU, lambda evt: self.on_show_details(None), m_details)
+            self.Bind(wx.EVT_MENU, self.on_show_details, m_details)
             self.Bind(wx.EVT_MENU, lambda evt: self.on_track_network_connections(), m_track_net)
             self.Bind(wx.EVT_MENU, self.on_copy_action, m_copy)
             self.Bind(wx.EVT_MENU, lambda evt: self.on_suspend_all_app_instances(), m_suspend)

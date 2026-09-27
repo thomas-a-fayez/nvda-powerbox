@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PowerBox 2.0.0\n"
 "Report-Msgid-Bugs-To: thomas.a.fayez@gmail.com\n"
 "POT-Creation-Date: 2026-09-25 10:00+0300\n"
-"PO-Revision-Date: 2026-09-25 14:32+0300\n"
+"PO-Revision-Date: 2026-09-27 11:48+0300\n"
 "Last-Translator: Thomas A. Fayez <thomas.a.fayez@gmail.com>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "Language: es\n"
@@ -880,6 +880,21 @@ msgstr "IP / Máquina del cliente"
 
 msgid "Total Session RAM"
 msgstr "RAM total de la sesión"
+
+msgid "Application {app} has been closed completely."
+msgstr "La aplicación {app} se ha cerrado completamente."
+
+msgid "Suspended {s} of {t} instances of {app} for {user}"
+msgstr "Suspendidas {s} de {t} instancias de {app} para el usuario {user}"
+
+msgid "Resumed {s} of {t} instances of {app} for {user}"
+msgstr "Reanudadas {s} de {t} instancias de {app} para el usuario {user}"
+
+msgid "Suspended {s} of {t} instances of {app} across server"
+msgstr "Suspendidas {s} de {t} instancias de {app} en todo el servidor"
+
+msgid "Resumed {s} of {t} instances of {app} across server"
+msgstr "Reanudadas {s} de {t} instancias de {app} en todo el servidor"
 
 msgid "Are you sure you want to end {app} for user {user} ({count} instances)?"
 msgstr ""

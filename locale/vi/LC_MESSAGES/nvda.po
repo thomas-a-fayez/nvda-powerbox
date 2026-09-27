@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PowerBox 2.0.0\n"
 "Report-Msgid-Bugs-To: thomas.a.fayez@gmail.com\n"
 "POT-Creation-Date: 2026-09-25 10:00+0300\n"
-"PO-Revision-Date: 2026-09-25 17:36+0700\n"
+"PO-Revision-Date: 2026-09-27 11:50+0300\n"
 "Last-Translator: nguyenninhhoang <nguyenninhhoang2005@gmail.com>\n"
 "Language-Team: Vietnamese <vi@li.org>\n"
 "Language: vi\n"
@@ -869,6 +869,21 @@ msgstr "IP Máy khách / Tên máy"
 
 msgid "Total Session RAM"
 msgstr "Tổng RAM của phiên"
+
+msgid "Application {app} has been closed completely."
+msgstr "Ứng dụng {app} đã được đóng hoàn toàn."
+
+msgid "Suspended {s} of {t} instances of {app} for {user}"
+msgstr "Đã tạm dừng {s} trên {t} phiên bản của {app} cho người dùng {user}"
+
+msgid "Resumed {s} of {t} instances of {app} for {user}"
+msgstr "Đã tiếp tục {s} trên {t} phiên bản của {app} cho người dùng {user}"
+
+msgid "Suspended {s} of {t} instances of {app} across server"
+msgstr "Đã tạm dừng {s} trên {t} phiên bản của {app} trên toàn máy chủ"
+
+msgid "Resumed {s} of {t} instances of {app} across server"
+msgstr "Đã tiếp tục {s} trên {t} phiên bản của {app} trên toàn máy chủ"
 
 msgid "Are you sure you want to end {app} for user {user} ({count} instances)?"
 msgstr ""

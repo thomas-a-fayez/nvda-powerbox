@@ -3,7 +3,7 @@
 [English](readme.md) | [العربية](../ar/readme.md)
 
 **Author:** Thomas A. Fayez  
-**Version:** 2.0.2  
+**Version:** 2.0.3  
 
 PowerBox is an enterprise-grade, high-performance productivity and administration add-on designed for speed, comfort, and deep system control. It maps ergonomic NVDA gestures to master and per-application volume controls, simulates smart mouse clicks with automatic cursor routing, provides instant terminal launches in the current folder, and introduces clean **Gesture Layers** for quick applications, advanced LAN network scanning, real-time socket and security analysis, file and storage management with locked-file inspection, native process freezing, and comprehensive system power management with an intelligent sleep timer.
 
