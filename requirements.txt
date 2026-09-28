@@ -1,0 +1,3 @@
+scons>=4.10.1
+markdown>=3.8.2
+polib>=1.2.0
