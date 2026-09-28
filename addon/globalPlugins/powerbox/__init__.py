@@ -7,6 +7,7 @@
 # - Secure Desktop boundary lockdown utilizes native Win32 Desktop Isolation APIs
 #   (user32.dll: OpenInputDesktop, GetUserObjectInformationW, CloseDesktop) to enforce
 #   strict zero-trust privilege separation across Windows Logon, UAC (Consent UI), and lock screens.
+# - Automated method-level security wrapping enforces defense-in-depth against custom gesture remappings.
 # - Enterprise acoustic alert synthesis provides deliberate non-speech situational awareness.
 
 import ctypes
@@ -123,6 +124,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
         self._double_press_timer = None
         self.keepLayerActive = False
 
+        # Apply defense-in-depth security wrapper across all non-whitelisted scripts
+        self._wrap_scripts_for_security()
+
     def terminate(self):
         self._cancel_double_press_timer()
         try:
@@ -158,11 +162,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
     # --- Secure Desktop & Layered Gestures Core Routing Logic ---
     def _is_secure_environment(self):
         """
-        Pure Win32 Kernel Desktop Isolation Check:
-        Directly queries the Windows Input Desktop state using pre-configured user32.OpenInputDesktop.
-        Instantly detects UAC (Consent UI), Winlogon, and secure screens at the OS level
-        with sub-microsecond performance.
+        Kernel-Level & Desktop Isolation Security Check:
+        Directly queries the Windows Input Desktop state using user32.OpenInputDesktop
+        and catches UAC elevation prompts (consent.exe) and Winlogon secure screens.
         """
+        # 1. Native Windows Kernel Input Desktop Query
         try:
             # DESKTOP_SWITCHDESKTOP = 0x0100
             h_desk = user32.OpenInputDesktop(0, False, 0x0100)
@@ -175,13 +179,65 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
                 needed = wintypes.DWORD(0)
                 # UOI_NAME = 2: Query desktop object name directly from kernel
                 if user32.GetUserObjectInformationW(h_desk, 2, buf, ctypes.sizeof(buf), ctypes.byref(needed)):
-                    return buf.value.lower() in ("winlogon", "screensaver")
+                    if buf.value.lower() in ("winlogon", "screensaver"):
+                        return True
             finally:
                 user32.CloseDesktop(h_desk)
         except Exception:
             pass
 
+        # 2. UAC / Lock Screen active process check (Catches consent.exe and lock screen hosts)
+        try:
+            import api
+            focus = api.getFocusObject()
+            if focus:
+                app_name = getattr(getattr(focus, "appModule", None), "appName", "").lower()
+                if app_name in ("consent", "credentialuibroker", "lockapp", "logonui"):
+                    return True
+        except Exception:
+            pass
+
+        # 3. Fallback to NVDA CLI flag
         return bool(getattr(globalVars.appArgs, "secureMode", False))
+
+    # Whitelist of safe scripts that are permitted to execute on secure screens
+    SAFE_SCRIPTS = {
+        "script_masterVolumeMute",
+        "script_masterVolumeDown",
+        "script_masterVolumeUp",
+        "script_secureModeBlocked",
+        "script_error",
+    }
+
+    def _wrap_scripts_for_security(self):
+        """
+        Dynamically wraps all sensitive script_* methods on this instance with a security guard.
+        Guarantees that even if a user maps a custom direct shortcut in NVDA's Input Gestures
+        (bypassing getScript via userGestureMap), execution is strictly blocked on secure screens.
+        """
+        for name in dir(self.__class__):
+            if name.startswith("script_") and name not in self.SAFE_SCRIPTS:
+                orig_script = getattr(self, name)
+                setattr(self, name, self._make_secure_guarded_script(orig_script))
+
+    def _make_secure_guarded_script(self, orig_script):
+        """
+        Factory creating a secure-guarded wrapper around an existing script method.
+        Preserves all scriptHandler metadata (description, category) for NVDA gesture dialog.
+        """
+        def guarded_script(gesture):
+            if self._is_secure_environment():
+                self.script_secureModeBlocked(gesture)
+                return
+            return orig_script(gesture)
+
+        # Preserve NVDA scriptHandler attributes
+        for attr in ("description", "category", "canPropagate", "resumeSayAllMode"):
+            if hasattr(orig_script, attr):
+                setattr(guarded_script, attr, getattr(orig_script, attr))
+
+        guarded_script.__name__ = getattr(orig_script, "__name__", "")
+        return guarded_script
 
     def getScript(self, gesture):
         # 1. Zero-Trust Security Shield: Enforce strict boundary on Windows Logon, Win+L, and UAC screens

@@ -1,15 +1,11 @@
 # PowerBox Changelog
 
-## v2.1.2 - Secure Desktop Isolation, Kernel Hardening & Performance Optimization
+## v2.1.3 - Defense-in-Depth Security Hardening & Input Gestures Protection
 
-This update introduces kernel-level desktop isolation safeguards, authoritative acoustic security alarms, keystroke latency optimization, and localized storage diagnostics.
+This release reinforces PowerBox's security architecture by introducing automated method-level guards against custom gesture remappings on secure desktops.
 
-### 🛡️ Security & Kernel Hardening:
-* **Pure Win32 Desktop Isolation:** Integrated native Windows kernel desktop queries via `user32.OpenInputDesktop` and `GetUserObjectInformationW` to enforce strict zero-trust boundary protection across Windows Logon, UAC elevation prompts (Consent UI), and lock screens (`Win+L`).
-* **Authoritative Security Alarm:** Implemented a deliberate 3-stage acoustic warning chime (650Hz -> 850Hz -> 280Hz) paired with explicit speech notifications when restricted actions are attempted on secure screens.
-* **Sub-Microsecond Keystroke Latency:** Optimized Win32 function bindings and isolated DLL instances to module-level scope, eliminating per-keystroke prototype resolution overhead.
-
-### 🌐 Bug Fixes & Localization:
-* **Drive Space Translation Fix:** Resolved an internationalization bug in `file_manager.py` (`check_drives_pulse`) where storage metrics terms ("free", "used", "Total") were hardcoded in English.
-* **Documentation Navigation:** Refined English markdown navigation links on GitHub to eliminate 404 errors while maintaining seamless offline HTML help generation.
-* **Updated Translations:** Synchronized translation catalogs across Arabic, Vietnamese, Spanish, and French.
+### 🛡️ Security & Zero-Trust Hardening:
+* **Defense-in-Depth Script Wrapping:** Implemented automated runtime security wrapping across all plugin action methods. Even if an end-user maps custom direct shortcuts via NVDA's Input Gestures dialog (bypassing layer routing via `userGestureMap`), command execution is intercepted and strictly rejected on secure screens.
+* **UAC Consent UI Isolation:** Hardened kernel-level desktop checks to guarantee that User Account Control (UAC) elevation prompts ("Yes/No" screens) and lock screens strictly block terminal or application launching.
+* **Balanced Acoustic Alert Chime:** Refined the 3-stage security alarm pattern (650Hz -> 850Hz -> 280Hz) to provide an authoritative, non-speech auditory warning when restricted actions are attempted.
+* **Safe Audio Preservation:** Maintained unhindered master volume controls (mute, volume up, volume down) across all secure screens.

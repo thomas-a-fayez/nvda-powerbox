@@ -18,14 +18,14 @@ addon_info = AddonInfo(
 Features clean multi-layered navigation (Quick Apps, Terminals, Network, System & Power, Files & Storage),
 real-time process and socket tracking, and comprehensive accessibility controls."""),
 	# version
-	addon_version="2.1.2",
+	addon_version="2.1.3",
 	# Brief changelog for this version
 	# Translators: what's new content for the add-on version to be shown in the add-on store
-	addon_changelog=_("""- Secure Desktop Boundary Lockdown: Integrated pure Win32 Kernel Desktop Isolation (user32.OpenInputDesktop) to prevent unauthorized execution across Windows Logon, UAC (Consent UI), and lock screens.
-- Security Alarm & Auditory Cues: Designed an authoritative 3-stage acoustic warning chime paired with explicit speech notifications when restricted actions are attempted.
-- Keystroke Performance Optimization: Shifted desktop isolation Win32 prototypes to module-level scope, achieving sub-microsecond gesture routing.
-- Storage Metrics Localization: Resolved hardcoded English terms in drive space capacity reporting (check_drives_pulse).
-- Documentation & Build Enhancements: Fixed GitHub navigation links for English documentation and improved SCons build pipeline."""),
+	# Translators: what's new content for the add-on version to be shown in the add-on store
+	addon_changelog=_("""- Defense-in-Depth Security Hardening: Implemented automated method-level security wrapping, ensuring that custom shortcuts assigned in NVDA's Input Gestures dialog are strictly blocked on secure screens.
+- UAC & Consent UI Protection: Enforced zero-trust boundary lockdown preventing unauthorized action execution during User Account Control (UAC) elevation prompts.
+- Refined Acoustic Security Alarm: Tuned the 3-stage warning chime for deliberate, non-intrusive auditory feedback on restricted screens.
+- Maintained safe master volume adjustments across all desktop states."""),
 	# Author(s)
 	addon_author="Thomas A. Fayez <thomas.a.fayez@gmail.com>",
 	# URL for the add-on documentation support
