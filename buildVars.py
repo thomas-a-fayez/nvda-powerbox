@@ -18,16 +18,13 @@ addon_info = AddonInfo(
 Features clean multi-layered navigation (Quick Apps, Terminals, Network, System & Power, Files & Storage),
 real-time process and socket tracking, and comprehensive accessibility controls."""),
 	# version
-	addon_version="2.1.0",
+	addon_version="2.1.1",
 	# Brief changelog for this version
 	# Translators: what's new content for the add-on version to be shown in the add-on store
-	addon_changelog=_("""- Official NV Access Add-on Template Migration: Full integration with standard build pipelines and native 'What's new' display in the Add-on Store (NVDA 2026.1+).
-- Process Network Tracker: Fixed non-responsive 'Test Port and Latency' button by starting the background worker thread.
-- Smart Listening Sockets: Enabled local listening service port probing and latency measurement via loopback across network hubs.
-- Strict Win32 Ctypes Isolation: Completely isolated private WinDLL instances (wtsapi32, advapi32, user32, psapi) preventing prototype collisions with other NVDA add-ons.
-- UX & Feedback Mode Compliance: Enforced strict feedback modes preventing unintended speech leakage in beep/none modes.
-- Accessibility Refinements: Standardized button labels and accelerators to eliminate duplicate shortcut announcements in screen readers.
-- Speech Focus Protection: Prevented speech swallowing on dialog dismissal in file manager via focus delay."""),
+	addon_changelog=_("""- Drive Space Translation Fix: Resolved hardcoded English terms in storage metrics reporting (check_drives_pulse).
+- Offline Documentation Navigation: Refined documentation links for seamless HTML help browsing.
+- Updated Localization: Synchronized translation catalogs across Vietnamese, Arabic, Spanish, and French.
+- Retained all v2.1.0 template migration and socket stability improvements."""),
 	# Author(s)
 	addon_author="Thomas A. Fayez <thomas.a.fayez@gmail.com>",
 	# URL for the add-on documentation support

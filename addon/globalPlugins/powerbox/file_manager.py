@@ -619,9 +619,15 @@ def check_drives_pulse(copy_to_clip=False):
         used_fmt = format_drive_size(used_bytes)
         warn = _(" [LOW SPACE]") if d["pct_free"] < 15.0 else ""
         
-        lines.append(
-            f"{d['drive']}: {free_fmt} free ({d['pct_free']:.0f}%), {used_fmt} used, Total: {tot_fmt}{warn}"
+        line_str = _("{drive}: {free} free ({pct:.0f}%), {used} used, Total: {tot}{warn}").format(
+            drive=d['drive'],
+            free=free_fmt,
+            pct=d['pct_free'],
+            used=used_fmt,
+            tot=tot_fmt,
+            warn=warn
         )
+        lines.append(line_str)
 
     full_msg = " | ".join(lines)
     if copy_to_clip:
