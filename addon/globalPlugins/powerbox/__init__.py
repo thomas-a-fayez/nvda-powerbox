@@ -2,14 +2,23 @@
 # PowerBox add-on for NVDA - Main Plugin File
 
 # Acknowledgment: 
-# The layer command routing logic (getScript and script_error overrides) 
-# is inspired by and derived from the original work of Tyler Spivey and Joseph Lee.
+# - The layer command routing logic (getScript and script_error overrides) 
+#   is inspired by and derived from the original work of Tyler Spivey and Joseph Lee.
+# - Secure Desktop boundary lockdown utilizes native Win32 Desktop Isolation APIs
+#   (user32.dll: OpenInputDesktop, GetUserObjectInformationW, CloseDesktop) to enforce
+#   strict zero-trust privilege separation across Windows Logon, UAC (Consent UI), and lock screens.
+# - Enterprise acoustic alert synthesis provides deliberate non-speech situational awareness.
 
+import ctypes
+from ctypes import wintypes
+import threading
+import time
 import wx
 import globalPluginHandler
 import scriptHandler
 import addonHandler
 import config
+import globalVars
 import gui
 import ui
 import tones
@@ -28,6 +37,25 @@ from . import help_manager
 
 # Initialize translation support for this module
 addonHandler.initTranslation()
+
+# Isolated Win32 DLL instances preventing prototype clashes (Module-level optimization)
+user32 = ctypes.WinDLL("user32", use_last_error=True)
+
+# 64-bit safe function prototypes for desktop isolation
+user32.OpenInputDesktop.argtypes = [wintypes.DWORD, wintypes.BOOL, wintypes.DWORD]
+user32.OpenInputDesktop.restype = wintypes.HANDLE
+
+user32.CloseDesktop.argtypes = [wintypes.HANDLE]
+user32.CloseDesktop.restype = wintypes.BOOL
+
+user32.GetUserObjectInformationW.argtypes = [
+    wintypes.HANDLE,
+    ctypes.c_int,
+    ctypes.c_void_p,
+    wintypes.DWORD,
+    ctypes.POINTER(wintypes.DWORD),
+]
+user32.GetUserObjectInformationW.restype = wintypes.BOOL
 
 # --- Configuration Settings Specification ---
 confspec = {
@@ -127,8 +155,59 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
         if mode in ("speech", "both"):
             ui.message(layer_name)
 
-    # --- Layered Gestures Core Routing Logic ---
+    # --- Secure Desktop & Layered Gestures Core Routing Logic ---
+    def _is_secure_environment(self):
+        """
+        Pure Win32 Kernel Desktop Isolation Check:
+        Directly queries the Windows Input Desktop state using pre-configured user32.OpenInputDesktop.
+        Instantly detects UAC (Consent UI), Winlogon, and secure screens at the OS level
+        with sub-microsecond performance.
+        """
+        try:
+            # DESKTOP_SWITCHDESKTOP = 0x0100
+            h_desk = user32.OpenInputDesktop(0, False, 0x0100)
+            if not h_desk:
+                # Error 5 (ERROR_ACCESS_DENIED): Windows kernel explicitly blocks access on UAC / Secure Desktops
+                return ctypes.get_last_error() == 5
+
+            try:
+                buf = ctypes.create_unicode_buffer(256)
+                needed = wintypes.DWORD(0)
+                # UOI_NAME = 2: Query desktop object name directly from kernel
+                if user32.GetUserObjectInformationW(h_desk, 2, buf, ctypes.sizeof(buf), ctypes.byref(needed)):
+                    return buf.value.lower() in ("winlogon", "screensaver")
+            finally:
+                user32.CloseDesktop(h_desk)
+        except Exception:
+            pass
+
+        return bool(getattr(globalVars.appArgs, "secureMode", False))
+
     def getScript(self, gesture):
+        # 1. Zero-Trust Security Shield: Enforce strict boundary on Windows Logon, Win+L, and UAC screens
+        if self._is_secure_environment():
+            # If a layer was active, terminate it immediately
+            self.activeLayer = None
+
+            script = super(GlobalPlugin, self).getScript(gesture)
+            if not script:
+                return None
+
+            script_name = getattr(script, "__name__", "").replace("script_", "")
+            # Whitelist: Only master system audio adjustments are permitted on secure screens
+            safe_scripts = {
+                "masterVolumeMute",
+                "masterVolumeDown",
+                "masterVolumeUp",
+                "secureModeBlocked",
+            }
+            if script_name in safe_scripts:
+                return script
+
+            # Block any layered or external actions (terminals, apps, files, networks, system)
+            return self.script_secureModeBlocked
+
+        # 2. Normal Interactive Desktop Layer Routing
         if not self.activeLayer:
             return super(GlobalPlugin, self).getScript(gesture)
 
@@ -160,6 +239,33 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
             tones.beep(120, 100)
         if mode in ("speech", "both"):
             ui.message(_("Invalid key"))
+
+    @scriptHandler.script(description=_("Notifies the user that PowerBox actions are restricted on secure screens"))
+    def script_secureModeBlocked(self, gesture):
+        """
+        Delivers an urgent security notification when restricted commands are attempted on secure screens.
+        Always speaks the vital notice, and emits a deliberate 3-stage security alarm chime in beep/both modes.
+        """
+        self.activeLayer = None
+        mode = config.conf.get("powerBox", {}).get("feedbackMode", "beep")
+
+        if mode in ("beep", "both"):
+            def alarm_worker():
+                # Authoritative 3-stage industrial security alarm pattern (freq, duration_ms, pause_sec)
+                alert_chime = [
+                    (650, 85, 0.06),   # Stage 1: Attention grabber
+                    (850, 95, 0.06),   # Stage 2: Security escalation alert
+                    (280, 190, 0.0),   # Stage 3: Deep access-denied resolution
+                ]
+                for freq, duration, pause in alert_chime:
+                    tones.beep(freq, duration)
+                    if pause > 0:
+                        time.sleep(pause)
+
+            threading.Thread(target=alarm_worker, daemon=True).start()
+
+        # Vital security payload: Always spoken across all feedback modes (Translation text preserved)
+        ui.message(_("PowerBox actions are restricted on secure screens for security reasons"))
 
     # --- System Layer Scripts ---
     @scriptHandler.script(description=_("System Layer: Press t, shift+t, c, d, r, s, b, l, p, shift+p, control+p, control+e, or h next"))

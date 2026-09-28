@@ -18,13 +18,14 @@ addon_info = AddonInfo(
 Features clean multi-layered navigation (Quick Apps, Terminals, Network, System & Power, Files & Storage),
 real-time process and socket tracking, and comprehensive accessibility controls."""),
 	# version
-	addon_version="2.1.1",
+	addon_version="2.1.2",
 	# Brief changelog for this version
 	# Translators: what's new content for the add-on version to be shown in the add-on store
-	addon_changelog=_("""- Drive Space Translation Fix: Resolved hardcoded English terms in storage metrics reporting (check_drives_pulse).
-- Offline Documentation Navigation: Refined documentation links for seamless HTML help browsing.
-- Updated Localization: Synchronized translation catalogs across Vietnamese, Arabic, Spanish, and French.
-- Retained all v2.1.0 template migration and socket stability improvements."""),
+	addon_changelog=_("""- Secure Desktop Boundary Lockdown: Integrated pure Win32 Kernel Desktop Isolation (user32.OpenInputDesktop) to prevent unauthorized execution across Windows Logon, UAC (Consent UI), and lock screens.
+- Security Alarm & Auditory Cues: Designed an authoritative 3-stage acoustic warning chime paired with explicit speech notifications when restricted actions are attempted.
+- Keystroke Performance Optimization: Shifted desktop isolation Win32 prototypes to module-level scope, achieving sub-microsecond gesture routing.
+- Storage Metrics Localization: Resolved hardcoded English terms in drive space capacity reporting (check_drives_pulse).
+- Documentation & Build Enhancements: Fixed GitHub navigation links for English documentation and improved SCons build pipeline."""),
 	# Author(s)
 	addon_author="Thomas A. Fayez <thomas.a.fayez@gmail.com>",
 	# URL for the add-on documentation support

@@ -3,7 +3,7 @@
 [English](addon/doc/en/readme.md) | [العربية](addon/doc/ar/readme.md)
 
 **Author:** Thomas A. Fayez  
-**Version:** 2.1.1  
+**Version:** 2.1.2  
 
 PowerBox is an enterprise-grade, high-performance productivity and administration add-on designed for speed, comfort, and deep system control. It maps ergonomic NVDA gestures to master and per-application volume controls, simulates smart mouse clicks with automatic cursor routing, provides instant terminal launches in the current folder, and introduces clean **Gesture Layers** for quick applications, advanced LAN network scanning, real-time socket and security analysis, file and storage management with locked-file inspection, native process freezing, and comprehensive system power management with an intelligent sleep timer.
 
@@ -253,6 +253,7 @@ Configure PowerBox preferences from **NVDA Menu -> Preferences -> Settings -> Po
 * **Microsoft Windows API & Terminal Services:**
   * **Audio & Input:** Native low-level input simulation (`SendInput`), master volume querying & direct kernel muting (`IAudioEndpointVolume`), and per-application audio session mixer controls (`IAudioSessionManager2`, `ISimpleAudioVolume` via ctypes).
   * **System Power & Shell:** Power management (`user32.dll`: `LockWorkStation`, `powrprof.dll`: `SetSuspendState`), shell change notification (`shell32.dll`: `SHChangeNotify`) with Explorer Shell COM item selection (`SelectItem`) for instant focus on created files, and intelligent Explorer shell restart and revival via process monitoring and subprocess creation.
+  * **Secure Desktop & Boundary Isolation:** Native Win32 Desktop Isolation APIs (`user32.dll`: `OpenInputDesktop`, `GetUserObjectInformationW`, `CloseDesktop`) enforcing strict zero-trust privilege separation across Windows Logon, UAC elevation (Consent UI), and lock screens, combined with deliberate multi-frequency acoustic alert synthesis.
   * **Process Inspection, Freezing & Memory:** Native performance counters (`time.perf_counter`), process time delta calculations (`GetProcessTimes`), working set memory metrics (`kernel32.dll`: `K32GetProcessMemoryInfo`, `psapi.dll`: `GetProcessMemoryInfo` via isolated WinDLL instances), image path querying (`QueryFullProcessImageNameW`), architecture detection (`IsWow64Process`), Unicode window enumeration (`EnumWindows`, `GetWindowTextW`), and native NT kernel process freezing/resuming (`ntdll.dll`: `NtSuspendProcess`, `NtResumeProcess`).
   * **File Diagnostics & Restart Manager:** Microsoft Restart Manager API (`rstrtmgr.dll`: `RmStartSession`, `RmRegisterResources`, `RmGetList`, `RmEndSession`) for active file lock detection, and `WScript.Shell` COM automation for resolving shortcut (`.lnk`) targets.
   * **Storage & Drives:** Physical partition storage metrics via Win32 `GetDiskFreeSpaceExW` and `GetLogicalDriveStringsW`.
