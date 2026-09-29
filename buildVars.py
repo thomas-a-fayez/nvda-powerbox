@@ -18,14 +18,16 @@ addon_info = AddonInfo(
 Features clean multi-layered navigation (Quick Apps, Terminals, Network, System & Power, Files & Storage),
 real-time process and socket tracking, and comprehensive accessibility controls."""),
 	# version
-	addon_version="2.1.3",
+	addon_version="2.1.4",
 	# Brief changelog for this version
 	# Translators: what's new content for the add-on version to be shown in the add-on store
 	# Translators: what's new content for the add-on version to be shown in the add-on store
-	addon_changelog=_("""- Defense-in-Depth Security Hardening: Implemented automated method-level security wrapping, ensuring that custom shortcuts assigned in NVDA's Input Gestures dialog are strictly blocked on secure screens.
-- UAC & Consent UI Protection: Enforced zero-trust boundary lockdown preventing unauthorized action execution during User Account Control (UAC) elevation prompts.
-- Refined Acoustic Security Alarm: Tuned the 3-stage warning chime for deliberate, non-intrusive auditory feedback on restricted screens.
-- Maintained safe master volume adjustments across all desktop states."""),
+	# Translators: what's new content for the add-on version to be shown in the add-on store
+	addon_changelog=_("""- Real-Time Terminal PATH Synchronization: Terminals launched via PowerBox immediately recognize newly installed tools directly from Windows Registry without restarting NVDA.
+- Pure Win32 Desktop Isolation: Enforced strict kernel desktop isolation (user32.OpenInputDesktop) securing Windows Logon, UAC (Consent UI), and lock screens.
+- Auditory Security Warning: Added a distinct 3-stage security alarm chime and speech alert for restricted commands on secure screens.
+- Documentation & Accessibility: Overhauled documentation with full RTL layout support, Dark Mode styling, and clean NVDA heading navigation.
+- Updated Localization: Synchronized translation catalogs across Arabic, Vietnamese, Spanish, and French."""),
 	# Author(s)
 	addon_author="Thomas A. Fayez <thomas.a.fayez@gmail.com>",
 	# URL for the add-on documentation support

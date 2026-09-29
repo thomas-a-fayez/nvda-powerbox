@@ -5,9 +5,12 @@
 # - Windows Explorer active tab path resolution uses native window title and focus inspection
 #   paired with safe Shell.Application COM querying, eliminating C++ assertion crashes.
 # - Detached terminal process spawning via Win32 ShellExecuteW prevents child process handle lockups.
+# - Real-time environment synchronization reads fresh System/User PATH from Windows Registry (winreg),
+#   ensuring newly installed tools are recognized without restarting NVDA.
 # - Uses isolated WinDLL instances and 64-bit safe HWND prototypes to prevent handle truncation.
 
 import os
+import winreg
 import ctypes
 from ctypes import wintypes
 import comtypes.client
@@ -44,6 +47,11 @@ shell32.ShellExecuteW.argtypes = [
     ctypes.c_int
 ]
 shell32.ShellExecuteW.restype = wintypes.HINSTANCE
+
+# Isolated kernel32 instance for environment variable synchronization
+kernel32 = ctypes.WinDLL("kernel32", use_last_error=True)
+kernel32.SetEnvironmentVariableW.argtypes = [wintypes.LPCWSTR, wintypes.LPCWSTR]
+kernel32.SetEnvironmentVariableW.restype = wintypes.BOOL
 
 
 def get_current_explorer_path():
@@ -145,11 +153,54 @@ def get_current_explorer_path():
     return os.path.expanduser("~")
 
 
+def _refresh_process_path():
+    """
+    Dynamically reloads fresh System and User PATH variables directly from Windows Registry.
+    Applies them to both Python's os.environ and the Win32 process environment block (PEB),
+    allowing newly installed tools (e.g. Git, Python, Gettext) to be available instantly.
+    """
+    paths = []
+    # 1. Read System PATH from HKLM
+    try:
+        with winreg.OpenKey(
+            winreg.HKEY_LOCAL_MACHINE,
+            r"SYSTEM\CurrentControlSet\Control\Session Manager\Environment",
+            0,
+            winreg.KEY_READ
+        ) as k:
+            val, _ = winreg.QueryValueEx(k, "Path")
+            if val:
+                paths.append(val)
+    except Exception:
+        pass
+
+    # 2. Read User PATH from HKCU
+    try:
+        with winreg.OpenKey(winreg.HKEY_CURRENT_USER, r"Environment", 0, winreg.KEY_READ) as k:
+            val, _ = winreg.QueryValueEx(k, "Path")
+            if val:
+                paths.append(val)
+    except Exception:
+        pass
+
+    if paths:
+        raw_combined = ";".join(paths)
+        expanded_path = os.path.expandvars(raw_combined)
+        os.environ["PATH"] = expanded_path
+        try:
+            kernel32.SetEnvironmentVariableW("PATH", expanded_path)
+        except Exception:
+            pass
+
+
 def launch_terminal(terminal_type="powershell", as_admin=False):
     """
     Launches the requested terminal targeted at the discovered path.
     Spawns an entirely detached OS process using ShellExecuteW.
     """
+    # Synchronize process environment with the latest Windows Registry state
+    _refresh_process_path()
+
     target_path = get_current_explorer_path()
     if not target_path or not os.path.isdir(target_path):
         target_path = os.path.expanduser("~")

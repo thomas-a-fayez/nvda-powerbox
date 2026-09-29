@@ -19,7 +19,7 @@ jobs:
     steps:
     - uses: actions/checkout@v5
 
-    - run: echo -e "pre-commit\nscons\nmarkdown\npolib">requirements.txt
+    - run: echo -e "pre-commit\nscons\nmarkdown">requirements.txt
 
     - name: Set up Python
       uses: actions/setup-python@v6

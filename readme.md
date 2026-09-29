@@ -3,41 +3,62 @@
 [English](addon/doc/en/readme.md) | [العربية](addon/doc/ar/readme.md)
 
 **Author:** Thomas A. Fayez  
-**Version:** 2.1.3  
+**Version:** 2.1.4  
 
-PowerBox is an enterprise-grade, high-performance productivity and administration add-on designed for speed, comfort, and deep system control. It maps ergonomic NVDA gestures to master and per-application volume controls, simulates smart mouse clicks with automatic cursor routing, provides instant terminal launches in the current folder, and introduces clean **Gesture Layers** for quick applications, advanced LAN network scanning, real-time socket and security analysis, file and storage management with locked-file inspection, native process freezing, and comprehensive system power management with an intelligent sleep timer.
+PowerBox is an enterprise-grade, high-performance productivity, network analysis, and Windows Server administration add-on designed for speed, comfort, and deep operating system control. It maps ergonomic NVDA gestures to master and per-application volume controls, simulates hardware-scanned smart mouse clicks with automatic cursor routing, provides instant terminal launches in the current folder with real-time environment synchronization, and introduces clean **Modal Gesture Layers** for quick applications, advanced LAN network scanning, real-time socket and security analysis, file and storage diagnostics with locked-file inspection, native NT kernel process freezing, and comprehensive system power management with an intelligent sleep timer.
 
-## ✨ The Concept of "Layers"
-To avoid shortcut conflicts, complex finger gymnastics, and awkward multi-key combinations, PowerBox utilizes a clean "Layered" architecture. You press a single prefix shortcut to activate a modal layer, followed by a single key to trigger the action. 
-*Pressing `H` inside any active layer will open an accessible contextual help dialog displaying all available keys.*
+---
 
-**Smart Layer Entry & Error Feedback:** Entering any layer strictly respects your configured Feedback Mode:
-* **Both (Beep and speak):** Plays the layer's distinct audio tone and announces the layer name immediately (e.g. *"System Layer"*, *"Files Layer"*, *"Network Layer"*).
-* **Speech only:** Announces the layer name clearly without any beeps.
+## ✨ The Concept of "Layers" & Dynamic Feedback
+
+To eliminate shortcut conflicts, complex finger gymnastics, and awkward multi-key combinations, PowerBox utilizes a clean "Layered" modal architecture. You press a single prefix shortcut to activate a modal layer, followed by a single key to trigger the action. 
+
+*Pressing `H` inside any active layer will open an accessible contextual help dialog displaying all available keys for that layer.*
+
+### 🔊 Smart Layer Entry & Error Feedback
+
+Entering any layer strictly respects your configured **Feedback Mode** in Settings:
+
+* **Both (Beep and speak):** Plays the layer's distinct audio identification tone and announces the layer name immediately (e.g. *"System Layer"*, *"Files Layer"*, *"Network Layer"*).
+* **Speech only:** Announces the layer name clearly without playing any tones.
 * **Beep only:** Plays the quick layer identification tone only.
 * **None (Silent):** Completely silent operation; enters the layer silently without disturbing you.
-* *Pressing an unmapped key inside any layer also respects your feedback mode (announces "Invalid key", plays a low error tone, or exits silently).*
+* *Pressing an unmapped key inside any active layer also respects your feedback mode (announces "Invalid key", plays a low error tone, or exits silently).*
 
-## ⌨️ Global Shortcuts
+---
+
+## ⌨️ Global Shortcuts & Smart Mouse Simulation
+
+### 🔒 Secure Desktop & Windows Logon Protection
+
+For system security and to strictly prevent unauthorized privilege escalation, all layered navigation, terminal spawning, and administrative diagnostics are automatically restricted when running on Windows Logon screens, User Account Control (UAC) elevation prompts ("Yes/No" screens), or locked workstations (`Win + L`).
+
+* **Permitted Functions:** **Master System Audio controls** (Mute, Volume Up, Volume Down) remain active to assist blind users with volume adjustment on secure screens.
+* **Security Enforcement:** Attempting any restricted shortcut triggers an authoritative 3-stage acoustic security alarm chime accompanied by an explicit warning announcement.
 
 ### 🔊 Master System Audio
-* **NVDA + Win + Up / Down:** Master Volume Up / Down *(Announces exact level, e.g. Volume: 50%)*
-* **NVDA + Win + M:** Master Volume Mute Toggle *(Instant hardware kernel muting with audible "Muted" / "Unmuted" announcement)*
+
+* **NVDA + Win + Up / Down:** Master Volume Up / Down *(Announces exact level, e.g. Volume: 50%)*.
+* **NVDA + Win + M:** Master Volume Mute Toggle *(Instant hardware kernel muting with audible "Muted" / "Unmuted" announcement)*.
 
 ### 🎧 Active Application Audio (Per-App Mixer)
-Adjust the volume of the currently focused program (such as Firefox, Zoom, Spotify, or VLC) without affecting NVDA's speech or the overall system volume!
-* **NVDA + Win + Shift + Up:** Increase Focused App Volume by 5% *(Announces app name and volume, e.g. Firefox: 45%)*
-* **NVDA + Win + Shift + Down:** Decrease Focused App Volume by 5% *(Announces app name and volume, e.g. Firefox: 35%)*
-* **NVDA + Win + Shift + M:** Mute / Unmute Focused App Only *(Mutes the active application without silencing NVDA or other system sounds)*
 
-### Media & Browser Playback
-* **NVDA + Win + P:** Play / Pause Media
-* **NVDA + Win + Left/Right:** Previous / Next Track
-* **NVDA + Win + Backspace:** Browser Back
-* **NVDA + Win + Enter:** Browser Forward
-* **NVDA + Win + R:** Browser Refresh
+Adjust the volume of the currently focused program (such as Firefox, Zoom, Spotify, or VLC) without affecting NVDA's speech or the overall system volume!
+
+* **NVDA + Win + Shift + Up:** Increase Focused App Volume by 5% *(Announces app name and volume, e.g. Firefox: 45%)*.
+* **NVDA + Win + Shift + Down:** Decrease Focused App Volume by 5% *(Announces app name and volume, e.g. Firefox: 35%)*.
+* **NVDA + Win + Shift + M:** Mute / Unmute Focused App Only *(Mutes the active application without silencing NVDA or other system sounds)*.
+
+### ⏯️ Media & Browser Navigation
+
+* **NVDA + Win + P:** Play / Pause Media.
+* **NVDA + Win + Left / Right:** Previous / Next Track.
+* **NVDA + Win + Backspace:** Browser Back.
+* **NVDA + Win + Enter:** Browser Forward.
+* **NVDA + Win + R:** Browser Refresh.
 
 ### 🖱️ Smart Mouse Simulation & Context Menus
+
 **The Problem:** Have you ever encountered an inaccessible or custom button (such as in installer wizards like Foxit Reader or custom web applications) that NVDA reads via Object Navigation, but pressing `Enter` or `Space` does absolutely nothing?
 
 **The Solution:** PowerBox's Smart Click dynamically calculates the exact geometric center of the focused NVDA navigator object, routes the physical Windows mouse cursor directly to that coordinate, and executes a native hardware click.
@@ -46,17 +67,19 @@ Adjust the volume of the currently focused program (such as Firefox, Zoom, Spoti
 1. Navigate to the stubborn control using NVDA Object Navigation (e.g. `NVDA + Numpad 4 / 6` on Desktop, or `NVDA + Shift + Left / Right Arrows` on Laptop).
 2. Press **NVDA + Win + C** to execute a smart left click on the object center.
 
-* **NVDA + Win + C:** Smart Left Mouse Click
-* **NVDA + Win + X:** Smart Right Mouse Click
-* **NVDA + Win + Z:** Smart Double Mouse Click
-* **NVDA + Win + A:** Applications Menu *(Modern Windows 11 context menu)*
-* **NVDA + Win + Shift + A:** Classic Context Menu *(Bypasses Windows 11 restrictions to open the full legacy context menu with 7-Zip, WinRAR, etc.)*
+* **NVDA + Win + C:** Smart Left Mouse Click.
+* **NVDA + Win + X:** Smart Right Mouse Click.
+* **NVDA + Win + Z:** Smart Double Mouse Click.
+* **NVDA + Win + A:** Applications Menu *(Modern Windows 11 context menu)*.
+* **NVDA + Win + Shift + A:** Classic Context Menu *(Bypasses Windows 11 restrictions to open the full legacy context menu with 7-Zip, WinRAR, etc.)*.
 
 ### 📡 Quick Network Shortcuts
-* **NVDA + Win + I:** Speak Local IP *(Press twice quickly to copy to clipboard)*
-* **NVDA + Win + Shift + I:** Speak Public IP *(Press twice quickly to copy to clipboard)*
+
+* **NVDA + Win + I:** Speak Local IP *(Press twice quickly to copy to clipboard)*.
+* **NVDA + Win + Shift + I:** Speak Public IP *(Press twice quickly to copy to clipboard)*.
 
 ### ❓ Global Help
+
 * **NVDA + Win + H:** Displays the PowerBox Global Help window listing all shortcuts and current bindings.
 
 ---
@@ -65,6 +88,7 @@ Adjust the volume of the currently focused program (such as Firefox, Zoom, Spoti
 **Prefix Shortcut:** `NVDA + Win + S`
 
 Provides centralized, accessible, accidental-proof power controls, real-time process resource inspection, shell reviving, and full Windows Server session administration. Press the prefix above, followed by:
+
 * **T:** **Set Shutdown Timer:** Opens an accessible configuration dialog to schedule automatic computer shutdown. Choose from quick presets (15m, 30m, 45m, 60m) or enter a custom duration in minutes.
 * **Shift + T:** **Query Timer Status:** Speaks the exact time remaining (minutes and seconds) before scheduled shutdown.
 * **C:** **Cancel Timer:** Cancels any active shutdown timer immediately.
@@ -80,9 +104,11 @@ Provides centralized, accessible, accidental-proof power controls, real-time pro
 * **H:** Show System Layer Help.
 
 ### 🖥️ Server Process Hub & Enterprise Session Manager
+
 Pressing **NVDA + Win + S** followed by **Control + P** launches an accessible, high-performance administrative console built with native Windows Terminal Services APIs (`wtsapi32.dll`). It dynamically monitors user applications, multi-session resource footprints, and active Remote Desktop sessions across Windows 10/11 workstations and Windows Server (RDSH / RemoteApp) environments.
 
 #### Console Navigation & Dialog Features:
+
 * **Real-time Server Pulse:** Displays overall server health (Active vs. Disconnected sessions, total application count, and aggregate RAM).
 * **Live Instant Filter (`Alt + F`):** Instantly filter applications as you type without losing keyboard focus. Press **Down Arrow** to jump straight into the filtered results.
 * **Enter / Alt + V:** **View Users Drill-Down:** Inspect which specific users and Remote Desktop sessions are running the selected application, along with per-user RAM and session states.
@@ -96,7 +122,9 @@ Pressing **NVDA + Win + S** followed by **Control + P** launches an accessible, 
 * **Escape / Alt + C:** Close the console.
 
 #### 🎛️ Context Menu Actions (`Shift + F10` or `Applications Key`):
+
 Press `Shift + F10` on any application or user row to access advanced administrative actions:
+
 * **Suspend Application / Process (Freeze):** Uses native Windows NT Kernel APIs (`ntdll.dll: NtSuspendProcess`) to freeze all execution threads of the application instantly, dropping its CPU consumption to 0% and saving battery/heat without closing the program or losing unsaved work.
 * **Resume Application / Process:** Resumes suspended execution threads immediately (`NtResumeProcess`), allowing the program to continue running seamlessly.
 * **Track Network Connections...:** Launches the dedicated enterprise **Server Network Hub** (`server_network_hub.py`) for the selected application or user, providing multi-user socket attribution and live filtering.
@@ -104,7 +132,9 @@ Press `Shift + F10` on any application or user row to access advanced administra
 * **Copy Details / Summary:** Quickly export selected row metadata to the clipboard.
 
 #### 🌐 Enterprise Server Network Hub (`server_network_hub.py`):
+
 When launched from the Server Process Hub context menu (`Shift + F10` -> `Track Network Connections...`), a specialized multi-user network console opens:
+
 * **Live User Filter Dropdown (`Alt + U`):** In multi-user server environments, administrators can view all network sockets across the entire server (`All Users`), or switch the dropdown to any specific domain user (e.g. `AD\thomas`) to isolate and audit that employee's network activity in real time.
 * **User & Session Attribution Column:** Every socket connection displays the exact domain account and session ID owning the stream (e.g. `AD\thomas (S:38)`). On standalone single-user workstations, this column and the filter dropdown hide automatically for clean simplicity.
 * **Three Dedicated Traffic Tabs:**
@@ -120,7 +150,9 @@ When launched from the Server Process Hub context menu (`Shift + F10` -> `Track 
   * **Alt + E:** Emergency kill switch across all application PIDs.
 
 #### 💡 Design Philosophy: Smart Noise Filtering & Enterprise Scope
+
 Unlike the standard Windows Task Manager—which overwhelms screen reader users with over 150 non-interactive operating system daemons, driver containers, and background services (such as `svchost.exe` and driver hooks)—PowerBox intentionally adopts a **Noise-Free, Application-Centric Philosophy**:
+
 * **Smart Heuristic Filtering:** The console automatically filters out Windows 11 internal component tasks (e.g. `SystemApps`), driver service containers, and non-interactive `SYSTEM` daemons. This delivers a clean, high-signal view dedicated exclusively to **real, user-facing applications** and heavy background runtimes (e.g. multi-process browsers, Edge WebView2 instances, and developer IDEs).
 * **Role-Based Security & Permissions Boundaries:**
   * **When Run as Administrator:** Unlocks full administrative capabilities across the entire server—allowing administrators to monitor all domain users (`DOMAIN\User`), aggregate multi-user instances (e.g., combining 100+ Edge processes across sessions), identify disconnected session memory leaks, and terminate processes or log off remote users.
@@ -130,7 +162,9 @@ Unlike the standard Windows Task Manager—which overwhelms screen reader users 
 * **Safety by Design (Screen Reader Protection):** Critical core Windows architecture and NVDA's own internal processes (such as `nvda.exe` and `nvda_synthDriverHost.exe`) are deliberately protected and excluded from termination actions to prevent accidental loss of speech synthesis or system lockouts.
 
 ### 🛡️ Accidental Shutdown Protection
+
 To prevent data loss, PowerBox supports two configurable confirmation styles in Settings:
+
 1. **Confirmation Dialog (Default & Recommended):** Pops up an accessible dialog asking for confirmation, with initial focus intentionally placed on **[No]** to prevent accidental Enter presses.
 2. **Double-Press Confirmation:** Requires pressing `D` or `R` twice within 2 seconds. If you change your mind and do not press the key again, PowerBox automatically dismisses the layer and restores normal keyboard functionality after 2 seconds.
 
@@ -142,6 +176,7 @@ To prevent data loss, PowerBox supports two configurable confirmation styles in 
 **Prefix Shortcut:** `NVDA + Win + F`
 
 Comprehensive file diagnostics, real-time storage pulse, checksum verification, and locked-file management. Press the prefix above, followed by:
+
 * **S:** **Calculate Item Size:** Context-aware size calculator:
   * **Focused File:** Instantly announces physical file size.
   * **Focused Folder:** Recursively calculates true folder size, file count, and subdirectory count in the background with an audible progress ticker. Pressing `S` again cancels instantly.
@@ -164,23 +199,27 @@ Comprehensive file diagnostics, real-time storage pulse, checksum verification, 
 **Prefix Shortcut:** `NVDA + Win + N`
 
 Unified network diagnostics, auditing, and live socket tracking tools. Press the prefix above, followed by:
+
 * **S:** **Scan Local Network:** Launches the high-speed (2-3 seconds) non-blocking LAN scanner. Plays an audible pulse during scanning. Pressing `NVDA + Win + N` then `S` again while scanning cancels immediately.
 * **C:** **Track Active App Network Connections:** Opens the real-time, 3-tier process socket and security tracker for the currently focused application.
-* **L:** Speak Local IP
-* **Shift + L:** Copy and speak Local IP
-* **P:** Speak Public IP
-* **Shift + P:** Copy and speak Public IP
-* **G:** Speak Default Gateway (Router IP)
-* **Shift + G:** Copy and speak Default Gateway (Router IP)
-* **H:** Show Network Layer Help
+* **L:** Speak Local IP.
+* **Shift + L:** Copy and speak Local IP.
+* **P:** Speak Public IP.
+* **Shift + P:** Copy and speak Public IP.
+* **G:** Speak Default Gateway (Router IP).
+* **Shift + G:** Copy and speak Default Gateway (Router IP).
+* **H:** Show Network Layer Help.
 
 ### 🌐 Real-Time Process Network Tracker Console (`process_network_tracker.py`)
+
 Pressing **NVDA + Win + N** followed by **C** launches a high-speed, live socket and security analyzer for the active application. Built on native IP Helper APIs (`GetExtendedTcpTable`, `GetExtendedUdpTable`), it segregates traffic into three dedicated, non-disruptive tabs without focus-stealing:
+
 * **🌐 Internet Connections Tab:** Shows real external web/cloud servers (Google, WhatsApp, CDNs, Fastly).
 * **🏠 Local Network (LAN) Tab:** Tracks connections to routers, local printers, or domain servers (`192.168.x.x`, `10.x.x.x`).
 * **💻 Localhost / Listeners Tab:** Inspects internal IPC sockets (`127.0.0.1`) and local listening dev ports (`0.0.0.0:8000`, `3000`) cleanly isolated from internet traffic.
 
 #### Features & Superpowers:
+
 * **Non-Disruptive Live Refresh:** Updates in-place every 2.5 seconds without resetting focus, clearing the list, or cutting off NVDA speech.
 * **Retain Closed Connections (`Closed`):** Fleeting connections remain visible in the history so you never miss momentary background pings. Press **Alt + I** (`Clear Inactive`) to wipe history and start fresh.
 * **Alt + T:** **Ultra-Fast Port & Latency Probe (0.2s):** Tests connection latency in milliseconds directly without opening any modal popups. 
@@ -190,10 +229,12 @@ Pressing **NVDA + Win + N** followed by **C** launches a high-speed, live socket
 * **Alt + V:** **Check Threat on VirusTotal:** Opens real-time security reputation reports for public remote IPs.
 * **Alt + O:** **Open in Browser:** Opens web server addresses directly in default web browser.
 * **Alt + E:** **Emergency End App:** Emergency kill switch terminating the application across all its PIDs if rogue or malicious behavior is detected.
-* **Context Menu (`Shift + F10`):** Offers direct, accessible actions including separate items for `Test Port & Measure Latency` and `Test Port and Copy Result`.
+* **Context Menu (`Shift + F10`):** Offers direct, accessible actions including separate items for `Test Port and Latency` and `Test Port and Copy Result`.
 
-### Network Scanner Dialog Features
+### 📡 Network Scanner Dialog Features
+
 When the scan completes, an accessible, centered dialog presents all discovered hosts:
+
 * **Enter / Alt + I:** Copy IP Address of selected device.
 * **Alt + M:** Copy MAC Address.
 * **Alt + O:** **Open in Web Browser:** Concurrently probes common web ports (80, 443, 8080, 8443) in ~200ms and opens the device's web management portal (e.g. router admin or smart printer).
@@ -202,7 +243,8 @@ When the scan completes, an accessible, centered dialog presents all discovered 
 * **Alt + C / Escape:** Close dialog.
 * *Intelligently tags **(This PC)**, **Router / Default Gateway**, and mobile devices using private randomized MACs (IEEE 802 LAA).*
 
-### 📱 Note on Smartphones & Wi-Fi Power Saving
+#### 📱 Note on Smartphones & Wi-Fi Power Saving
+
 Modern mobile operating systems (Android and iOS) implement aggressive Wi-Fi power-saving mechanisms (Doze / DTIM sleep). When a phone's screen is idle or locked, its Wi-Fi chip sleeps between packet bursts and drops peer-to-peer ARP requests sent from your PC, causing the device to occasionally not respond during a scan. Simply waking up or unlocking the phone's screen will make it immediately discoverable.
 
 Additionally, modern smartphones enable **Private Wi-Fi Address (MAC Randomization)** by default for privacy. PowerBox mathematically detects these addresses via IEEE 802 standards and clearly labels them as `Randomized MAC (Phone / Mobile)`.
@@ -213,30 +255,38 @@ Additionally, modern smartphones enable **Private Wi-Fi Address (MAC Randomizati
 **Prefix Shortcut:** `NVDA + Win + Q`
 
 Instant application launching without searching through Start menus. Press the prefix above, followed by:
-* **C:** Launch Calculator
-* **M:** Launch Default Mail Application
-* **B:** Launch Default Browser Homepage
-* **E:** Launch File Explorer (This PC)
-* **P:** Launch Default Media Player
-* **H:** Show Quick Apps Help
+
+* **C:** Launch Calculator.
+* **M:** Launch Default Mail Application.
+* **B:** Launch Default Browser Homepage.
+* **E:** Launch File Explorer (This PC).
+* **P:** Launch Default Media Player.
+* **H:** Show Quick Apps Help.
 
 ---
 
 ## 💻 Smart Terminal Layer
 **Prefix Shortcut:** `NVDA + Win + T`
 
-All terminals open targeted directly at the <strong>current File Explorer directory (including Windows 11 Tabs)</strong> you are currently browsing! Press the prefix above, followed by:
-* **P:** Open PowerShell in current folder
-* **Shift + P:** Open PowerShell as Administrator in current folder
-* **C:** Open Command Prompt (CMD) in current folder
-* **Shift + C:** Open Command Prompt as Administrator in current folder
-* **W:** Open WSL (Windows Subsystem for Linux) in current folder
-* **H:** Show Terminal Layer Help
+All terminals open targeted directly at the <strong>current File Explorer directory (including Windows 11 Tabs)</strong> you are currently browsing!
+
+* **⚡ Real-Time PATH Environment Synchronization:** Terminals launched via PowerBox dynamically query the latest System and User `PATH` environment variables directly from the Windows Registry (HKLM & HKCU). Newly installed developer tools, Python scripts, or command-line utilities (such as Git, Gettext, Node) are instantly recognized in opened terminals without needing to restart NVDA!
+
+Press the prefix above, followed by:
+
+* **P:** Open PowerShell in current folder.
+* **Shift + P:** Open PowerShell as Administrator in current folder.
+* **C:** Open Command Prompt (CMD) in current folder.
+* **Shift + C:** Open Command Prompt as Administrator in current folder.
+* **W:** Open WSL (Windows Subsystem for Linux) in current folder.
+* **H:** Show Terminal Layer Help.
 
 ---
 
 ## ⚙️ Settings Configuration
+
 Configure PowerBox preferences from **NVDA Menu -> Preferences -> Settings -> PowerBox**:
+
 * **Action feedback mode:** Choose between *No feedback (Silent)*, *Beep only*, *Speak action name*, or *Beep and speak*. Controls tones, layer entry announcements, action names, and completion chimes. *(Data queries like drive space, folder size, hash, and CPU metrics always speak their essential values cleanly)*.
 * **Shutdown and restart confirmation style:** Choose between *Confirmation dialog (Recommended)* or *Press key twice within 2 seconds*.
 * **Files and folders size format:** Choose between *Smart Adaptive (Recommended)*, *Always Megabytes (MB)*, or *Always Gigabytes (GB)*.
@@ -246,6 +296,7 @@ Configure PowerBox preferences from **NVDA Menu -> Preferences -> Settings -> Po
 ---
 
 ## 🙏 Credits & Acknowledgements
+
 * **Tyler Spivey & Joseph Lee:** For the original architecture and structure of modal layer commands (`getScript` and `script_error` overrides), which inspired PowerBox's layered gesture system.
 * **Héctor J. Benítez Corredera & Rui Fontes:** For the hardware scancode emulation concepts (`MapVirtualKeyW`) and context menu mouse routing derived from their `remapApplicationsKey` add-on.
 * **NVDA Community & Open Source Contributors:** For inspiration and techniques regarding Windows Explorer Shell COM automation, Windows 11 active tab resolution without C++ assertions, mouse-to-navigator object routing, and dynamic gesture mapping.
@@ -259,9 +310,9 @@ Configure PowerBox preferences from **NVDA Menu -> Preferences -> Settings -> Po
   * **Storage & Drives:** Physical partition storage metrics via Win32 `GetDiskFreeSpaceExW` and `GetLogicalDriveStringsW`.
   * **Network Discovery & Sockets:** Low-level ARP discovery (`iphlpapi.dll`: `SendARP`, `GetBestRoute`, `GetIpNetTable`), extended IPv4 TCP/UDP table enumeration (`GetExtendedTcpTable`, `GetExtendedUdpTable`), and individual TCP connection dropping (`SetTcpEntry`).
   * **Enterprise Remote Desktop & Sessions:** Microsoft Windows Terminal Services API (`wtsapi32.dll`: `WTSEnumerateSessionsW`, `WTSEnumerateProcessesW`, `WTSQuerySessionInformationW`, `WTSDisconnectSession`, `WTSLogoffSession`) and Security Account Manager API (`advapi32.dll`: `LookupAccountSidW`) for multi-session process aggregation and client IP resolution.
+  * **Smart Path & Environment Synchronization:** Real-time environment synchronization reading fresh System and User `PATH` variables from Windows Registry (`winreg`, `kernel32.dll`: `SetEnvironmentVariableW`).
 * **IEEE Standards Association:** For the IEEE 802 Locally Administered Address (LAA) specifications used in mathematical detection of randomized mobile MAC addresses.
 * **Python Open Source Community:** For the UDP routable socket technique (credited to Christian Kauhaus) used for offline-safe local IP detection.
 * **ipify.org & maclookup.app:** For providing open API services used to resolve public IP addresses and hardware vendor prefixes.
-
 * **Translators:**
   * **[nguyenninhhoang](https://github.com/ninhhoang205/):** Vietnamese translation and localization improvements.
