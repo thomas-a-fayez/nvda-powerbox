@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PowerBox 2.0.0\n"
 "Report-Msgid-Bugs-To: thomas.a.fayez@gmail.com\n"
 "POT-Creation-Date: 2026-09-25 10:00+0300\n"
-"PO-Revision-Date: 2026-09-29 18:21+0300\n"
+"PO-Revision-Date: 2026-10-03 14:41+0300\n"
 "Last-Translator: Thomas A. Fayez <thomas.a.fayez@gmail.com>\n"
 "Language-Team: Arabic <ar@li.org>\n"
 "Language: ar\n"
@@ -77,8 +77,8 @@ msgstr "طبقة الطرفيات: اضغط p أو shift+p أو c أو shift+c �
 msgid "Network Layer: Press s, c, l, shift+l, p, shift+p, g, shift+g, or h next"
 msgstr "طبقة الشبكات: اضغط s أو c أو l أو shift+l أو p أو shift+p أو g أو shift+g أو h بعد ذلك"
 
-msgid "System Layer: Press t, shift+t, c, d, r, s, b, l, p, shift+p, control+p, control+e, or h next"
-msgstr "طبقة النظام: اضغط t أو shift+t أو c أو d أو r أو s أو b أو l أو p أو shift+p أو control+p أو control+e أو h بعد ذلك"
+msgid "System Layer: Press t, shift+t, c, d, r, shift+r, s, b, l, p, shift+p, control+p, control+e, or h next"
+msgstr "طبقة النظام: اضغط t أو shift+t أو c أو d أو r أو shift+r أو s أو b أو l أو p أو shift+p أو control+p أو control+e أو h بعد ذلك"
 
 msgid "Files Layer: Press s, shift+s, d, shift+d, l, shift+l, c, shift+c, n, p, shift+p, or h next"
 msgstr "طبقة الملفات: اضغط s أو shift+s أو d أو shift+d أو l أو shift+l أو c أو shift+c أو n أو p أو shift+p أو h بعد ذلك"
@@ -99,10 +99,16 @@ msgstr "إيقاف تشغيل الكمبيوتر"
 msgid "Restart computer"
 msgstr "إعادة تشغيل الكمبيوتر"
 
-msgid "Sleep"
+msgid "Restart computer to UEFI firmware (BIOS)"
+msgstr "إعادة تشغيل الكمبيوتر إلى واجهة البيوس (UEFI / BIOS)"
+
+msgid "restart to UEFI firmware"
+msgstr "إعادة التشغيل إلى واجهة UEFI للبيوس"
+
+msgid "sleep"
 msgstr "سكون"
 
-msgid "Hibernate"
+msgid "hibernate"
 msgstr "إسبات"
 
 msgid "Lock workstation"
@@ -542,6 +548,48 @@ msgstr "جارٍ إعادة تشغيل الكمبيوتر"
 
 msgid "Failed to restart computer"
 msgstr "فشل إعادة تشغيل الكمبيوتر"
+
+msgid "Restarting computer to UEFI firmware..."
+msgstr "إعادة تشغيل الكمبيوتر إلى واجهة UEFI للبيوس..."
+
+msgid "Reboot to firmware failed. Your computer may not support UEFI firmware directly, or Administrator privileges are required."
+msgstr "فشلت إعادة التشغيل للبيوس. قد يكون جهازك لا يدعم واجهة UEFI مباشرة برمجياً، أو يتطلب صلاحيات مسؤول."
+
+msgid "Failed to execute reboot to firmware."
+msgstr "فشل تنفيذ إعادة التشغيل إلى واجهة البيوس."
+
+msgid "Sleep and Hibernate are disabled on Windows Server to prevent system outages."
+msgstr "أوامر السكون والإسبات معطلة في خوادم ويندوز لمنع انقطاع النظام."
+
+msgid "Sleep and Hibernate are disabled during remote sessions to prevent connection loss."
+msgstr "أوامر السكون والإسبات معطلة أثناء جلسات التحكم عن بُعد لمنع انقطاع الاتصال."
+
+msgid "Confirm Reboot to Firmware"
+msgstr "تأكيد إعادة التشغيل للبيوس"
+
+msgid "Are you sure you want to restart into UEFI firmware settings?"
+msgstr "هل أنت متأكد من رغبتك في إعادة التشغيل للدخول إلى إعدادات واجهة البيوس (UEFI)؟"
+
+msgid "REMOTE SESSION WARNING: You are connected remotely. Shutting down this computer will terminate all connections and require manual power-on or IPMI to turn it back on. Are you sure?"
+msgstr "تحذير جلسة عن بُعد: أنت متصل بهذا الجهاز عن بُعد. إيقاف تشغيل الكمبيوتر سيقطع كافة الاتصالات ويتطلب تشغيله يدوياً أو عبر إدارة عتادية (IPMI/iDRAC) لإعادة فتحه. هل أنت متأكد؟"
+
+msgid "REMOTE SESSION WARNING: You are connected remotely. Rebooting into UEFI firmware will terminate remote access and keep the machine in BIOS setup until manually rebooted. Are you sure?"
+msgstr "تحذير جلسة عن بُعد: أنت متصل بهذا الجهاز عن بُعد. إعادة التشغيل إلى واجهة UEFI للبيوس ستقطع الوصول عن بُعد وستبقي الجهاز في إعدادات البيوس حتى تتم إعادة تشغيله يدوياً. هل أنت متأكد؟"
+
+msgid "Confirm Sleep"
+msgstr "تأكيد وضع السكون"
+
+msgid "Are you sure you want to put your computer into sleep mode?"
+msgstr "هل أنت متأكد من رغبتك في وضع الكمبيوتر في حالة السكون؟"
+
+msgid "Confirm Hibernate"
+msgstr "تأكيد وضع الإسبات"
+
+msgid "Are you sure you want to hibernate your computer?"
+msgstr "هل أنت متأكد من رغبتك في وضع الكمبيوتر في حالة الإسبات؟"
+
+msgid "HIGH RISK WARNING: This is a Windows Server or remote session. Putting this machine to sleep will disconnect all users and may require physical power-on. Are you sure?"
+msgstr "تحذير عالي الخطورة: هذا نظام خادم أو جلسة تحكم عن بُعد. وضع هذا الجهاز في السكون سيؤدي لقطع الاتصال عن كافة المستخدمين وقد يتطلب تشغيل الجهاز يدوياً. هل أنت متأكد؟"
 
 msgid "shut down"
 msgstr "إيقاف التشغيل"
@@ -1338,8 +1386,20 @@ msgstr "نطق اسم الإجراء فقط"
 msgid "Beep and speak"
 msgstr "نغمات ونطق معاً"
 
-msgid "Shutdown and restart confirmation style:"
-msgstr "أسلوب تأكيد إيقاف التشغيل وإعادة التشغيل:"
+msgid "Power actions confirmation style (Shutdown, Restart, Firmware, Sleep, Hibernate):"
+msgstr "أسلوب تأكيد أوامر الطاقة (الإغلاق، إعادة التشغيل، البيوس، السكون، الإسبات):"
+
+msgid "Server and remote sessions power guard (RDP and NVDA Remote):"
+msgstr "حماية طاقة الخوادم وجلسات التحكم عن بعد (RDP و NVDA Remote):"
+
+msgid "Smart Block on Server & Remote Sessions (Recommended - Prevents Outages)"
+msgstr "حظر ذكي على الخوادم وجلسات التحكم عن بعد (موصى به - لمنع انقطاع النظام)"
+
+msgid "Always Show High-Risk Warning Dialog on Remote Sessions"
+msgstr "إظهار حوار تحذيري عالي الخطورة دائماً على الجلسات البعيدة"
+
+msgid "Unrestricted (Allow Without Remote Guard)"
+msgstr "بدون قيود (السماح دون تفعيل حماية الجلسات البعيدة)"
 
 msgid "Confirmation dialog (Recommended)"
 msgstr "حوار تأكيد (موصى به)"
@@ -1434,14 +1494,14 @@ msgstr ""
 "وتتبع لحظي للعمليات ومقابس الشبكة، مع تحكم شامل وسهل في إمكانيات الوصول."
 
 msgid ""
-"- Real-Time Terminal PATH Synchronization: Terminals launched via PowerBox immediately recognize newly installed tools directly from Windows Registry without restarting NVDA.\n"
-"- Pure Win32 Desktop Isolation: Enforced strict kernel desktop isolation (user32.OpenInputDesktop) securing Windows Logon, UAC (Consent UI), and lock screens.\n"
-"- Auditory Security Warning: Added a distinct 3-stage security alarm chime and speech alert for restricted commands on secure screens.\n"
-"- Documentation & Accessibility: Overhauled documentation with full RTL layout support, Dark Mode styling, and clean NVDA heading navigation.\n"
-"- Updated Localization: Synchronized translation catalogs across Arabic, Vietnamese, Spanish, and French."
+"- Enterprise Server Guard: Protects Windows Servers and remote sessions (RDP, NVDA Remote) from accidental Sleep/Hibernate lockouts.\n"
+"- Unified Power Confirmations: Dialog and double-press confirmations now apply to all power actions (Shutdown, Restart, Firmware, Sleep, Hibernate).\n"
+"- UEFI Firmware Reboot: Added new shortcut (Shift+R) to directly restart into BIOS/UEFI settings.\n"
+"- Speech Focus Protection: Suppressed unintended background window announcements when confirming power dialogs.\n"
+"- Settings Integration: New configurable preferences for the server power guard and unified confirmation styles."
 msgstr ""
-"- التزامن اللحظي لمتغيرات بيئة الطرفيات: تتعرف موجهات الأوامر المفتوحة عبر PowerBox فوراً على الأدوات المثبتة حديثاً مباشرة من ريجستري ويندوز دون الحاجة لإعادة تشغيل NVDA.\n"
-"- عزل أسطح المكتب بنواة Win32: تطبيق عزل أمني صارم لأسطح المكتب عبر user32.OpenInputDesktop لتأمين شاشات تسجيل الدخول، وتأكيد الصلاحيات UAC، وقفل الشاشة.\n"
-"- إنذار أمني صوتي: إضافة نغمة تحذير أمنية ثلاثية المراحل مصحوبة بتنبيه منطوق صريح عند محاولة تشغيل أوامر مقيدة على الشاشات الآمنة.\n"
-"- التوثيق وسهولة الوصول: تطوير شامل لملفات التوثيق مع دعم اتجاه اليمين لليسار (RTL)، والوضع الليلي، وتصفح سلس للعناوين في NVDA.\n"
-"- تحديث التوطين: مزامنة قواميس الترجمة للغات العربية، الفيتنامية، الإسبانية، والفرنسية."
+"- حماية خوادم المؤسسات: حماية الخوادم وجلسات التحكم عن بعد (RDP و NVDA Remote) من الانقطاع العرضي بسبب أوامر السكون والإسبات.\n"
+"- توحيد تأكيدات الطاقة: تطبيق أنماط التأكيد (الحوار أو الضغط المزدوج) على كافة أوامر الطاقة (الإغلاق، إعادة التشغيل، البيوس، السكون، الإسبات).\n"
+"- إعادة التشغيل للبيوس (UEFI): إضافة اختصار جديد (Shift+R) لإعادة التشغيل والدخول مباشرة إلى إعدادات البيوس.\n"
+"- حماية نطق قارئ الشاشة: كتم نطق النوافذ الخلفية غير المقصود عند الموافقة على حوارات الطاقة.\n"
+"- تكامل الإعدادات: خيارات جديدة لتخصيص حماية الخوادم وتوحيد أنماط التأكيد."

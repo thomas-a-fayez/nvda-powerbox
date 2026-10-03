@@ -1,14 +1,18 @@
 # PowerBox Changelog
 
-## v2.1.4 - Real-Time PATH Sync, Desktop Isolation & Documentation Overhaul
+## v2.2.0 - Enterprise Server Power Guard & UEFI Integration
 
-This release introduces real-time terminal environment synchronization, pure Win32 desktop isolation safeguards, authoritative acoustic security alarms, and enhanced multilingual documentation styling.
+This major update introduces mission-critical safeguards for remote server administration, unified power confirmation workflows, and direct UEFI firmware reboot capabilities.
 
-### ⚡ Terminal & System Diagnostics:
-* **Real-Time PATH Synchronization:** Terminals launched via PowerBox dynamically query the latest System and User `PATH` environment variables directly from Windows Registry (`HKLM` & `HKCU`), instantly recognizing newly installed developer tools without restarting NVDA.
-* **Pure Win32 Desktop Isolation:** Integrated native Windows kernel desktop queries via `user32.OpenInputDesktop` and `GetUserObjectInformationW` to enforce zero-trust privilege separation across Windows Logon, UAC prompts (Consent UI), and lock screens (`Win + L`).
-* **Acoustic Security Alarm:** Designed an authoritative 3-stage audio warning chime (650Hz -> 850Hz -> 280Hz) paired with explicit speech alerts when restricted actions are attempted on secure screens.
+### 🛡️ Server Guard & Accidental Power Protection:
+* **Enterprise Remote Session Detection:** PowerBox now exhaustively detects remote administration sessions across Native Windows RDP, NVDA Remote Legacy (2024.1+), and modern NVDA Remote Core (_remoteClient 2025+).
+* **Smart Block for Sleep & Hibernate:** Automatically intercepts and blocks Sleep and Hibernate commands on Windows Servers and active remote sessions to prevent irreversible network disconnections and system lockouts.
+* **High-Risk Warnings:** Implemented severe, context-aware warning prompts before executing Shutdown or Firmware Reboot over remote sessions.
 
-### 📖 Documentation & Styling:
-* **RTL & Dark Mode Documentation:** Rebuilt documentation styles with automatic Right-to-Left (RTL) Arabic typography, dark mode support, and clean semantic heading navigation for NVDA.
-* **Synchronized Localization:** Updated translation catalogs across Arabic, Vietnamese, Spanish, and French.
+### ⚡ Power Management & System Diagnostics:
+* **UEFI Firmware Reboot:** Added a new shortcut (`Shift+R` in the System Layer) to directly reboot the computer into motherboard BIOS/UEFI settings using elevated native API calls.
+* **Unified Power Confirmations:** Double-press and Modal Dialog confirmation styles now apply globally across all 5 power actions (Shutdown, Restart, Firmware, Sleep, Hibernate).
+* **Speech Focus Protection:** Developed a micro-freezing UI dialog technique coupled with immediate `speech.cancelSpeech()` to completely suppress unintended background desktop announcements when confirming power actions.
+
+### ⚙️ Settings Configuration:
+* **Server Power Guard Preferences:** Added a dedicated settings dropdown to configure the remote session power guard behavior (Smart Block, Warning Dialog, or Unrestricted).

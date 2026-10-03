@@ -18,16 +18,14 @@ addon_info = AddonInfo(
 Features clean multi-layered navigation (Quick Apps, Terminals, Network, System & Power, Files & Storage),
 real-time process and socket tracking, and comprehensive accessibility controls."""),
 	# version
-	addon_version="2.1.4",
+	addon_version="2.2.0",
 	# Brief changelog for this version
 	# Translators: what's new content for the add-on version to be shown in the add-on store
-	# Translators: what's new content for the add-on version to be shown in the add-on store
-	# Translators: what's new content for the add-on version to be shown in the add-on store
-	addon_changelog=_("""- Real-Time Terminal PATH Synchronization: Terminals launched via PowerBox immediately recognize newly installed tools directly from Windows Registry without restarting NVDA.
-- Pure Win32 Desktop Isolation: Enforced strict kernel desktop isolation (user32.OpenInputDesktop) securing Windows Logon, UAC (Consent UI), and lock screens.
-- Auditory Security Warning: Added a distinct 3-stage security alarm chime and speech alert for restricted commands on secure screens.
-- Documentation & Accessibility: Overhauled documentation with full RTL layout support, Dark Mode styling, and clean NVDA heading navigation.
-- Updated Localization: Synchronized translation catalogs across Arabic, Vietnamese, Spanish, and French."""),
+	addon_changelog=_("""- Enterprise Server Guard: Protects Windows Servers and remote sessions (RDP, NVDA Remote) from accidental Sleep/Hibernate lockouts.
+- Unified Power Confirmations: Dialog and double-press confirmations now apply to all power actions (Shutdown, Restart, Firmware, Sleep, Hibernate).
+- UEFI Firmware Reboot: Added new shortcut (Shift+R) to directly restart into BIOS/UEFI settings.
+- Speech Focus Protection: Suppressed unintended background window announcements when confirming power dialogs.
+- Settings Integration: New configurable preferences for the server power guard and unified confirmation styles."""),
 	# Author(s)
 	addon_author="Thomas A. Fayez <thomas.a.fayez@gmail.com>",
 	# URL for the add-on documentation support

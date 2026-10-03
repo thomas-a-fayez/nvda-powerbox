@@ -3,7 +3,7 @@
 [English](addon/doc/en/readme.md) | [العربية](addon/doc/ar/readme.md)
 
 **Author:** Thomas A. Fayez  
-**Version:** 2.1.4  
+**Version:** 2.2.0  
 
 PowerBox is an enterprise-grade, high-performance productivity, network analysis, and Windows Server administration add-on designed for speed, comfort, and deep operating system control. It maps ergonomic NVDA gestures to master and per-application volume controls, simulates hardware-scanned smart mouse clicks with automatic cursor routing, provides instant terminal launches in the current folder with real-time environment synchronization, and introduces clean **Modal Gesture Layers** for quick applications, advanced LAN network scanning, real-time socket and security analysis, file and storage diagnostics with locked-file inspection, native NT kernel process freezing, and comprehensive system power management with an intelligent sleep timer.
 
@@ -94,6 +94,7 @@ Provides centralized, accessible, accidental-proof power controls, real-time pro
 * **C:** **Cancel Timer:** Cancels any active shutdown timer immediately.
 * **D:** **Shut Down Computer:** Initiates an orderly shutdown with user-selected safety confirmation.
 * **R:** **Restart Computer:** Initiates a system restart with user-selected safety confirmation.
+* **Shift + R:** **Reboot to UEFI Firmware (BIOS):** Restarts the computer directly into the motherboard's UEFI/BIOS settings. (Requires UEFI hardware support and Administrator privileges).
 * **S:** **Sleep Mode:** Puts the computer into low-power standby mode.
 * **B:** **Hibernate:** Saves memory state to disk and powers off.
 * **L:** **Lock Workstation:** Instantly locks the Windows desktop.
@@ -161,12 +162,18 @@ Unlike the standard Windows Task Manager—which overwhelms screen reader users 
 * **Window Titles Behavior (Local vs. RemoteApp Isolation):** Interactive window and tab titles (including full Arabic Unicode text) are captured when querying applications within the caller's active session. In multi-user remote environments (RDS / RemoteApp), Windows kernel security boundaries intentionally enforce desktop isolation between sessions to prevent cross-session window snooping.
 * **Safety by Design (Screen Reader Protection):** Critical core Windows architecture and NVDA's own internal processes (such as `nvda.exe` and `nvda_synthDriverHost.exe`) are deliberately protected and excluded from termination actions to prevent accidental loss of speech synthesis or system lockouts.
 
-### 🛡️ Accidental Shutdown Protection
+### 🛡️ Server Guard & Accidental Power Protection
+To prevent catastrophic data loss and remote disconnections, PowerBox enforces an enterprise-grade **4-Tier Server Guard** alongside unified power confirmations.
 
-To prevent data loss, PowerBox supports two configurable confirmation styles in Settings:
+**1. Enterprise Server & Remote Session Guard:**
+If PowerBox detects that the operating system is Windows Server, or if you are connected via a remote session (Native Windows RDP or **NVDA Remote** across all versions), it automatically intervenes to protect your session:
+* **Smart Block (Default):** Instantly blocks the **Sleep** and **Hibernate** commands. It emits a security tone and speaks a clear warning that these actions are disabled to prevent irreversible remote connection loss.
+* **High-Risk Warning:** For **Shutdown** or **Firmware Reboot** on remote sessions, it forces a severe warning dialog notifying you that executing the command will permanently terminate the remote connection and may require physical intervention.
 
-1. **Confirmation Dialog (Default & Recommended):** Pops up an accessible dialog asking for confirmation, with initial focus intentionally placed on **[No]** to prevent accidental Enter presses.
-2. **Double-Press Confirmation:** Requires pressing `D` or `R` twice within 2 seconds. If you change your mind and do not press the key again, PowerBox automatically dismisses the layer and restores normal keyboard functionality after 2 seconds.
+**2. Unified Power Confirmations:**
+All power actions (Shutdown, Restart, Firmware Reboot, Sleep, Hibernate) strictly follow your configured confirmation style in Settings:
+* **Confirmation Dialog (Default & Recommended):** Pops up an accessible dialog asking for confirmation, with initial focus intentionally placed on **[No]** to prevent accidental `Enter` presses.
+* **Double-Press Confirmation:** Requires pressing the action key (e.g., `D` or `S`) twice within 2 seconds. If you change your mind and do not press the key again, PowerBox safely dismisses the layer.
 
 *Additionally, when a shutdown timer reaches 60 seconds remaining, PowerBox plays a distinctive dual warning chime and speaks an alert, giving you time to cancel if you are still working.*
 
@@ -288,7 +295,8 @@ Press the prefix above, followed by:
 Configure PowerBox preferences from **NVDA Menu -> Preferences -> Settings -> PowerBox**:
 
 * **Action feedback mode:** Choose between *No feedback (Silent)*, *Beep only*, *Speak action name*, or *Beep and speak*. Controls tones, layer entry announcements, action names, and completion chimes. *(Data queries like drive space, folder size, hash, and CPU metrics always speak their essential values cleanly)*.
-* **Shutdown and restart confirmation style:** Choose between *Confirmation dialog (Recommended)* or *Press key twice within 2 seconds*.
+* **Power actions confirmation style:** Applies to Shutdown, Restart, Firmware, Sleep, and Hibernate. Choose between *Confirmation dialog (Recommended)* or *Press key twice within 2 seconds*.
+* **Server and remote sessions power guard:** Choose how to protect RDP and NVDA Remote sessions from accidental disconnection: *Smart Block (Recommended)*, *Always Show High-Risk Warning Dialog*, or *Unrestricted*.
 * **Files and folders size format:** Choose between *Smart Adaptive (Recommended)*, *Always Megabytes (MB)*, or *Always Gigabytes (GB)*.
 * **Drives storage space format:** Choose between *Smart Adaptive (Recommended)*, *Always Gigabytes (GB)*, or *Always Terabytes (TB)*.
 * **Default file checksum algorithm:** Choose your preferred default hashing digest between *SHA-256 (Standard & Secure)*, *MD5 (Fast)*, or *SHA-1*.

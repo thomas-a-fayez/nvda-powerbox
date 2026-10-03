@@ -47,7 +47,7 @@ class PowerBoxSettingsPanel(SettingsPanel):
 
         self.feedbackChoice.SetSelection(selection_index)
 
-        # 2. Configurable power confirmation styles
+        # 2. Configurable confirmation style for all power actions (Shutdown, Restart, Firmware, Sleep, Hibernate)
         self.confirmStyles = [
             ("dialog", _("Confirmation dialog (Recommended)")),
             ("doublePress", _("Press key twice within 2 seconds")),
@@ -55,22 +55,45 @@ class PowerBoxSettingsPanel(SettingsPanel):
 
         style_choices = [name for _, name in self.confirmStyles]
         self.confirmChoice = helper.addLabeledControl(
-            _("Shutdown and restart confirmation style:"),
+            _("Power actions confirmation style (Shutdown, Restart, Firmware, Sleep, Hibernate):"),
             wx.Choice,
             choices=style_choices
         )
 
-        # Safely retrieve current confirmation style with default fallback
         current_style = config.conf.get("powerBox", {}).get("powerConfirmStyle", "dialog")
         style_keys = [val for val, _ in self.confirmStyles]
         try:
             style_index = style_keys.index(current_style)
         except ValueError:
-            style_index = 0  # Default to 'dialog'
+            style_index = 0
 
         self.confirmChoice.SetSelection(style_index)
 
-        # 3. Configurable File & Folder size format
+        # 3. Configurable Server & Remote Sessions Power Guard (Smart Block, Warning Dialog, or Unrestricted)
+        self.serverGuardChoices = [
+            ("smartBlock", _("Smart Block on Server & Remote Sessions (Recommended - Prevents Outages)")),
+            ("warnDialog", _("Always Show High-Risk Warning Dialog on Remote Sessions")),
+            ("disabled", _("Unrestricted (Allow Without Remote Guard)")),
+        ]
+
+        guard_choices = [name for _, name in self.serverGuardChoices]
+        self.serverGuardChoice = helper.addLabeledControl(
+            _("Server and remote sessions power guard (RDP and NVDA Remote):"),
+            wx.Choice,
+            choices=guard_choices
+        )
+
+        # Safely retrieve current server and remote session power guard configuration with default fallback
+        current_guard = config.conf.get("powerBox", {}).get("serverPowerGuard", "smartBlock")
+        guard_keys = [val for val, _ in self.serverGuardChoices]
+        try:
+            guard_index = guard_keys.index(current_guard)
+        except ValueError:
+            guard_index = 0
+
+        self.serverGuardChoice.SetSelection(guard_index)
+
+        # 4. Configurable File & Folder size format
         self.fileSizeChoices = [
             ("auto", _("Smart Adaptive (Recommended)")),
             ("mb", _("Always Megabytes (MB)")),
@@ -92,7 +115,7 @@ class PowerBoxSettingsPanel(SettingsPanel):
 
         self.fileSizeChoice.SetSelection(fs_index)
 
-        # 4. Configurable Drives free space format
+        # 5. Configurable Drives free space format
         self.driveSizeChoices = [
             ("auto", _("Smart Adaptive (Recommended)")),
             ("gb", _("Always Gigabytes (GB)")),
@@ -114,7 +137,7 @@ class PowerBoxSettingsPanel(SettingsPanel):
 
         self.driveSizeChoice.SetSelection(ds_index)
 
-        # 5. Configurable Default Hash Algorithm
+        # 6. Configurable Default Hash Algorithm
         self.hashChoices = [
             ("sha256", _("SHA-256 (Standard & Secure)")),
             ("md5", _("MD5 (Fast)")),
@@ -142,22 +165,27 @@ class PowerBoxSettingsPanel(SettingsPanel):
         if selected_fb != wx.NOT_FOUND:
             config.conf["powerBox"]["feedbackMode"] = self.feedbackModes[selected_fb][0]
 
-        # 2. Save confirmation style for shutdown and restart actions (Dialog or Double-Press)
+        # 2. Save confirmation style for all power actions (Dialog or Double-Press)
         selected_cs = self.confirmChoice.GetSelection()
         if selected_cs != wx.NOT_FOUND:
             config.conf["powerBox"]["powerConfirmStyle"] = self.confirmStyles[selected_cs][0]
 
-        # 3. Save preferred display unit for files and folders size (Auto, MB, or GB)
+        # 3. Save server and remote session power guard preference (Smart Block, Warning Dialog, or Disabled)
+        selected_guard = self.serverGuardChoice.GetSelection()
+        if selected_guard != wx.NOT_FOUND:
+            config.conf["powerBox"]["serverPowerGuard"] = self.serverGuardChoices[selected_guard][0]
+
+        # 4. Save preferred display unit for files and folders size (Auto, MB, or GB)
         sel_fs = self.fileSizeChoice.GetSelection()
         if sel_fs != wx.NOT_FOUND:
             config.conf["powerBox"]["fileSizeUnit"] = self.fileSizeChoices[sel_fs][0]
 
-        # 4. Save preferred display unit for storage drives capacity (Auto, GB, or TB)
+        # 5. Save preferred display unit for storage drives capacity (Auto, GB, or TB)
         sel_ds = self.driveSizeChoice.GetSelection()
         if sel_ds != wx.NOT_FOUND:
             config.conf["powerBox"]["driveSizeUnit"] = self.driveSizeChoices[sel_ds][0]
 
-        # 5. Save default hashing algorithm used for file checksum verification (SHA-256, MD5, or SHA-1)
+        # 6. Save default hashing algorithm used for file checksum verification (SHA-256, MD5, or SHA-1)
         sel_ha = self.hashChoice.GetSelection()
         if sel_ha != wx.NOT_FOUND:
             config.conf["powerBox"]["hashAlgorithm"] = self.hashChoices[sel_ha][0]

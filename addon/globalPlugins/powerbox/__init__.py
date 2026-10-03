@@ -62,6 +62,7 @@ user32.GetUserObjectInformationW.restype = wintypes.BOOL
 confspec = {
     "feedbackMode": "string(default='beep')",
     "powerConfirmStyle": "string(default='dialog')",
+    "serverPowerGuard": "string(default='smartBlock')",
     "fileSizeUnit": "string(default='auto')",
     "driveSizeUnit": "string(default='auto')",
     "hashAlgorithm": "string(default='sha256')",
@@ -324,7 +325,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
         ui.message(_("PowerBox actions are restricted on secure screens for security reasons"))
 
     # --- System Layer Scripts ---
-    @scriptHandler.script(description=_("System Layer: Press t, shift+t, c, d, r, s, b, l, p, shift+p, control+p, control+e, or h next"))
+    @scriptHandler.script(description=_("System Layer: Press t, shift+t, c, d, r, shift+r, s, b, l, p, shift+p, control+p, control+e, or h next"))
     def script_systemLayer(self, gesture):
         if self.activeLayer:
             self.script_error(gesture)
@@ -336,6 +337,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
             "kb:c": "layerCancelTimer",
             "kb:d": "layerShutdown",
             "kb:r": "layerRestart",
+            "kb:shift+r": "layerRestartFirmware",
             "kb:s": "layerSleep",
             "kb:b": "layerHibernate",
             "kb:l": "layerLock",
@@ -362,35 +364,23 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
     @scriptHandler.script(description=_("Shut down computer"))
     def script_layerShutdown(self, gesture):
-        confirm_style = config.conf.get("powerBox", {}).get("powerConfirmStyle", "dialog")
-        if confirm_style == "doublePress":
-            if not power_manager.is_second_press("shutdown"):
-                self.keepLayerActive = True
-                self._cancel_double_press_timer()
-                self._double_press_timer = wx.CallLater(2100, self._on_double_press_expired)
-            else:
-                self._cancel_double_press_timer()
-        power_manager.request_confirmed_action("shutdown")
+        power_manager.handle_power_action(self, "shutdown")
 
     @scriptHandler.script(description=_("Restart computer"))
     def script_layerRestart(self, gesture):
-        confirm_style = config.conf.get("powerBox", {}).get("powerConfirmStyle", "dialog")
-        if confirm_style == "doublePress":
-            if not power_manager.is_second_press("restart"):
-                self.keepLayerActive = True
-                self._cancel_double_press_timer()
-                self._double_press_timer = wx.CallLater(2100, self._on_double_press_expired)
-            else:
-                self._cancel_double_press_timer()
-        power_manager.request_confirmed_action("restart")
+        power_manager.handle_power_action(self, "restart")
+
+    @scriptHandler.script(description=_("Restart computer to UEFI firmware (BIOS)"))
+    def script_layerRestartFirmware(self, gesture):
+        power_manager.handle_power_action(self, "restart_firmware")
 
     @scriptHandler.script(description=_("Sleep"))
     def script_layerSleep(self, gesture):
-        power_manager.sleep_system()
+        power_manager.handle_power_action(self, "sleep")
 
     @scriptHandler.script(description=_("Hibernate"))
     def script_layerHibernate(self, gesture):
-        power_manager.hibernate_system()
+        power_manager.handle_power_action(self, "hibernate")
 
     @scriptHandler.script(description=_("Lock workstation"))
     def script_layerLock(self, gesture):
@@ -759,6 +749,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
                 "c": _("Cancel shutdown timer"),
                 "d": _("Shut down computer"),
                 "r": _("Restart computer"),
+                "shift+r": _("Restart computer to UEFI firmware (BIOS)"),
                 "s": _("Sleep"),
                 "b": _("Hibernate"),
                 "l": _("Lock workstation"),

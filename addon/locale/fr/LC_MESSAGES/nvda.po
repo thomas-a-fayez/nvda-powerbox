@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PowerBox 2.0.0\n"
 "Report-Msgid-Bugs-To: thomas.a.fayez@gmail.com\n"
 "POT-Creation-Date: 2026-09-25 10:00+0300\n"
-"PO-Revision-Date: 2026-09-29 18:23+0300\n"
+"PO-Revision-Date: 2026-10-03 14:44+0300\n"
 "Last-Translator: Thomas A. Fayez <thomas.a.fayez@gmail.com>\n"
 "Language-Team: French <fr@li.org>\n"
 "Language: fr\n"
@@ -77,8 +77,8 @@ msgstr "Couche terminal : appuyez ensuite sur p, shift+p, c, shift+c, w ou h"
 msgid "Network Layer: Press s, c, l, shift+l, p, shift+p, g, shift+g, or h next"
 msgstr "Couche réseau : appuyez ensuite sur s, c, l, shift+l, p, shift+p, g, shift+g ou h"
 
-msgid "System Layer: Press t, shift+t, c, d, r, s, b, l, p, shift+p, control+p, control+e, or h next"
-msgstr "Couche système : appuyez ensuite sur t, shift+t, c, d, r, s, b, l, p, shift+p, control+p, control+e ou h"
+msgid "System Layer: Press t, shift+t, c, d, r, shift+r, s, b, l, p, shift+p, control+p, control+e, or h next"
+msgstr "Couche système : Appuyez ensuite sur t, shift+t, c, d, r, shift+r, s, b, l, p, shift+p, control+p, control+e ou h"
 
 msgid "Files Layer: Press s, shift+s, d, shift+d, l, shift+l, c, shift+c, n, p, shift+p, or h next"
 msgstr "Couche fichiers : appuyez ensuite sur s, shift+s, d, shift+d, l, shift+l, c, shift+c, n, p, shift+p ou h"
@@ -99,11 +99,17 @@ msgstr "Arrêter l'ordinateur"
 msgid "Restart computer"
 msgstr "Redémarrer l'ordinateur"
 
-msgid "Sleep"
-msgstr "Mettre en veille"
+msgid "Restart computer to UEFI firmware (BIOS)"
+msgstr "Redémarrer l'ordinateur vers le micrologiciel UEFI (BIOS)"
 
-msgid "Hibernate"
-msgstr "Mettre en veille prolongée"
+msgid "restart to UEFI firmware"
+msgstr "redémarrer vers le micrologiciel UEFI"
+
+msgid "sleep"
+msgstr "mettre en veille"
+
+msgid "hibernate"
+msgstr "mettre en veille prolongée"
 
 msgid "Lock workstation"
 msgstr "Verrouiller la session"
@@ -542,6 +548,48 @@ msgstr "Redémarrage de l'ordinateur en cours"
 
 msgid "Failed to restart computer"
 msgstr "Échec du redémarrage de l'ordinateur"
+
+msgid "Restarting computer to UEFI firmware..."
+msgstr "Redémarrage de l'ordinateur vers le micrologiciel UEFI..."
+
+msgid "Reboot to firmware failed. Your computer may not support UEFI firmware directly, or Administrator privileges are required."
+msgstr "Échec du redémarrage vers le micrologiciel. Votre ordinateur ne prend peut-être pas en charge l'UEFI directement, ou des privilèges d'administrateur sont requis."
+
+msgid "Failed to execute reboot to firmware."
+msgstr "Échec de l'exécution du redémarrage vers le micrologiciel."
+
+msgid "Sleep and Hibernate are disabled on Windows Server to prevent system outages."
+msgstr "La veille et la mise en veille prolongée sont désactivées sur Windows Server pour éviter les pannes système."
+
+msgid "Sleep and Hibernate are disabled during remote sessions to prevent connection loss."
+msgstr "La veille et la mise en veille prolongée sont désactivées pendant les sessions à distance pour éviter la perte de connexion."
+
+msgid "Confirm Reboot to Firmware"
+msgstr "Confirmer le redémarrage vers le micrologiciel"
+
+msgid "Are you sure you want to restart into UEFI firmware settings?"
+msgstr "Voulez-vous vraiment redémarrer dans les paramètres du micrologiciel UEFI ?"
+
+msgid "REMOTE SESSION WARNING: You are connected remotely. Shutting down this computer will terminate all connections and require manual power-on or IPMI to turn it back on. Are you sure?"
+msgstr "AVERTISSEMENT DE SESSION DISTANTE : Vous êtes connecté à distance. L'arrêt de cet ordinateur interrompra toutes les connexions et nécessitera un allumage manuel ou IPMI pour le redémarrer. Êtes-vous sûr ?"
+
+msgid "REMOTE SESSION WARNING: You are connected remotely. Rebooting into UEFI firmware will terminate remote access and keep the machine in BIOS setup until manually rebooted. Are you sure?"
+msgstr "AVERTISSEMENT DE SESSION DISTANTE : Vous êtes connecté à distance. Le redémarrage dans le micrologiciel UEFI interrompra l'accès à distance et maintiendra la machine dans la configuration du BIOS jusqu'à un redémarrage manuel. Êtes-vous sûr ?"
+
+msgid "Confirm Sleep"
+msgstr "Confirmer la mise en veille"
+
+msgid "Are you sure you want to put your computer into sleep mode?"
+msgstr "Voulez-vous vraiment mettre votre ordinateur en veille ?"
+
+msgid "Confirm Hibernate"
+msgstr "Confirmer la mise en veille prolongée"
+
+msgid "Are you sure you want to hibernate your computer?"
+msgstr "Voulez-vous vraiment mettre votre ordinateur en veille prolongée ?"
+
+msgid "HIGH RISK WARNING: This is a Windows Server or remote session. Putting this machine to sleep will disconnect all users and may require physical power-on. Are you sure?"
+msgstr "AVERTISSEMENT DE RISQUE ÉLEVÉ : Il s'agit d'un Windows Server ou d'une session distante. Mettre cette machine en veille déconnectera tous les utilisateurs et peut nécessiter un allumage physique. Êtes-vous sûr ?"
 
 msgid "shut down"
 msgstr "arrêter"
@@ -1338,8 +1386,20 @@ msgstr "Énoncer le nom de l'action"
 msgid "Beep and speak"
 msgstr "Bip et énonciation"
 
-msgid "Shutdown and restart confirmation style:"
-msgstr "Style de confirmation d'arrêt et de redémarrage :"
+msgid "Power actions confirmation style (Shutdown, Restart, Firmware, Sleep, Hibernate):"
+msgstr "Style de confirmation des actions d'alimentation (Arrêter, Redémarrer, UEFI, Veille, Veille prolongée) :"
+
+msgid "Server and remote sessions power guard (RDP and NVDA Remote):"
+msgstr "Protection d'alimentation des serveurs et sessions distantes (RDP et NVDA Remote) :"
+
+msgid "Smart Block on Server & Remote Sessions (Recommended - Prevents Outages)"
+msgstr "Blocage intelligent sur serveurs et sessions distantes (Recommandé - Évite les interruptions)"
+
+msgid "Always Show High-Risk Warning Dialog on Remote Sessions"
+msgstr "Toujours afficher une boîte de dialogue d'avertissement de risque élevé sur les sessions distantes"
+
+msgid "Unrestricted (Allow Without Remote Guard)"
+msgstr "Sans restriction (Autoriser sans protection distante)"
 
 msgid "Confirmation dialog (Recommended)"
 msgstr "Boîte de dialogue de confirmation (Recommandé)"
@@ -1434,14 +1494,14 @@ msgstr ""
 "un suivi en temps réel des processus et sockets, ainsi que des contrôles complets d'accessibilité."
 
 msgid ""
-"- Real-Time Terminal PATH Synchronization: Terminals launched via PowerBox immediately recognize newly installed tools directly from Windows Registry without restarting NVDA.\n"
-"- Pure Win32 Desktop Isolation: Enforced strict kernel desktop isolation (user32.OpenInputDesktop) securing Windows Logon, UAC (Consent UI), and lock screens.\n"
-"- Auditory Security Warning: Added a distinct 3-stage security alarm chime and speech alert for restricted commands on secure screens.\n"
-"- Documentation & Accessibility: Overhauled documentation with full RTL layout support, Dark Mode styling, and clean NVDA heading navigation.\n"
-"- Updated Localization: Synchronized translation catalogs across Arabic, Vietnamese, Spanish, and French."
+"- Enterprise Server Guard: Protects Windows Servers and remote sessions (RDP, NVDA Remote) from accidental Sleep/Hibernate lockouts.\n"
+"- Unified Power Confirmations: Dialog and double-press confirmations now apply to all power actions (Shutdown, Restart, Firmware, Sleep, Hibernate).\n"
+"- UEFI Firmware Reboot: Added new shortcut (Shift+R) to directly restart into BIOS/UEFI settings.\n"
+"- Speech Focus Protection: Suppressed unintended background window announcements when confirming power dialogs.\n"
+"- Settings Integration: New configurable preferences for the server power guard and unified confirmation styles."
 msgstr ""
-"- Synchronisation du PATH en temps réel : Les terminaux lancés via PowerBox reconnaissent immédiatement les outils nouvellement installés depuis le Registre Windows sans redémarrer NVDA.\n"
-"- Isolation du bureau avec le noyau Win32 : Application d'une isolation stricte du bureau via user32.OpenInputDesktop protégeant l'ouverture de session, l'UAC et les écrans de verrouillage.\n"
-"- Alarme de sécurité sonore : Ajout d'une alarme acoustique en 3 étapes et d'une alerte vocale pour les commandes restreintes sur les écrans sécurisés.\n"
-"- Documentation et accessibilité : Refonte de la documentation avec prise en charge du RTL, mode sombre et navigation fluide par titres pour NVDA.\n"
-"- Localisation mise à jour : Synchronisation des catalogues de traduction en arabe, vietnamien, espagnol et français."
+"- Protection des serveurs d'entreprise : Protège les serveurs Windows et les sessions distantes (RDP, NVDA Remote) contre les verrouillages accidentels dus à la veille/veille prolongée.\n"
+"- Confirmations d'alimentation unifiées : Les confirmations par boîte de dialogue et double pression s'appliquent désormais à toutes les actions d'alimentation (Arrêter, Redémarrer, UEFI, Veille, Veille prolongée).\n"
+"- Redémarrage vers le micrologiciel UEFI : Ajout d'un nouveau raccourci (Shift+R) pour redémarrer directement dans les paramètres du BIOS/UEFI.\n"
+"- Protection vocale du focus : Suppression des annonces de fenêtres en arrière-plan non désirées lors de la confirmation des dialogues d'alimentation.\n"
+"- Intégration des paramètres : Nouvelles préférences configurables pour la protection d'alimentation du serveur et les styles de confirmation unifiés."

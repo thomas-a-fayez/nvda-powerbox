@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PowerBox 2.0.0\n"
 "Report-Msgid-Bugs-To: thomas.a.fayez@gmail.com\n"
 "POT-Creation-Date: 2026-09-25 10:00+0300\n"
-"PO-Revision-Date: 2026-09-29 18:22+0300\n"
+"PO-Revision-Date: 2026-10-03 14:43+0300\n"
 "Last-Translator: Thomas A. Fayez <thomas.a.fayez@gmail.com>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "Language: es\n"
@@ -77,8 +77,8 @@ msgstr "Capa de terminales: pulsa p, shift+p, c, shift+c, w o h a continuación"
 msgid "Network Layer: Press s, c, l, shift+l, p, shift+p, g, shift+g, or h next"
 msgstr "Capa de red: pulsa s, c, l, shift+l, p, shift+p, g, shift+g o h a continuación"
 
-msgid "System Layer: Press t, shift+t, c, d, r, s, b, l, p, shift+p, control+p, control+e, or h next"
-msgstr "Capa del sistema: pulsa t, shift+t, c, d, r, s, b, l, p, shift+p, control+p, control+e o h a continuación"
+msgid "System Layer: Press t, shift+t, c, d, r, shift+r, s, b, l, p, shift+p, control+p, control+e, or h next"
+msgstr "Capa de sistema: Pulsa t, shift+t, c, d, r, shift+r, s, b, l, p, shift+p, control+p, control+e o h a continuación"
 
 msgid "Files Layer: Press s, shift+s, d, shift+d, l, shift+l, c, shift+c, n, p, shift+p, or h next"
 msgstr "Capa de archivos: pulsa s, shift+s, d, shift+d, l, shift+l, c, shift+c, n, p, shift+p o h a continuación"
@@ -99,11 +99,17 @@ msgstr "Apagar el equipo"
 msgid "Restart computer"
 msgstr "Reiniciar el equipo"
 
-msgid "Sleep"
-msgstr "Suspender"
+msgid "Restart computer to UEFI firmware (BIOS)"
+msgstr "Reiniciar equipo en el firmware UEFI (BIOS)"
 
-msgid "Hibernate"
-msgstr "Hibernar"
+msgid "restart to UEFI firmware"
+msgstr "reiniciar en el firmware UEFI"
+
+msgid "sleep"
+msgstr "suspender"
+
+msgid "hibernate"
+msgstr "hibernar"
 
 msgid "Lock workstation"
 msgstr "Bloquear el equipo"
@@ -542,6 +548,48 @@ msgstr "Reiniciando el equipo"
 
 msgid "Failed to restart computer"
 msgstr "Error al reiniciar el equipo"
+
+msgid "Restarting computer to UEFI firmware..."
+msgstr "Reiniciando el equipo en el firmware UEFI..."
+
+msgid "Reboot to firmware failed. Your computer may not support UEFI firmware directly, or Administrator privileges are required."
+msgstr "Error al reiniciar en el firmware. Es posible que el equipo no admita UEFI directamente o que se requieran privilegios de administrador."
+
+msgid "Failed to execute reboot to firmware."
+msgstr "Error al ejecutar el reinicio en el firmware."
+
+msgid "Sleep and Hibernate are disabled on Windows Server to prevent system outages."
+msgstr "Suspender e Hibernar están deshabilitados en Windows Server para evitar caídas del sistema."
+
+msgid "Sleep and Hibernate are disabled during remote sessions to prevent connection loss."
+msgstr "Suspender e Hibernar están deshabilitados durante sesiones remotas para evitar la pérdida de conexión."
+
+msgid "Confirm Reboot to Firmware"
+msgstr "Confirmar reinicio en el firmware"
+
+msgid "Are you sure you want to restart into UEFI firmware settings?"
+msgstr "¿Seguro que deseas reiniciar en la configuración del firmware UEFI?"
+
+msgid "REMOTE SESSION WARNING: You are connected remotely. Shutting down this computer will terminate all connections and require manual power-on or IPMI to turn it back on. Are you sure?"
+msgstr "AVERTISSEMENT DE SESSION DISTANTE : Vous êtes connecté à distance. L'arrêt de cet ordinateur interrompra toutes les connexions et nécessitera un allumage manuel ou IPMI pour le redémarrer. Êtes-vous sûr ?"
+
+msgid "REMOTE SESSION WARNING: You are connected remotely. Rebooting into UEFI firmware will terminate remote access and keep the machine in BIOS setup until manually rebooted. Are you sure?"
+msgstr "AVERTISSEMENT DE SESSION DISTANTE : Vous êtes connecté à distance. Le redémarrage dans le micrologiciel UEFI interrompra l'accès à distance et maintiendra la machine dans la configuration du BIOS jusqu'à un redémarrage manuel. Êtes-vous sûr ?"
+
+msgid "Confirm Sleep"
+msgstr "Confirmar suspensión"
+
+msgid "Are you sure you want to put your computer into sleep mode?"
+msgstr "¿Seguro que deseas poner el equipo en modo de suspensión?"
+
+msgid "Confirm Hibernate"
+msgstr "Confirmar hibernación"
+
+msgid "Are you sure you want to hibernate your computer?"
+msgstr "¿Seguro que deseas hibernar el equipo?"
+
+msgid "HIGH RISK WARNING: This is a Windows Server or remote session. Putting this machine to sleep will disconnect all users and may require physical power-on. Are you sure?"
+msgstr "ADVERTENCIA DE ALTO RIESGO: Este es un Windows Server o una sesión remota. Suspender esta máquina desconectará a todos los usuarios y puede requerir encendido físico. ¿Estás seguro?"
 
 msgid "shut down"
 msgstr "apagar"
@@ -1338,8 +1386,20 @@ msgstr "Verbalizar nombre de acción"
 msgid "Beep and speak"
 msgstr "Pitar y verbalizar"
 
-msgid "Shutdown and restart confirmation style:"
-msgstr "Estilo de confirmación de apagado y reinicio:"
+msgid "Power actions confirmation style (Shutdown, Restart, Firmware, Sleep, Hibernate):"
+msgstr "Estilo de confirmación de acciones de energía (Apagar, Reiniciar, Firmware, Suspender, Hibernar):"
+
+msgid "Server and remote sessions power guard (RDP and NVDA Remote):"
+msgstr "Protección de energía en servidores y sesiones remotas (RDP y NVDA Remote):"
+
+msgid "Smart Block on Server & Remote Sessions (Recommended - Prevents Outages)"
+msgstr "Bloqueo inteligente en servidores y sesiones remotas (Recomendado - Evita caídas)"
+
+msgid "Always Show High-Risk Warning Dialog on Remote Sessions"
+msgstr "Mostrar siempre diálogo de advertencia de alto riesgo en sesiones remotas"
+
+msgid "Unrestricted (Allow Without Remote Guard)"
+msgstr "Sin restricciones (Permitir sin protección remota)"
 
 msgid "Confirmation dialog (Recommended)"
 msgstr "Diálogo de confirmación (Recomendado)"
@@ -1434,14 +1494,14 @@ msgstr ""
 "seguimiento en tiempo real de procesos y sockets, y controles completos de accesibilidad."
 
 msgid ""
-"- Real-Time Terminal PATH Synchronization: Terminals launched via PowerBox immediately recognize newly installed tools directly from Windows Registry without restarting NVDA.\n"
-"- Pure Win32 Desktop Isolation: Enforced strict kernel desktop isolation (user32.OpenInputDesktop) securing Windows Logon, UAC (Consent UI), and lock screens.\n"
-"- Auditory Security Warning: Added a distinct 3-stage security alarm chime and speech alert for restricted commands on secure screens.\n"
-"- Documentation & Accessibility: Overhauled documentation with full RTL layout support, Dark Mode styling, and clean NVDA heading navigation.\n"
-"- Updated Localization: Synchronized translation catalogs across Arabic, Vietnamese, Spanish, and French."
+"- Enterprise Server Guard: Protects Windows Servers and remote sessions (RDP, NVDA Remote) from accidental Sleep/Hibernate lockouts.\n"
+"- Unified Power Confirmations: Dialog and double-press confirmations now apply to all power actions (Shutdown, Restart, Firmware, Sleep, Hibernate).\n"
+"- UEFI Firmware Reboot: Added new shortcut (Shift+R) to directly restart into BIOS/UEFI settings.\n"
+"- Speech Focus Protection: Suppressed unintended background window announcements when confirming power dialogs.\n"
+"- Settings Integration: New configurable preferences for the server power guard and unified confirmation styles."
 msgstr ""
-"- Sincronización de PATH en tiempo real: Las terminales abiertas mediante PowerBox reconocen de inmediato las herramientas recién instaladas desde el Registro de Windows sin reiniciar NVDA.\n"
-"- Aislamiento de escritorio de kernel Win32: Aplicación de aislamiento estricto de escritorio mediante user32.OpenInputDesktop protegiendo el inicio de sesión, UAC y pantallas de bloqueo.\n"
-"- Alarma de seguridad auditiva: Inclusión de una alarma acústica de 3 fases y aviso por voz para comandos restringidos en pantallas seguras.\n"
-"- Documentación y accesibilidad: Renovación de la documentación con soporte RTL, modo oscuro y navegación clara por encabezados para NVDA.\n"
-"- Localización actualizada: Sincronización de catálogos de traducción en árabe, vietnamita, español y francés."
+"- Protección de servidores empresariales: protege los servidores Windows y las sesiones remotas (RDP, NVDA Remote) de bloqueos accidentales por suspensión/hibernación.\n"
+"- Confirmaciones de energía unificadas: las confirmaciones de diálogo y doble pulsación ahora se aplican a todas las acciones de energía (Apagar, Reiniciar, Firmware, Suspender, Hibernar).\n"
+"- Reinicio de firmware UEFI: se agregó un nuevo atajo (Shift+R) para reiniciar directamente en la configuración de BIOS/UEFI.\n"
+"- Protección del foco de voz: se suprimieron los anuncios involuntarios de ventanas de fondo al confirmar diálogos de energía.\n"
+"- Integración de configuración: nuevas preferencias configurables para la protección de energía del servidor y estilos de confirmación unificados."
